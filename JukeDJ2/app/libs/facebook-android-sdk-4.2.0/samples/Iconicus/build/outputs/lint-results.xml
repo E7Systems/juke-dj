@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 24.3.1">
+
+    <issue
+        id="ViewHolder"
+        severity="Warning"
+        message="Unconditional layout inflation from view adapter: Should use View Holder pattern (use recycled view passed into this method as the second parameter) for smoother scrolling"
+        category="Performance"
+        priority="5"
+        summary="View Holder Candidates"
+        explanation="When implementing a view Adapter, you should avoid unconditionally inflating a new layout; if an available item is passed in for reuse, you should try to use that one instead. This helps make for example ListView scrolling much smoother."
+        url="http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder"
+        urls="http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder"
+        errorLine1="            ImageView view = (ImageView) View.inflate(context, R.layout.choice_cell, null);"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\src\com\facebook\iconicus\GameController.java"
+            line="206"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="ViewHolder"
+        severity="Warning"
+        message="Unconditional layout inflation from view adapter: Should use View Holder pattern (use recycled view passed into this method as the second parameter) for smoother scrolling"
+        category="Performance"
+        priority="5"
+        summary="View Holder Candidates"
+        explanation="When implementing a view Adapter, you should avoid unconditionally inflating a new layout; if an available item is passed in for reuse, you should try to use that one instead. This helps make for example ListView scrolling much smoother."
+        url="http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder"
+        urls="http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder"
+        errorLine1="            ImageView view = (ImageView) View.inflate(context, R.layout.grid_cell, null);"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\src\com\facebook\iconicus\GameController.java"
+            line="236"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="DisableBaselineAlignment"
+        severity="Warning"
+        message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance"
+        category="Performance"
+        priority="3"
+        summary="Missing `baselineAligned` attribute"
+        explanation="When a LinearLayout is used to distribute the space proportionally between nested layouts, the baseline alignment property should be turned off to make the layout computation faster."
+        errorLine1="    &lt;LinearLayout"
+        errorLine2="    ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\activity_main.xml"
+            line="26"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.activity_horizontal_margin` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;activity_horizontal_margin&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\values\dimens.xml"
+            line="23"
+            column="12"/>
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\values-w820dp\dimens.xml"
+            line="25"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.activity_vertical_margin` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;activity_vertical_margin&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\values\dimens.xml"
+            line="24"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UselessLeaf"
+        severity="Warning"
+        message="This `LinearLayout` view is useless (no children, no `background`, no `id`, no `style`)"
+        category="Performance"
+        priority="2"
+        summary="Useless leaf layout"
+        explanation="A layout that has no children or no background can often be removed (since it is invisible) for a flatter and more efficient layout hierarchy."
+        errorLine1="        &lt;LinearLayout"
+        errorLine2="        ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\activity_main.xml"
+            line="32"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UselessLeaf"
+        severity="Warning"
+        message="This `LinearLayout` view is useless (no children, no `background`, no `id`, no `style`)"
+        category="Performance"
+        priority="2"
+        summary="Useless leaf layout"
+        explanation="A layout that has no children or no background can often be removed (since it is invisible) for a flatter and more efficient layout hierarchy."
+        errorLine1="        &lt;LinearLayout"
+        errorLine2="        ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\activity_main.xml"
+            line="51"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="IconMissingDensityFolder"
+        severity="Warning"
+        message="Missing density variation folders in `res`: drawable-xxhdpi, drawable-xxxhdpi"
+        category="Usability:Icons"
+        priority="3"
+        summary="Missing density folder"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as `drawable-hdpi`.
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="[Accessibility] Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.
+
+Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.
+
+Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases."
+        errorLine1="&lt;ImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\choice_cell.xml"
+            line="20"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="[Accessibility] Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.
+
+Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.
+
+Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases."
+        errorLine1="&lt;ImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\grid_cell.xml"
+            line="20"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_marginEnd=&quot;2dp&quot;` to better support right-to-left layouts"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_marginRight=&quot;2dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\activity_main.xml"
+            line="91"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_marginStart=&quot;2dp&quot;` to better support right-to-left layouts"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="            android:layout_marginLeft=&quot;2dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\Iconicus\res\layout\activity_main.xml"
+            line="100"
+            column="13"/>
+    </issue>
+
+</issues>

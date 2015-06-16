@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 24.3.1">
+
+    <issue
+        id="OldTargetApi"
+        severity="Warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+        category="Correctness"
+        priority="6"
+        summary="Target SDK attribute is not targeting latest version"
+        explanation="When your application runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.
+
+To fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        url="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        urls="http://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        errorLine1="        targetSdkVersion 21"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\build.gradle"
+            line="10"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.android.support:appcompat-v7 than 21.0.3 is available: 22.2.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    compile(&apos;com.android.support:appcompat-v7:21.0.3&apos;)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\build.gradle"
+            line="43"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="AllowBackup"
+        severity="Warning"
+        message="Should explicitly set `android:allowBackup` to `true` or `false` (it&apos;s `true` by default, and that can have some security implications for the application&apos;s data)"
+        category="Security"
+        priority="3"
+        summary="Missing `allowBackup` attribute"
+        explanation="The allowBackup attribute determines if an application&apos;s data can be backed up and restored. It is documented at http://developer.android.com/reference/android/R.attr.html#allowBackup
+
+By default, this flag is set to `true`. When this flag is set to `true`, application data can be backed up and restored by the user using `adb backup` and `adb restore`.
+
+This may have security consequences for an application. `adb backup` allows users who have enabled USB debugging to copy application data off of the device. Once backed up, all application data can be read by the user. `adb restore` allows creation of application data from a source specified by the user. Following a restore, applications should not assume that the data, file permissions, and directory permissions were created by the application itself.
+
+Setting `allowBackup=&quot;false&quot;` opts an application out of both backup and restore.
+
+To fix this warning, decide whether your application should support backup, and explicitly set `android:allowBackup=(true|false)&quot;`"
+        url="http://developer.android.com/reference/android/R.attr.html#allowBackup"
+        urls="http://developer.android.com/reference/android/R.attr.html#allowBackup"
+        errorLine1="  &lt;application"
+        errorLine2="  ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\src\main\AndroidManifest.xml"
+            line="28"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `#fff` with a theme that also paints a background (inferred theme is `@style/Theme.AppCompat.NoActionBar`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="    android:background=&quot;#fff&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\src\main\res\layout\main_activity.xml"
+            line="27"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="IconMissingDensityFolder"
+        severity="Warning"
+        message="Missing density variation folders in `src\main\res`: drawable-mdpi, drawable-hdpi, drawable-xxhdpi, drawable-xxxhdpi"
+        category="Usability:Icons"
+        priority="3"
+        summary="Missing density folder"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as `drawable-hdpi`.
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\src\main\res"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="[Accessibility] Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.
+
+Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=&quot;ContentDescription&quot; attribute.
+
+Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`. See http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases."
+        errorLine1="  &lt;ImageView"
+        errorLine2="  ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\MessengerSendSample\src\main\res\layout\main_activity.xml"
+            line="39"
+            column="3"/>
+    </issue>
+
+</issues>

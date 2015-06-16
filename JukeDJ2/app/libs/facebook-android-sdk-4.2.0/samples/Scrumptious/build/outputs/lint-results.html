@@ -1,0 +1,1276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Lint Report</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto" />
+<link rel="stylesheet" type="text/css" href="lint-results_files/hololike.css" />
+<script language="javascript" type="text/javascript"> 
+<!--
+function reveal(id) {
+if (document.getElementById) {
+document.getElementById(id).style.display = 'block';
+document.getElementById(id+'Link').style.display = 'none';
+}
+}
+//--> 
+</script>
+</head>
+<body>
+<h1>Lint Report</h1>
+<div class="titleSeparator"></div>
+Check performed at Thu Jun 11 12:29:06 MDT 2015.<br/>
+0 errors and 77 warnings found:<br/><br/>
+<table class="overview">
+<tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#ScrollViewSize">ScrollViewSize: ScrollView size validation</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#Assert">Assert: Assertions</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#DefaultLocale">DefaultLocale: Implied default locale in case conversion</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#InflateParams">InflateParams: Layout Inflation without a Parent</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Correctness:Messages">Correctness:Messages</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#PluralsCandidate">PluralsCandidate: Potential Plurals</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Security">Security</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#ExportedContentProvider">ExportedContentProvider: Content provider does not require permission</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#AllowBackup">AllowBackup: Missing <code>allowBackup</code> attribute</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#DisableBaselineAlignment">DisableBaselineAlignment: Missing <code>baselineAligned</code> attribute</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#InefficientWeight">InefficientWeight: Inefficient layout weight</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#NestedWeights">NestedWeights: Nested layout weights</a>
+</td></tr>
+<tr>
+<td class="countColumn">5</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#Overdraw">Overdraw: Overdraw: Painting regions more than once</a>
+</td></tr>
+<tr>
+<td class="countColumn">9</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#UnusedResources">UnusedResources: Unused resources</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability:Typography">Usability:Typography</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#TypographyEllipsis">TypographyEllipsis: Ellipsis string can be replaced with ellipsis character</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability:Icons">Usability:Icons</a>
+</td></tr>
+<tr>
+<td class="countColumn">19</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#IconLocation">IconLocation: Image defined in density-independent drawable folder</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#IconDensities">IconDensities: Icon densities validation</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#IconMissingDensityFolder">IconMissingDensityFolder: Missing density folder</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability">Usability</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#TextFields">TextFields: Missing <code>inputType</code> or <code>hint</code></a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#ContentDescription">ContentDescription: Image without <code>contentDescription</code></a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#HardcodedText">HardcodedText: Hardcoded text</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Bi-directional Text">Bi-directional Text</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#RtlSymmetry">RtlSymmetry: Padding and margin symmetry</a>
+</td></tr>
+<tr>
+<td class="countColumn">18</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#RtlHardcoded">RtlHardcoded: Using left/right instead of start/end attributes</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#RtlEnabled">RtlEnabled: Using RTL attributes without enabling RTL support</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (11)</a>
+</td></tr></table>
+<br/>
+<a name="Correctness"></a>
+<div class="category"><a href="#" title="Return to top">Correctness</a><div class="categorySeparator"></div>
+</div>
+<a name="ScrollViewSize"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ScrollViewSize: ScrollView size validation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/splash.xml">../../res/layout/splash.xml</a>:31</span>: <span class="message">This LinearLayout should use <code>android:layout_height="wrap_content"</code></span><br /><pre class="errorlines">
+<span class="lineno">  28</span> 
+<span class="lineno">  29</span>     &lt;LinearLayout
+<span class="lineno">  30</span>         android:layout_width="match_parent"
+<span class="lineno">  31</span>         <span class="errorspan">android:layout_height="match_parent"</span>
+<span class="lineno">  32</span>         android:orientation="vertical">
+<span class="lineno">  33</span> 
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 7 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: ScrollView size validation.</div>
+<div class="explanation">
+ScrollView children must set their <code>layout_width</code> or <code>layout_height</code> attributes to <code>wrap_content</code> rather than <code>fill_parent</code> or <code>match_parent</code> in the scrolling dimension
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ScrollViewSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Assert"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">Assert: Assertions</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java">../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java</a>:509</span>: <span class="message">Assertions are unreliable. Use <code>BuildConfig.DEBUG</code> conditional checks instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 506</span>                 graphObject = graphObjectsBySection.get(sectionKey).get(position);
+<span class="lineno"> 507</span>             } else {
+<span class="lineno"> 508</span>                 // We are off the end; we must be adding an activity circle to indicate more data is coming.
+<span class="lineno"> 509</span>                 <span class="errorspan">assert dataNeededListener != null &amp;&amp; cursor.areMoreObjectsAvailable();</span>
+<span class="lineno"> 510</span>                 // We return null for both to indicate this.
+<span class="lineno"> 511</span>                 return new SectionAndItem(null, null);
+</pre>
+<span class="location"><a href="../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java">../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java</a>:677</span>: <span class="message">Assertions are unreliable. Use <code>BuildConfig.DEBUG</code> conditional checks instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 674</span>                 return getGraphObjectView(sectionAndItem.graphObject, convertView, parent);
+<span class="lineno"> 675</span>             case ACTIVITY_CIRCLE:
+<span class="lineno"> 676</span>                 // If we get a request for this view, it means we need more data.
+<span class="lineno"> 677</span>                 <span class="errorspan">assert cursor.areMoreObjectsAvailable() &amp;&amp; (dataNeededListener != null);</span>
+<span class="lineno"> 678</span>                 dataNeededListener.onDataNeeded();
+<span class="lineno"> 679</span>                 return getActivityCircleView(convertView, parent);
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Assertions.</div>
+<div class="explanation">
+Assertions are not checked at runtime. There are ways to request that they be used by Dalvik (<code>adb shell setprop debug.assert 1</code>), but the property is ignored in many places and can not be relied upon. Instead, perform conditional checking inside <code>if (BuildConfig.DEBUG) { }</code> blocks. That constant is a static final boolean which is true in debug builds and false in release builds, and the Java compiler completely removes all code inside the if-body from the app.<br/>
+<br/>
+For example, you can replace <code>assert speed > 0</code> with <code>if (BuildConfig.DEBUG &amp;&amp; !(speed > 0)) { throw new AssertionError() }</code>.<br/>
+<br/>
+(Note: This lint check does not flag assertions purely asserting nullness or non-nullness; these are typically more intended for tools usage than runtime checks.)
+</div>
+<br/><div class="moreinfo">More info: <a href="https://code.google.com/p/android/issues/detail?id=65183">https://code.google.com/p/android/issues/detail?id=65183</a>
+</div><br/>To suppress this error, use the issue id "Assert" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="DefaultLocale"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">DefaultLocale: Implied default locale in case conversion</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java">../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java</a>:253</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>toUpperCase(Locale)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 250</span>         if (groupByField != null) {
+<span class="lineno"> 251</span>             result = graphObject.optString(groupByField);
+<span class="lineno"> 252</span>             if (result != null &amp;&amp; result.length() > 0) {
+<span class="lineno"> 253</span>                 result = result.substring(0, 1).<span class="errorspan">toUpperCase();</span>
+<span class="lineno"> 254</span>             }
+<span class="lineno"> 255</span>         }
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Implied default locale in case conversion.</div>
+<div class="explanation">
+Calling <code>String#toLowerCase()</code> or <code>#toUpperCase()</code> <b>without specifying an explicit locale</b> is a common source of bugs. The reason for that is that those methods will use the current locale on the user's device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for <code>i</code> is <b>not</b> <code>I</code>.<br/>
+<br/>
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call <code>String#toUpperCase(Locale.US)</code> instead. If you really want to use the current locale, call <code>String#toUpperCase(Locale.getDefault())</code> instead.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/java/util/Locale.html#default_locale">http://developer.android.com/reference/java/util/Locale.html#default_locale</a>
+</div><br/>To suppress this error, use the issue id "DefaultLocale" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InflateParams"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InflateParams: Layout Inflation without a Parent</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java">../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java</a>:288</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno"> 285</span>         TextView result = (TextView) convertView;
+<span class="lineno"> 286</span> 
+<span class="lineno"> 287</span>         if (result == null) {
+<span class="lineno"> 288</span>             result = (TextView) inflater.inflate(R.layout.picker_list_section_header, <span class="errorspan">null);</span>
+<span class="lineno"> 289</span>         }
+<span class="lineno"> 290</span> 
+</pre>
+<span class="location"><a href="../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java">../../src/com/facebook/scrumptious/picker/GraphObjectAdapter.java</a>:311</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno"> 308</span>         View result = convertView;
+<span class="lineno"> 309</span> 
+<span class="lineno"> 310</span>         if (result == null) {
+<span class="lineno"> 311</span>             result = inflater.inflate(R.layout.picker_activity_circle_row, <span class="errorspan">null);</span>
+<span class="lineno"> 312</span>         }
+<span class="lineno"> 313</span>         ProgressBar activityCircle = (ProgressBar) result.findViewById(R.id.com_facebook_picker_row_activity_circle);
+</pre>
+<span class="location"><a href="../../src/com/facebook/scrumptious/SelectionFragment.java">../../src/com/facebook/scrumptious/SelectionFragment.java</a>:1033</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno">1030</span>                 LayoutInflater inflater =
+<span class="lineno">1031</span>                         (LayoutInflater) getActivity().getSystemService(
+<span class="lineno">1032</span>                                 Context.LAYOUT_INFLATER_SERVICE);
+<span class="lineno">1033</span>                 view = inflater.inflate(R.layout.listitem, <span class="errorspan">null);</span>
+<span class="lineno">1034</span>             }
+<span class="lineno">1035</span> 
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Layout Inflation without a Parent.</div>
+<div class="explanation">
+When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://www.doubleencore.com/2013/05/layout-inflation-as-intended">http://www.doubleencore.com/2013/05/layout-inflation-as-intended</a>
+</div><br/>To suppress this error, use the issue id "InflateParams" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Correctness:Messages"></a>
+<div class="category"><a href="#" title="Return to top">Correctness:Messages</a><div class="categorySeparator"></div>
+</div>
+<a name="PluralsCandidate"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">PluralsCandidate: Potential Plurals</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:39</span>: <span class="message">Formatting %d followed by words ("were"): This should probably be a plural rather than a string</span><br /><pre class="errorlines">
+<span class="lineno">  36</span>     &lt;string name="action_photo_camera">Take Photo&lt;/string>
+<span class="lineno">  37</span>     &lt;string name="action_photo_gallery">Choose Existing&lt;/string>
+<span class="lineno">  38</span>     &lt;string name="announce">Announce&lt;/string>
+<span class="lineno">  39</span>     <span class="errorspan">&lt;string name="picker_placepicker_subtitle_format">%1$s &#8226; %2$,d were here&lt;/string></span>
+<span class="lineno">  40</span>     &lt;string name="picker_placepicker_subtitle_catetory_only_format">%1$s&lt;/string>
+<span class="lineno">  41</span>     &lt;string name="picker_placepicker_subtitle_were_here_only_format">%1$,d were here&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:41</span>: <span class="message">Formatting %d followed by words ("were"): This should probably be a plural rather than a string</span><br /><pre class="errorlines">
+<span class="lineno">  38</span>     &lt;string name="announce">Announce&lt;/string>
+<span class="lineno">  39</span>     &lt;string name="picker_placepicker_subtitle_format">%1$s &#8226; %2$,d were here&lt;/string>
+<span class="lineno">  40</span>     &lt;string name="picker_placepicker_subtitle_catetory_only_format">%1$s&lt;/string>
+<span class="lineno">  41</span>     <span class="errorspan">&lt;string name="picker_placepicker_subtitle_were_here_only_format">%1$,d were here&lt;/string></span>
+<span class="lineno">  42</span>     &lt;string name="picker_picker_done_button_text">Done&lt;/string>
+<span class="lineno">  43</span>     &lt;string name="message">Send with Messenger&lt;/string>
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Correctness:Messages</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Potential Plurals.</div>
+<div class="explanation">
+This lint check looks for potential errors in internationalization where you have translated a message which involves a quantity and it looks like other parts of the string may need grammatical changes.<br/>
+<br/>
+For example, rather than something like this:<br/>
+  &lt;string name="try_again">Try again in %d seconds.&lt;/string><br/>
+you should be using a plural:<br/>
+   &lt;plurals name="try_again"><br/>
+        &lt;item quantity="one">Try again in %d second&lt;/item><br/>
+        &lt;item quantity="other">Try again in %d seconds&lt;/item><br/>
+    &lt;/plurals><br/>
+This will ensure that in other languages the right set of translations are provided for the different quantity classes.<br/>
+<br/>
+(This check depends on some heuristics, so it may not accurately determine whether a string really should be a quantity. You can use tools:ignore to filter out false positives.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/resources/string-resource.html#Plurals">http://developer.android.com/guide/topics/resources/string-resource.html#Plurals</a>
+</div><br/>To suppress this error, use the issue id "PluralsCandidate" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Security"></a>
+<div class="category"><a href="#" title="Return to top">Security</a><div class="categorySeparator"></div>
+</div>
+<a name="ExportedContentProvider"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ExportedContentProvider: Content provider does not require permission</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../AndroidManifest.xml">../../AndroidManifest.xml</a>:68</span>: <span class="message">Exported content providers can provide access to potentially sensitive data</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>             android:name="com.facebook.sdk.WebDialogTheme"
+<span class="lineno">  66</span>             android:resource="@android:style/Theme.Translucent.NoTitleBar" />
+<span class="lineno">  67</span> 
+<span class="lineno">  68</span>         <span class="errorspan">&lt;provider</span>
+<span class="lineno">  69</span>             android:name="com.facebook.FacebookContentProvider"
+<span class="lineno">  70</span>             android:authorities="com.facebook.app.FacebookContentProvider233936543368280"
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Content provider does not require permission.</div>
+<div class="explanation">
+Content providers are exported by default and any application on the system can potentially use them to read and write data. If the content provider provides access to sensitive data, it should be protected by specifying <code>export=false</code> in the manifest or by protecting it with a permission that can be granted to other applications.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ExportedContentProvider" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="AllowBackup"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">AllowBackup: Missing <code>allowBackup</code> attribute</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../AndroidManifest.xml">../../AndroidManifest.xml</a>:35</span>: <span class="message">Should explicitly set <code>android:allowBackup</code> to <code>true</code> or <code>false</code> (it's <code>true</code> by default, and that can have some security implications for the application's data)</span><br /><pre class="errorlines">
+<span class="lineno">  32</span>     &lt;uses-feature android:name="android.hardware.camera" />
+<span class="lineno">  33</span>     &lt;uses-feature android:name="android.hardware.camera.autofocus" />
+<span class="lineno">  34</span> 
+<span class="lineno">  35</span>     <span class="errorspan">&lt;application</span>
+<span class="lineno">  36</span>         android:name=".ScrumptiousApplication"
+<span class="lineno">  37</span>         android:icon="@drawable/add_food"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing <code>allowBackup</code> attribute.</div>
+<div class="explanation">
+The allowBackup attribute determines if an application's data can be backed up and restored. It is documented at <a href="http://developer.android.com/reference/android/R.attr.html#allowBackup">http://developer.android.com/reference/android/R.attr.html#allowBackup</a><br/>
+<br/>
+By default, this flag is set to <code>true</code>. When this flag is set to <code>true</code>, application data can be backed up and restored by the user using <code>adb backup</code> and <code>adb restore</code>.<br/>
+<br/>
+This may have security consequences for an application. <code>adb backup</code> allows users who have enabled USB debugging to copy application data off of the device. Once backed up, all application data can be read by the user. <code>adb restore</code> allows creation of application data from a source specified by the user. Following a restore, applications should not assume that the data, file permissions, and directory permissions were created by the application itself.<br/>
+<br/>
+Setting <code>allowBackup="false"</code> opts an application out of both backup and restore.<br/>
+<br/>
+To fix this warning, decide whether your application should support backup, and explicitly set <code>android:allowBackup=(true|false)"</code>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/android/R.attr.html#allowBackup">http://developer.android.com/reference/android/R.attr.html#allowBackup</a>
+</div><br/>To suppress this error, use the issue id "AllowBackup" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Performance"></a>
+<div class="category"><a href="#" title="Return to top">Performance</a><div class="categorySeparator"></div>
+</div>
+<a name="DisableBaselineAlignment"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">DisableBaselineAlignment: Missing <code>baselineAligned</code> attribute</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:27</span>: <span class="message">Set <code>android:baselineAligned="false"</code> on this element for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>         android:layout_height="wrap_content"
+<span class="lineno">  25</span>         android:layout_width="match_parent"
+<span class="lineno">  26</span>         android:focusable="false">
+<span class="lineno">  27</span>     <span class="errorspan">&lt;LinearLayout</span>
+<span class="lineno">  28</span>             android:layout_width="match_parent"
+<span class="lineno">  29</span>             android:layout_height="wrap_content"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing <code>baselineAligned</code> attribute.</div>
+<div class="explanation">
+When a LinearLayout is used to distribute the space proportionally between nested layouts, the baseline alignment property should be turned off to make the layout computation faster.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "DisableBaselineAlignment" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InefficientWeight"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InefficientWeight: Inefficient layout weight</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_list_row.xml">../../res/layout/picker_list_row.xml</a>:35</span>: <span class="message">Use a <code>layout_width</code> of <code>0dp</code> instead of <code>100dip</code> for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  32</span>             android:layout_height="50dip" />
+<span class="lineno">  33</span>     &lt;TextView
+<span class="lineno">  34</span>             android:id="@+id/com_facebook_picker_title"
+<span class="lineno">  35</span>             <span class="errorspan">android:layout_width="100dip"</span>
+<span class="lineno">  36</span>             android:layout_height="50dip"
+<span class="lineno">  37</span>             android:layout_weight="1.0"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Inefficient layout weight.</div>
+<div class="explanation">
+When only a single widget in a LinearLayout defines a weight, it is more efficient to assign a width/height of <code>0dp</code> to it since it will absorb all the remaining space anyway. With a declared width/height of <code>0dp</code> it does not have to measure its own size first.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "InefficientWeight" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NestedWeights"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">NestedWeights: Nested layout weights</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:57</span>: <span class="message">Nested weights are bad for performance</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>                     android:id="@+id/com_facebook_picker_title"
+<span class="lineno">  55</span>                     android:layout_width="fill_parent"
+<span class="lineno">  56</span>                     android:layout_height="wrap_content"
+<span class="lineno">  57</span>                     <span class="errorspan">android:layout_weight="1.0"</span>
+<span class="lineno">  58</span>                     android:ellipsize="end"
+<span class="lineno">  59</span>                     android:singleLine="true"
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Nested layout weights.</div>
+<div class="explanation">
+Layout weights require a widget to be measured twice. When a LinearLayout with non-zero weights is nested inside another LinearLayout with non-zero weights, then the number of measurements increase exponentially.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NestedWeights" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Overdraw"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">Overdraw: Overdraw: Painting regions more than once</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_friendpickerfragment.xml">../../res/layout/picker_friendpickerfragment.xml</a>:25</span>: <span class="message">Possible overdraw: Root element paints background <code>#FFFFFF</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<span class="lineno">  23</span>               android:layout_width="match_parent"
+<span class="lineno">  24</span>               android:layout_height="match_parent"
+<span class="lineno">  25</span>               <span class="errorspan">android:background="#FFFFFF"></span>
+<span class="lineno">  26</span> 
+<span class="lineno">  27</span>     &lt;include layout="@layout/picker_title_bar_stub"/>
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment.xml">../../res/layout/picker_placepickerfragment.xml</a>:25</span>: <span class="message">Possible overdraw: Root element paints background <code>#FFFFFF</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<span class="lineno">  23</span>               android:layout_width="match_parent"
+<span class="lineno">  24</span>               android:layout_height="match_parent"
+<span class="lineno">  25</span>               <span class="errorspan">android:background="#FFFFFF"</span>
+<span class="lineno">  26</span>               android:descendantFocusability="beforeDescendants"
+<span class="lineno">  27</span>               android:focusableInTouchMode="true">
+</pre>
+<span class="location"><a href="../../res/layout/picker_search_bar_layout.xml">../../res/layout/picker_search_bar_layout.xml</a>:33</span>: <span class="message">Possible overdraw: Root element paints background <code>@color/picker_search_bar_background</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>         android:paddingBottom="0dp"
+<span class="lineno">  31</span>         android:paddingLeft="5dp"
+<span class="lineno">  32</span>         android:paddingRight="5dp"
+<span class="lineno">  33</span>         <span class="errorspan">android:background="@color/picker_search_bar_background"</span>
+<span class="lineno">  34</span>         >
+<span class="lineno">  35</span>     &lt;EditText
+</pre>
+<span class="location"><a href="../../res/layout/splash.xml">../../res/layout/splash.xml</a>:27</span>: <span class="message">Possible overdraw: Root element paints background <code>#FB5820</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>     android:layout_width="match_parent"
+<span class="lineno">  25</span>     android:layout_height="match_parent"
+<span class="lineno">  26</span>     android:fillViewport="true"
+<span class="lineno">  27</span>     <span class="errorspan">android:background="#FB5820" ></span>
+<span class="lineno">  28</span> 
+<span class="lineno">  29</span>     &lt;LinearLayout
+</pre>
+<span class="location"><a href="../../res/layout/title_bar.xml">../../res/layout/title_bar.xml</a>:25</span>: <span class="message">Possible overdraw: Root element paints background <code>@color/scrumptious_main_orange</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">  22</span>     xmlns:facebook="http://schemas.android.com/apk/res-auto"
+<span class="lineno">  23</span>     android:layout_width="match_parent"
+<span class="lineno">  24</span>     android:layout_height="60dp"
+<span class="lineno">  25</span>     <span class="errorspan">android:background="@color/scrumptious_main_orange"></span>
+<span class="lineno">  26</span> 
+<span class="lineno">  27</span>     &lt;ImageView
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Overdraw: Painting regions more than once.</div>
+<div class="explanation">
+If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called "overdraw".<br/>
+<br/>
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it's currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.<br/>
+<br/>
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/>
+<br/>
+Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
+
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedResources"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UnusedResources: Unused resources</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/drawable/button_border.xml">../../res/drawable/button_border.xml</a></span>: <span class="message">The resource <code>R.drawable.button_border</code> appears to be unused</span><br />
+<span class="location"><a href="../../res/drawable/button_text_color.xml">../../res/drawable/button_text_color.xml</a></span>: <span class="message">The resource <code>R.drawable.button_text_color</code> appears to be unused</span><br />
+<span class="location"><a href="../../res/drawable/facebook.png">../../res/drawable/facebook.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/facebook.png" /><span class="message">The resource <code>R.drawable.facebook</code> appears to be unused</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/icon.png">../../res/drawable/icon.png</a></span>: <span class="message">The resource <code>R.drawable.icon</code> appears to be unused</span><br />
+<ul></ul><button id="Location4DivLink" onclick="reveal('Location4Div');" />+ 3 Additional Locations...</button>
+<div id="Location4Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../res/drawable-hdpi/icon.png">../../res/drawable-hdpi/icon.png</a></span>
+<li> <span class="location"><a href="../../res/drawable-mdpi/icon.png">../../res/drawable-mdpi/icon.png</a></span>
+<li> <span class="location"><a href="../../res/drawable-xhdpi/icon.png">../../res/drawable-xhdpi/icon.png</a></span>
+</ul>
+</div><br/><br/>
+<table><tr><td><a href="../../res/drawable-xhdpi/icon.png"><img border="0" align="top" src="../../res/drawable-xhdpi/icon.png" /></a>
+</td><td><a href="../../res/drawable-hdpi/icon.png"><img border="0" align="top" src="../../res/drawable-hdpi/icon.png" /></a>
+</td><td><a href="../../res/drawable-mdpi/icon.png"><img border="0" align="top" src="../../res/drawable-mdpi/icon.png" /></a>
+</td><td><a href="../../res/drawable/icon.png"><img border="0" align="top" src="../../res/drawable/icon.png" /></a>
+</td></tr><tr><th>xhdpi</th><th>hdpi</th><th>mdpi</th><th></th></tr>
+</table>
+<span class="location"><a href="../../res/drawable/picker_item_background.xml">../../res/drawable/picker_item_background.xml</a></span>: <span class="message">The resource <code>R.drawable.picker_item_background</code> appears to be unused</span><br />
+<button id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 4 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:25</span>: <span class="message">The resource <code>R.string.get_started</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> &lt;resources>
+<span class="lineno">  23</span>     &lt;string name="app_name">Scrumptious&lt;/string>
+<span class="lineno">  24</span>     &lt;string name="app_id">233936543368280&lt;/string>
+<span class="lineno">  25</span>     &lt;string <span class="errorspan">name="get_started">To get started, login using Facebook&lt;/string></span>
+<span class="lineno">  26</span>     &lt;string name="skip_login">continue as a guest&lt;/string>
+<span class="lineno">  27</span>     &lt;string name="action_eating">Pick Meal&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:43</span>: <span class="message">The resource <code>R.string.message</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  40</span>     &lt;string name="picker_placepicker_subtitle_catetory_only_format">%1$s&lt;/string>
+<span class="lineno">  41</span>     &lt;string name="picker_placepicker_subtitle_were_here_only_format">%1$,d were here&lt;/string>
+<span class="lineno">  42</span>     &lt;string name="picker_picker_done_button_text">Done&lt;/string>
+<span class="lineno">  43</span>     &lt;string <span class="errorspan">name="message">Send with Messenger&lt;/string></span>
+<span class="lineno">  44</span>     &lt;string name="login">Login&lt;/string>
+<span class="lineno">  45</span>     &lt;string name="settings">Settings&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:44</span>: <span class="message">The resource <code>R.string.login</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>     &lt;string name="picker_placepicker_subtitle_were_here_only_format">%1$,d were here&lt;/string>
+<span class="lineno">  42</span>     &lt;string name="picker_picker_done_button_text">Done&lt;/string>
+<span class="lineno">  43</span>     &lt;string name="message">Send with Messenger&lt;/string>
+<span class="lineno">  44</span>     &lt;string <span class="errorspan">name="login">Login&lt;/string></span>
+<span class="lineno">  45</span>     &lt;string name="settings">Settings&lt;/string>
+<span class="lineno">  46</span>     &lt;string name="select_meal">Select a meal&lt;/string>
+</pre>
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:45</span>: <span class="message">The resource <code>R.string.settings</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  42</span>     &lt;string name="picker_picker_done_button_text">Done&lt;/string>
+<span class="lineno">  43</span>     &lt;string name="message">Send with Messenger&lt;/string>
+<span class="lineno">  44</span>     &lt;string name="login">Login&lt;/string>
+<span class="lineno">  45</span>     &lt;string <span class="errorspan">name="settings">Settings&lt;/string></span>
+<span class="lineno">  46</span>     &lt;string name="select_meal">Select a meal&lt;/string>
+<span class="lineno">  47</span>     &lt;string name="enter_meal">Enter meal&lt;/string>
+</pre>
+</div>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused resources.</div>
+<div class="explanation">
+Unused resources make applications larger and slow down builds.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Usability:Typography"></a>
+<div class="category"><a href="#" title="Return to top">Usability:Typography</a><div class="categorySeparator"></div>
+</div>
+<a name="TypographyEllipsis"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">TypographyEllipsis: Ellipsis string can be replaced with ellipsis character</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/values/strings.xml">../../res/values/strings.xml</a>:53</span>: <span class="message">Replace "..." with ellipsis character (&#8230;, &amp;#8230;) ?</span><br /><pre class="errorlines">
+<span class="lineno">  50</span>     &lt;string name="result_dialog_text_with_id">Posted Open Graph action, id: %1$s&lt;/string>
+<span class="lineno">  51</span>     &lt;string name="result_dialog_text_default">Post action complete.&lt;/string>
+<span class="lineno">  52</span>     &lt;string name="result_dialog_text_canceled">Post canceled.&lt;/string>
+<span class="lineno">  53</span>     &lt;string name="progress_dialog_text"><span class="errorspan">Announcing, please wait...&lt;/string></span>
+<span class="lineno">  54</span>     &lt;string name="single_user_selected">%1$s&lt;/string>
+<span class="lineno">  55</span>     &lt;string name="two_users_selected">%1$s and %2$s&lt;/string>
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Ellipsis string can be replaced with ellipsis character.</div>
+<div class="explanation">
+You can replace the string "..." with a dedicated ellipsis character, ellipsis character (&#8230;, &amp;#8230;). This can help make the text more readable.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Ellipsis">http://en.wikipedia.org/wiki/Ellipsis</a>
+</div><br/>To suppress this error, use the issue id "TypographyEllipsis" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Usability:Icons"></a>
+<div class="category"><a href="#" title="Return to top">Usability:Icons</a><div class="categorySeparator"></div>
+</div>
+<a name="IconLocation"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">IconLocation: Image defined in density-independent drawable folder</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/drawable/add_food.png">../../res/drawable/add_food.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/add_food.png" /><span class="message">Found bitmap drawable <code>res/drawable/add_food.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/add_friends.png">../../res/drawable/add_friends.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/add_friends.png" /><span class="message">Found bitmap drawable <code>res/drawable/add_friends.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/add_location.png">../../res/drawable/add_location.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/add_location.png" /><span class="message">Found bitmap drawable <code>res/drawable/add_location.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/add_photo.png">../../res/drawable/add_photo.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/add_photo.png" /><span class="message">Found bitmap drawable <code>res/drawable/add_photo.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/facebook.png">../../res/drawable/facebook.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/facebook.png" /><span class="message">Found bitmap drawable <code>res/drawable/facebook.png</code> in densityless folder</span><br clear="right"/>
+<button id="IconLocationDivLink" onclick="reveal('IconLocationDiv');" />+ 14 More Occurrences...</button>
+<div id="IconLocationDiv" style="display: none">
+<span class="location"><a href="../../res/drawable/icon.png">../../res/drawable/icon.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/icon.png" /><span class="message">Found bitmap drawable <code>res/drawable/icon.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_button_check_off.png">../../res/drawable/picker_button_check_off.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_button_check_off.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_button_check_off.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_button_check_on.png">../../res/drawable/picker_button_check_on.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_button_check_on.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_button_check_on.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_divider.9.png">../../res/drawable/picker_list_divider.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_divider.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_divider.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_focused.9.png">../../res/drawable/picker_list_focused.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_focused.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_focused.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_longpressed.9.png">../../res/drawable/picker_list_longpressed.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_longpressed.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_longpressed.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_pressed.9.png">../../res/drawable/picker_list_pressed.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_pressed.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_pressed.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_section_header_background.9.png">../../res/drawable/picker_list_section_header_background.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_section_header_background.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_section_header_background.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_list_selector_disabled.9.png">../../res/drawable/picker_list_selector_disabled.9.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_list_selector_disabled.9.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_list_selector_disabled.9.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/picker_place_default_icon.png">../../res/drawable/picker_place_default_icon.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/picker_place_default_icon.png" /><span class="message">Found bitmap drawable <code>res/drawable/picker_place_default_icon.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/placeholder_image.png">../../res/drawable/placeholder_image.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/placeholder_image.png" /><span class="message">Found bitmap drawable <code>res/drawable/placeholder_image.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/profile_default_icon.png">../../res/drawable/profile_default_icon.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/profile_default_icon.png" /><span class="message">Found bitmap drawable <code>res/drawable/profile_default_icon.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/title_bar_logo.png">../../res/drawable/title_bar_logo.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/title_bar_logo.png" /><span class="message">Found bitmap drawable <code>res/drawable/title_bar_logo.png</code> in densityless folder</span><br clear="right"/>
+<span class="location"><a href="../../res/drawable/usersettings_facebook_logo.png">../../res/drawable/usersettings_facebook_logo.png</a></span>: <img class="embedimage" align="right" src="../../res/drawable/usersettings_facebook_logo.png" /><span class="message">Found bitmap drawable <code>res/drawable/usersettings_facebook_logo.png</code> in densityless folder</span><br clear="right"/>
+</div>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Image defined in density-independent drawable folder.</div>
+<div class="explanation">
+The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to <code>drawable-mdpi</code> and consider providing higher and lower resolution versions in <code>drawable-ldpi</code>, <code>drawable-hdpi</code> and <code>drawable-xhdpi</code>. If the icon <b>really</b> is density independent (for example a solid color) you can place it in <code>drawable-nodpi</code>.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div><br/>To suppress this error, use the issue id "IconLocation" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconDensities"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">IconDensities: Icon densities validation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/drawable-hdpi">../../res/drawable-hdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-hdpi</code>: logo.png (found in drawable-xhdpi, drawable-mdpi)</span><br />
+</div>
+<div class="metadata">Priority: 4 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Icon densities validation.</div>
+<div class="explanation">
+Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.<br/>
+<br/>
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div><br/>To suppress this error, use the issue id "IconDensities" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconMissingDensityFolder"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">IconMissingDensityFolder: Missing density folder</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res">../../res</a></span>: <span class="message">Missing density variation folders in <code>res</code>: drawable-xxhdpi, drawable-xxxhdpi</span><br />
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing density folder.</div>
+<div class="explanation">
+Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as <code>drawable-hdpi</code>.<br/>
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div><br/>To suppress this error, use the issue id "IconMissingDensityFolder" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Usability"></a>
+<div class="category"><a href="#" title="Return to top">Usability</a><div class="categorySeparator"></div>
+</div>
+<a name="TextFields"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">TextFields: Missing <code>inputType</code> or <code>hint</code></a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_search_bar_layout.xml">../../res/layout/picker_search_bar_layout.xml</a>:35</span>: <span class="message">This text field does not specify an <code>inputType</code> or a <code>hint</code></span><br /><pre class="errorlines">
+<span class="lineno">  32</span>         android:paddingRight="5dp"
+<span class="lineno">  33</span>         android:background="@color/picker_search_bar_background"
+<span class="lineno">  34</span>         >
+<span class="lineno">  35</span>     <span class="errorspan">&lt;EditText</span>
+<span class="lineno">  36</span>             android:id="@+id/com_facebook_picker_search_text"
+<span class="lineno">  37</span>             android:layout_width="match_parent"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 5 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing <code>inputType</code> or <code>hint</code></div>
+<div class="explanation">
+Providing an <code>inputType</code> attribute on a text field improves usability because depending on the data to be input, optimized keyboards can be shown to the user (such as just digits and parentheses for a phone number). Similarly,a hint attribute displays a hint to the user for what is expected in the text field.<br/>
+<br/>
+The lint detector also looks at the <code>id</code> of the view, and if the id offers a hint of the purpose of the field (for example, the <code>id</code> contains the phrase <code>phone</code> or <code>email</code>), then lint will also ensure that the <code>inputType</code> contains the corresponding type attributes.<br/>
+<br/>
+If you really want to keep the text field generic, you can suppress this warning by setting <code>inputType="text"</code>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "TextFields" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Accessibility"></a>
+<div class="category"><a href="#" title="Return to top">Accessibility</a><div class="categorySeparator"></div>
+</div>
+<a name="ContentDescription"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ContentDescription: Image without <code>contentDescription</code></a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/listitem.xml">../../res/layout/listitem.xml</a>:28</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  25</span>               android:layout_gravity="center_horizontal"
+<span class="lineno">  26</span>               android:orientation="horizontal">
+<span class="lineno">  27</span> 
+<span class="lineno">  28</span>     <span class="errorspan">&lt;ImageView</span>
+<span class="lineno">  29</span>             android:id="@+id/icon"
+<span class="lineno">  30</span>             android:layout_width="50dp"
+</pre>
+<span class="location"><a href="../../res/layout/picker_image.xml">../../res/layout/picker_image.xml</a>:22</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  19</span>     CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<span class="lineno">  20</span> -->
+<span class="lineno">  21</span> 
+<span class="lineno">  22</span> <span class="errorspan">&lt;ImageView</span>
+<span class="lineno">  23</span>     xmlns:android="http://schemas.android.com/apk/res/android"
+<span class="lineno">  24</span>     android:id="@+id/com_facebook_picker_image"
+</pre>
+<span class="location"><a href="../../res/layout/splash.xml">../../res/layout/splash.xml</a>:34</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  31</span>         android:layout_height="match_parent"
+<span class="lineno">  32</span>         android:orientation="vertical">
+<span class="lineno">  33</span> 
+<span class="lineno">  34</span>     	<span class="errorspan">&lt;ImageView </span>
+<span class="lineno">  35</span>     		android:layout_width="match_parent"
+<span class="lineno">  36</span>     		android:layout_height="0dp"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Accessibility</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Image without <code>contentDescription</code></div>
+<div class="explanation">
+Non-textual widgets like ImageViews and ImageButtons should use the <code>contentDescription</code> attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.<br/>
+<br/>
+Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore="ContentDescription" attribute.<br/>
+<br/>
+Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ContentDescription" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Internationalization"></a>
+<div class="category"><a href="#" title="Return to top">Internationalization</a><div class="categorySeparator"></div>
+</div>
+<a name="HardcodedText"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">HardcodedText: Hardcoded text</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/listitem.xml">../../res/layout/listitem.xml</a>:40</span>: <span class="message">[I18N] Hardcoded string "test", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  37</span>             android:layout_marginLeft="15dp" >
+<span class="lineno">  38</span>         &lt;TextView
+<span class="lineno">  39</span>                 android:id="@+id/text1"
+<span class="lineno">  40</span>                 <span class="errorspan">android:text="test"</span>
+<span class="lineno">  41</span>                 android:textColor="#FB5820"
+<span class="lineno">  42</span>                 android:layout_width="wrap_content"
+</pre>
+<span class="location"><a href="../../res/layout/listitem.xml">../../res/layout/listitem.xml</a>:47</span>: <span class="message">[I18N] Hardcoded string "test2", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  44</span>                 android:textSize="16sp" />
+<span class="lineno">  45</span>         &lt;TextView
+<span class="lineno">  46</span>                 android:id="@+id/text2"
+<span class="lineno">  47</span>                 <span class="errorspan">android:text="test2"</span>
+<span class="lineno">  48</span>                 android:textColor="#E4C897"
+<span class="lineno">  49</span>                 android:layout_width="wrap_content"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 5 / 10<br/>
+Category: Internationalization</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Hardcoded text.</div>
+<div class="explanation">
+Hardcoding text attributes directly in layout files is bad for several reasons:<br/>
+<br/>
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)<br/>
+<br/>
+* The application cannot be translated to other languages by just adding new translations for existing string resources.<br/>
+<br/>
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "HardcodedText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Bi-directional Text"></a>
+<div class="category"><a href="#" title="Return to top">Bi-directional Text</a><div class="categorySeparator"></div>
+</div>
+<a name="RtlSymmetry"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">RtlSymmetry: Padding and margin symmetry</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/picker_list_row.xml">../../res/layout/picker_list_row.xml</a>:38</span>: <span class="message">When you define <code>paddingLeft</code> you should probably also define <code>paddingRight</code> for right-to-left symmetry</span><br /><pre class="errorlines">
+<span class="lineno">  35</span>             android:layout_width="100dip"
+<span class="lineno">  36</span>             android:layout_height="50dip"
+<span class="lineno">  37</span>             android:layout_weight="1.0"
+<span class="lineno">  38</span>             <span class="errorspan">android:paddingLeft="5dip"</span>
+<span class="lineno">  39</span>             android:textStyle="bold"
+<span class="lineno">  40</span>             android:textColor="#000000"
+</pre>
+<span class="location"><a href="../../res/layout/picker_list_section_header.xml">../../res/layout/picker_list_section_header.xml</a>:33</span>: <span class="message">When you define <code>paddingLeft</code> you should probably also define <code>paddingRight</code> for right-to-left symmetry</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>     android:gravity="left|center_vertical"
+<span class="lineno">  31</span>     android:textColor="#68768a"
+<span class="lineno">  32</span>     android:textSize="17sp"
+<span class="lineno">  33</span>     <span class="errorspan">android:paddingLeft="8dip"</span>
+<span class="lineno">  34</span>     android:paddingBottom="0px"
+<span class="lineno">  35</span>     android:shadowDx="1"
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Bi-directional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Padding and margin symmetry.</div>
+<div class="explanation">
+If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlSymmetry" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="RtlHardcoded"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">RtlHardcoded: Using left/right instead of start/end attributes</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../res/layout/listitem.xml">../../res/layout/listitem.xml</a>:37</span>: <span class="message">Consider adding <code>android:layout_marginStart="15dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  34</span>             android:layout_gravity="center_vertical"
+<span class="lineno">  35</span>             android:layout_width="fill_parent"
+<span class="lineno">  36</span>             android:layout_height="wrap_content"
+<span class="lineno">  37</span>             <span class="errorspan">android:layout_marginLeft="15dp" ></span>
+<span class="lineno">  38</span>         &lt;TextView
+<span class="lineno">  39</span>                 android:id="@+id/text1"
+</pre>
+<span class="location"><a href="../../res/layout/picker_list_row.xml">../../res/layout/picker_list_row.xml</a>:38</span>: <span class="message">Consider adding <code>android:paddingStart="5dip"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  35</span>             android:layout_width="100dip"
+<span class="lineno">  36</span>             android:layout_height="50dip"
+<span class="lineno">  37</span>             android:layout_weight="1.0"
+<span class="lineno">  38</span>             <span class="errorspan">android:paddingLeft="5dip"</span>
+<span class="lineno">  39</span>             android:textStyle="bold"
+<span class="lineno">  40</span>             android:textColor="#000000"
+</pre>
+<span class="location"><a href="../../res/layout/picker_list_row.xml">../../res/layout/picker_list_row.xml</a>:44</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>             android:singleLine="true"
+<span class="lineno">  42</span>             android:ellipsize="end"
+<span class="lineno">  43</span>             android:textSize="18sp"
+<span class="lineno">  44</span>             <span class="errorspan">android:gravity="left|center_vertical"/></span>
+<span class="lineno">  45</span>     &lt;ViewStub
+<span class="lineno">  46</span>             android:id="@+id/com_facebook_picker_checkbox_stub"
+</pre>
+<span class="location"><a href="../../res/layout/picker_list_row.xml">../../res/layout/picker_list_row.xml</a>:51</span>: <span class="message">Consider adding <code>android:layout_marginEnd="10dip"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  48</span>             android:layout="@layout/picker_checkbox"
+<span class="lineno">  49</span>             android:layout_width="23dip"
+<span class="lineno">  50</span>             android:layout_height="23dip"
+<span class="lineno">  51</span>             <span class="errorspan">android:layout_marginRight="10dip"/></span>
+<span class="lineno">  52</span> &lt;/LinearLayout>
+<span class="lineno">  53</span> 
+</pre>
+<span class="location"><a href="../../res/layout/picker_list_section_header.xml">../../res/layout/picker_list_section_header.xml</a>:30</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  27</span>     android:textStyle="bold"
+<span class="lineno">  28</span>     android:background="@drawable/picker_list_section_header_background"
+<span class="lineno">  29</span>     android:orientation="horizontal"
+<span class="lineno">  30</span>     <span class="errorspan">android:gravity="left|center_vertical"</span>
+<span class="lineno">  31</span>     android:textColor="#68768a"
+<span class="lineno">  32</span>     android:textSize="17sp"
+</pre>
+<button id="RtlHardcodedDivLink" onclick="reveal('RtlHardcodedDiv');" />+ 13 More Occurrences...</button>
+<div id="RtlHardcodedDiv" style="display: none">
+<span class="location"><a href="../../res/layout/picker_list_section_header.xml">../../res/layout/picker_list_section_header.xml</a>:33</span>: <span class="message">Consider adding <code>android:paddingStart="8dip"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>     android:gravity="left|center_vertical"
+<span class="lineno">  31</span>     android:textColor="#68768a"
+<span class="lineno">  32</span>     android:textSize="17sp"
+<span class="lineno">  33</span>     <span class="errorspan">android:paddingLeft="8dip"</span>
+<span class="lineno">  34</span>     android:paddingBottom="0px"
+<span class="lineno">  35</span>     android:shadowDx="1"
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:41</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  38</span>                     android:id="@+id/com_facebook_picker_profile_pic_stub"
+<span class="lineno">  39</span>                     android:inflatedId="@+id/com_facebook_picker_image"
+<span class="lineno">  40</span>                     android:layout="@layout/picker_image"
+<span class="lineno">  41</span>                     <span class="errorspan">android:layout_gravity="left|center_vertical"</span>
+<span class="lineno">  42</span>                     android:layout_width="@dimen/picker_place_image_size"
+<span class="lineno">  43</span>                     android:layout_height="@dimen/picker_place_image_size" />
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:50</span>: <span class="message">Consider adding <code>android:layout_marginEnd="16dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  47</span>                 android:focusable="false"
+<span class="lineno">  48</span>                 android:layout_width="0dip"
+<span class="lineno">  49</span>                 android:layout_height="wrap_content"
+<span class="lineno">  50</span>                 <span class="errorspan">android:layout_marginRight="16dp"</span>
+<span class="lineno">  51</span>                 android:layout_gravity="center_vertical"
+<span class="lineno">  52</span>                 android:layout_weight="1">
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:64</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  61</span>                     android:textColor="#000000"
+<span class="lineno">  62</span>                     android:lines="1"
+<span class="lineno">  63</span>                     android:textSize="16sp"
+<span class="lineno">  64</span>                     <span class="errorspan">android:gravity="left|center_vertical"/></span>
+<span class="lineno">  65</span>             &lt;TextView
+<span class="lineno">  66</span>                     android:id="@+id/picker_subtitle"
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:76</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  73</span>                     android:lines="1"
+<span class="lineno">  74</span>                     android:typeface="sans"
+<span class="lineno">  75</span>                     android:textSize="12sp"
+<span class="lineno">  76</span>                     <span class="errorspan">android:gravity="left|center_vertical"/></span>
+<span class="lineno">  77</span>         &lt;/LinearLayout>
+<span class="lineno">  78</span>         &lt;!--ViewStub
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:89</span>: <span class="message">Consider adding <code>android:layout_alignParentStart="true"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  86</span>     &lt;View
+<span class="lineno">  87</span>             android:layout_width="0dp"
+<span class="lineno">  88</span>             android:layout_height="@dimen/picker_divider_width"
+<span class="lineno">  89</span>             <span class="errorspan">android:layout_alignParentLeft="true"</span>
+<span class="lineno">  90</span>             android:layout_alignParentRight="true"
+<span class="lineno">  91</span>             android:layout_alignParentBottom="true"
+</pre>
+<span class="location"><a href="../../res/layout/picker_placepickerfragment_list_row.xml">../../res/layout/picker_placepickerfragment_list_row.xml</a>:90</span>: <span class="message">Consider adding <code>android:layout_alignParentEnd="true"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  87</span>             android:layout_width="0dp"
+<span class="lineno">  88</span>             android:layout_height="@dimen/picker_divider_width"
+<span class="lineno">  89</span>             android:layout_alignParentLeft="true"
+<span class="lineno">  90</span>             <span class="errorspan">android:layout_alignParentRight="true"</span>
+<span class="lineno">  91</span>             android:layout_alignParentBottom="true"
+<span class="lineno">  92</span>             android:background="@drawable/picker_default_separator_color"
+</pre>
+<span class="location"><a href="../../res/layout/picker_search_bar_layout.xml">../../res/layout/picker_search_bar_layout.xml</a>:39</span>: <span class="message">Consider adding <code>android:layout_marginStart="5dp"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  36</span>             android:id="@+id/com_facebook_picker_search_text"
+<span class="lineno">  37</span>             android:layout_width="match_parent"
+<span class="lineno">  38</span>             android:layout_height="48dp"
+<span class="lineno">  39</span>             <span class="errorspan">android:layout_marginLeft="5dp"</span>
+<span class="lineno">  40</span>             android:singleLine="true"
+<span class="lineno">  41</span>             android:layout_gravity="center"
+</pre>
+<span class="location"><a href="../../res/layout/picker_search_bar_layout.xml">../../res/layout/picker_search_bar_layout.xml</a>:47</span>: <span class="message">Consider adding <code>android:drawableStart="@drawable/picker_magnifier"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  44</span>             android:textColor="@android:color/black"
+<span class="lineno">  45</span>             android:textColorHint="@color/picker_search_bar_text"
+<span class="lineno">  46</span>             android:background="@color/picker_search_bar_background"
+<span class="lineno">  47</span>             <span class="errorspan">android:drawableLeft="@drawable/picker_magnifier"</span>
+<span class="lineno">  48</span>             android:drawablePadding="5dp"
+<span class="lineno">  49</span>             android:imeOptions="actionDone"
+</pre>
+<span class="location"><a href="../../res/layout/picker_title_bar.xml">../../res/layout/picker_title_bar.xml</a>:27</span>: <span class="message">Use "<code>end</code>" instead of "<code>right</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>                 android:layout_width="match_parent"
+<span class="lineno">  25</span>                 android:layout_height="48dp"
+<span class="lineno">  26</span>                 android:background="@drawable/picker_top_background"
+<span class="lineno">  27</span>                 <span class="errorspan">android:gravity="right"></span>
+<span class="lineno">  28</span>     &lt;Button
+<span class="lineno">  29</span>             android:id="@+id/com_facebook_picker_done_button"
+</pre>
+<span class="location"><a href="../../res/layout/picker_title_bar.xml">../../res/layout/picker_title_bar.xml</a>:42</span>: <span class="message">Consider adding <code>android:layout_alignParentEnd="true"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  39</span>             android:shadowDx="1"
+<span class="lineno">  40</span>             android:shadowDy="1"
+<span class="lineno">  41</span>             android:shadowRadius="1"
+<span class="lineno">  42</span>             <span class="errorspan">android:layout_alignParentRight="true"</span>
+<span class="lineno">  43</span>             />
+<span class="lineno">  44</span>     &lt;LinearLayout
+</pre>
+<span class="location"><a href="../../res/layout/picker_title_bar.xml">../../res/layout/picker_title_bar.xml</a>:58</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  55</span>             android:layout_height="match_parent"
+<span class="lineno">  56</span>             android:textSize="22sp"
+<span class="lineno">  57</span>             android:textColor="#FFFFFF"
+<span class="lineno">  58</span>             <span class="errorspan">android:gravity="left|center_vertical"</span>
+<span class="lineno">  59</span>             android:ellipsize="end"
+<span class="lineno">  60</span>             android:singleLine="true"
+</pre>
+<span class="location"><a href="../../res/layout/picker_title_bar.xml">../../res/layout/picker_title_bar.xml</a>:68</span>: <span class="message">Consider adding <code>android:layout_toStartOf="@id/com_facebook_picker_divider"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>             android:shadowRadius="1"
+<span class="lineno">  66</span>             android:layout_marginLeft="10dip"
+<span class="lineno">  67</span>             android:layout_marginRight="10dip"
+<span class="lineno">  68</span>             <span class="errorspan">android:layout_toLeftOf="@id/com_facebook_picker_divider"/></span>
+<span class="lineno">  69</span> &lt;/RelativeLayout>
+<span class="lineno">  70</span> 
+</pre>
+</div>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Bi-directional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using left/right instead of start/end attributes.</div>
+<div class="explanation">
+Using <code>Gravity#LEFT</code> and <code>Gravity#RIGHT</code> can lead to problems when a layout is rendered in locales where text flows from right to left. Use <code>Gravity#START</code> and <code>Gravity#END</code> instead. Similarly, in XML <code>gravity</code> and <code>layout_gravity</code> attributes, use <code>start</code> rather than <code>left</code>.<br/>
+For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <code>paddingStart</code> and <code>layout_marginStart</code>. <b>NOTE</b>: If your <code>minSdkVersion</code> is less than 17, you should add <b>both</b> the older left/right attributes <b>as well as</b> the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.<br/>
+(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="RtlEnabled"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">RtlEnabled: Using RTL attributes without enabling RTL support</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../AndroidManifest.xml">../../AndroidManifest.xml</a></span>: <span class="message">The project references RTL attributes, but does not explicitly enable or disable RTL support with <code>android:supportsRtl</code> in the manifest</span><br />
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Bi-directional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using RTL attributes without enabling RTL support.</div>
+<div class="explanation">
+To enable right-to-left support, when running on API 17 and higher, you must set the <code>android:supportsRtl</code> attribute in the manifest <code>&lt;application></code> element.<br/>
+If you have started adding RTL attributes, but have not yet finished the migration, you can set the attribute to false to satisfy this lint check.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlEnabled" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="MissingIssues"></a>
+<div class="category">Disabled Checks<div class="categorySeparator"></div>
+</div>
+The following issues were not run by lint, either because the check is not enabled by default, or because it was disabled with a command line flag or via one or more lint.xml configuration files in the project directories.
+<br/><br/>
+<a name="BackButton"></a>
+<div class="issue">
+<div class="id">BackButton<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Back button.</div>
+<div class="explanation">
+According to the Android Design Guide,<br/>
+<br/>
+"Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>
+This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a>
+</div><br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="EasterEgg"></a>
+<div class="issue">
+<div class="id">EasterEgg<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains easter egg.</div>
+<div class="explanation">
+An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="FieldGetter"></a>
+<div class="issue">
+<div class="id">FieldGetter<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using getter instead of field.</div>
+<div class="explanation">
+Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
+<br/>
+<b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a>
+</div><br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconExpectedSize"></a>
+<div class="issue">
+<div class="id">IconExpectedSize<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Icon has incorrect size.</div>
+<div class="explanation">
+There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a>
+</div><br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="LogConditional"></a>
+<div class="issue">
+<div class="id">LogConditional<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unconditional Logging Calls.</div>
+<div class="explanation">
+The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
+<br/>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NegativeMargin"></a>
+<div class="issue">
+<div class="id">NegativeMargin<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Negative Margins.</div>
+<div class="explanation">
+Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NewerVersionAvailable"></a>
+<div class="issue">
+<div class="id">NewerVersionAvailable<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Newer Library Versions Available.</div>
+<div class="explanation">
+This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project.<br/>
+This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NewerVersionAvailable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="SelectableText"></a>
+<div class="issue">
+<div class="id">SelectableText<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 7 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Dynamic text should probably be selectable.</div>
+<div class="explanation">
+If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
+<br/>
+This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "SelectableText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="StopShip"></a>
+<div class="issue">
+<div class="id">StopShip<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 10 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains <code>STOPSHIP</code> marker.</div>
+<div class="explanation">
+Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StopShip" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="TypographyQuotes"></a>
+<div class="issue">
+<div class="id">TypographyQuotes<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Straight quotes can be replaced with curvy quotes.</div>
+<div class="explanation">
+Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). This can make the text more readable.<br/>
+<br/>
+Note that you should never use grave accents and apostrophes to quote, `like this'.<br/>
+<br/>
+(Also note that you should not use curvy quotes for code fragments.)
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a>
+</div><br/>To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedIds"></a>
+<div class="issue">
+<div class="id">UnusedIds<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 1 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused id.</div>
+<div class="explanation">
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="SuppressInfo"></a>
+<div class="category">Suppressing Warnings and Errors<div class="categorySeparator"></div>
+</div>
+Lint errors can be suppressed in a variety of ways:<br/>
+<br/>
+1. With a <code>@SuppressLint</code> annotation in the Java code<br/>
+2. With a <code>tools:ignore</code> attribute in the XML file<br/>
+3. With ignore flags specified in the <code>build.gradle</code> file, as explained below<br/>
+4. With a <code>lint.xml</code> configuration file in the project<br/>
+5. With a <code>lint.xml</code> configuration file passed to lint via the --config flag<br/>
+6. With the --ignore flag passed to lint.<br/>
+<br/>
+To suppress a lint warning with an annotation, add a <code>@SuppressLint("id")</code> annotation on the class, method or variable declaration closest to the warning instance you want to disable. The id can be one or more issue id's, such as <code>"UnusedResources"</code> or <code>{"UnusedResources","UnusedIds"}</code>, or it can be <code>"all"</code> to suppress all lint warnings in the given scope.<br/>
+<br/>
+To suppress a lint warning in an XML file, add a <code>tools:ignore="id"</code> attribute on the element containing the error, or one of its surrounding elements. You also need to define the namespace for the tools prefix on the root element in your document, next to the <code>xmlns:android</code> declaration:<br/>
+<code>xmlns:tools="http://schemas.android.com/tools"</code><br/>
+<br/>
+To suppress a lint warning in a <code>build.gradle</code> file, add a section like this:<br/>
+<br/>
+android {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;lintOptions {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disable 'TypographyFractions','TypographyQuotes'<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+Here we specify a comma separated list of issue id's after the disable command. You can also use <code>warning</code> or <code>error</code> instead of <code>disable</code> to change the severity of issues.<br/>
+<br/>
+To suppress lint warnings with a configuration XML file, create a file named <code>lint.xml</code> and place it at the root directory of the project in which it applies.<br/>
+<br/>
+The format of the <code>lint.xml</code> file is something like the following:<br/>
+<br/>
+&lt;?xml version="1.0" encoding="UTF-8"?><br/>
+&lt;lint><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Disable this given check in this project --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the ObsoleteLayoutParam issue in the given files --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="ObsoleteLayoutParam"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout-xlarge/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the UselessLeaf issue in the given file --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="UselessLeaf"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/main.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Change the severity of hardcoded strings to "error" --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="HardcodedText" severity="error" /><br/>
+&lt;/lint><br/>
+<br/>
+To suppress lint checks from the command line, pass the --ignore flag with a comma separated list of ids to be suppressed, such as:<br/>
+<code>$ lint --ignore UnusedResources,UselessLeaf /my/project/path</code><br/>
+<br/>
+For more information, see <a href="http://tools.android.com/tips/lint/suppressing-lint-warnings">http://tools.android.com/tips/lint/suppressing-lint-warnings</a><br/>
+
+
+</body>
+</html>

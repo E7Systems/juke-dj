@@ -1,0 +1,112 @@
+package com.e7systems.jukedj;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.e7systems.jukedj.networking.NetworkManager;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
+
+public class MainActivity extends Activity {
+    private LoginButton loginButton;
+    private CallbackManager fbCallback;
+    private AccessToken accessToken;
+    private NetworkManager manager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_main);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+//        loginButton.setReadPermissions("user_likes");
+        fbCallback = CallbackManager.Factory.create();
+        accessToken = AccessToken.getCurrentAccessToken();
+        if(accessToken != null && !accessToken.isExpired()) {
+            getUserInterests();
+        }
+        loginButton.registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                accessToken = loginResult.getAccessToken();
+                getUserInterests();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("JukeDJDeb", "Cancelled");
+                new AlertDialog.Builder(MainActivity.this).setTitle("Login required")
+                        .setMessage("You need to log in to use this application!")
+                        .setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                displayAlert("An unexpected error occurred!", "Please report this message:" + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public void getUserInterests() {
+        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                try {
+                    Log.d("JukeDJDeb", jsonObject.getJSONObject("music").getJSONArray("data").toString());
+                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "music");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    public void displayAlert(String title, String content) {
+        new AlertDialog.Builder(getApplicationContext()).setTitle(title)
+                .setMessage(content)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        fbCallback.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+}

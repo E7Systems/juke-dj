@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 24.3.1">
+
+    <issue
+        id="GradleOverrides"
+        severity="Warning"
+        message="This `minSdkVersion` value (`9`) is not used; it is always overridden by the value specified in the Gradle build script (`9`)"
+        category="Correctness"
+        priority="4"
+        summary="Value overridden by Gradle build script"
+        explanation="The value of (for example) `minSdkVersion` is only used if it is not specified in the `build.gradle` build scripts. When specified in the Gradle build scripts, the manifest value is ignored and can be misleading, so should be removed to avoid ambiguity."
+        errorLine1="    &lt;uses-sdk android:minSdkVersion=&quot;9&quot;/>"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\AndroidManifest.xml"
+            line="26"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="ExportedContentProvider"
+        severity="Warning"
+        message="Exported content providers can provide access to potentially sensitive data"
+        category="Security"
+        priority="5"
+        summary="Content provider does not require permission"
+        explanation="Content providers are exported by default and any application on the system can potentially use them to read and write data. If the content provider provides access to sensitive data, it should be protected by specifying `export=false` in the manifest or by protecting it with a permission that can be granted to other applications."
+        errorLine1="        &lt;provider android:authorities=&quot;com.facebook.app.FacebookContentProvider355198514515820&quot;"
+        errorLine2="        ^">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\AndroidManifest.xml"
+            line="48"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ExportedReceiver"
+        severity="Warning"
+        message="Exported receiver does not require permission"
+        category="Security"
+        priority="5"
+        summary="Receiver does not require permission"
+        explanation="Exported receivers (receivers which either set `exported=true` or contain an intent-filter and do not specify `exported=false`) should define a permission that an entity must have in order to launch the receiver or bind to it. Without this, any application can use this receiver."
+        errorLine1="        &lt;receiver android:name=&quot;com.facebook.samples.hellofacebook.HelloFacebookBroadcastReceiver&quot;>"
+        errorLine2="        ^">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\AndroidManifest.xml"
+            line="51"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="AllowBackup"
+        severity="Warning"
+        message="Should explicitly set `android:allowBackup` to `true` or `false` (it&apos;s `true` by default, and that can have some security implications for the application&apos;s data)"
+        category="Security"
+        priority="3"
+        summary="Missing `allowBackup` attribute"
+        explanation="The allowBackup attribute determines if an application&apos;s data can be backed up and restored. It is documented at http://developer.android.com/reference/android/R.attr.html#allowBackup
+
+By default, this flag is set to `true`. When this flag is set to `true`, application data can be backed up and restored by the user using `adb backup` and `adb restore`.
+
+This may have security consequences for an application. `adb backup` allows users who have enabled USB debugging to copy application data off of the device. Once backed up, all application data can be read by the user. `adb restore` allows creation of application data from a source specified by the user. Following a restore, applications should not assume that the data, file permissions, and directory permissions were created by the application itself.
+
+Setting `allowBackup=&quot;false&quot;` opts an application out of both backup and restore.
+
+To fix this warning, decide whether your application should support backup, and explicitly set `android:allowBackup=(true|false)&quot;`"
+        url="http://developer.android.com/reference/android/R.attr.html#allowBackup"
+        urls="http://developer.android.com/reference/android/R.attr.html#allowBackup"
+        errorLine1="    &lt;application android:label=&quot;@string/app_name&quot;"
+        errorLine2="    ^"
+        quickfix="studio,adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\AndroidManifest.xml"
+            line="29"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `#FFF` with a theme that also paints a background (inferred theme is `@android:style/Theme.NoTitleBar`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.
+
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.
+
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.
+
+Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.
+"
+        errorLine1="              android:background=&quot;#FFF&quot;"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\layout\main.xml"
+            line="27"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.status_update` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;status_update&quot;>Updating status for %1$s at %2$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="32"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.photo_post` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;photo_post&quot;>Photo Post&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.you_picked` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;you_picked&quot;>You picked:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.no_friends_selected` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;no_friends_selected&quot;>&amp;lt;No friends selected&amp;gt;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.no_place_selected` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;no_place_selected&quot;>&amp;lt;No place selected&amp;gt;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="36"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.pick_seattle_place` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;pick_seattle_place&quot;>Pick a Seattle Place&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.exception` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;exception&quot;>Exception: %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\values\strings.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        severity="Warning"
+        message="The `icon.png` icon has identical contents in the following configuration folders: drawable-mdpi, drawable"
+        category="Usability:Icons"
+        priority="5"
+        summary="Identical bitmaps across various configurations"
+        explanation="If an icon is provided under different configuration parameters such as `drawable-hdpi` or `-v11`, they should typically be different. This detector catches cases where the same icon is provided in different configuration folder which is usually not intentional.">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\drawable\icon.png"/>
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\drawable-mdpi\icon.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/icon.png` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon *really* is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\drawable\icon.png"/>
+    </issue>
+
+    <issue
+        id="IconMissingDensityFolder"
+        severity="Warning"
+        message="Missing density variation folders in `res`: drawable-xxhdpi, drawable-xxxhdpi"
+        category="Usability:Icons"
+        priority="3"
+        summary="Missing density folder"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as `drawable-hdpi`.
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;Post Status Update&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="                    android:text=&quot;Post Status Update&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\layout\main.xml"
+            line="68"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;Post Photo&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="                    android:text=&quot;Post Photo&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\layout\main.xml"
+            line="74"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider adding `android:layout_marginStart=&quot;10dp&quot;` to better support right-to-left layouts"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="                    android:layout_marginLeft=&quot;10dp&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\Dylan\AndroidStudioProjects\JukeDJ2\app\libs\facebook-android-sdk-4.2.0\samples\HelloFacebookSample\res\layout\main.xml"
+            line="53"
+            column="21"/>
+    </issue>
+
+</issues>
