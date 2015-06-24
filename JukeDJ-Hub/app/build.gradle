@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.e7systems.jukedj_hub"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'javax.jmdns:jmdns:3.4.1'
 }

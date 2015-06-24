@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.e7systems.jukedj.networking.DiscoveryManager;
 import com.e7systems.jukedj.networking.NetworkManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -22,14 +22,15 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.io.IOException;
 
 
 public class MainActivity extends Activity {
     private LoginButton loginButton;
     private CallbackManager fbCallback;
     private AccessToken accessToken;
-    private NetworkManager manager;
+    private MainActivity instance;
+    public String fbPrefs = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
 //        loginButton.setReadPermissions("user_likes");
         fbCallback = CallbackManager.Factory.create();
         accessToken = AccessToken.getCurrentAccessToken();
+        instance = this;
         if(accessToken != null && !accessToken.isExpired()) {
             getUserInterests();
         }
@@ -78,7 +80,8 @@ public class MainActivity extends Activity {
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
                 try {
                     Log.d("JukeDJDeb", jsonObject.getJSONObject("music").getJSONArray("data").toString());
-                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
+                    new DiscoveryManager(instance);
+//                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -49,8 +49,8 @@ public class NetworkManager {
         initResListener();
         nsdMngr = (NsdManager) ctx.getSystemService(Context.NSD_SERVICE);
 
-        nsdMngr.registerService(
-                serviceInfo, NsdManager.PROTOCOL_DNS_SD, listener);
+        //nsdMngr.registerService(
+         //       serviceInfo, NsdManager.PROTOCOL_DNS_SD, listener);
         instance = this;
         runDeviceDiscovery();
         new Thread(new Runnable() {
@@ -103,6 +103,7 @@ public class NetworkManager {
 
             @Override
             public void onServiceFound(NsdServiceInfo serviceInfo) {
+                Log.d("JukeDJDeb", "Service found!");
                 if(serviceInfo.getServiceType().equals(SERVICE_NAME)) {
                     nsdMngr.resolveService(serviceInfo, resolveListener);
                 }
@@ -110,7 +111,7 @@ public class NetworkManager {
 
             @Override
             public void onServiceLost(NsdServiceInfo serviceInfo) {
-
+                Log.d("JukeDJDeb", "Service lost!");
             }
         };
         nsdMngr.discoverServices(SERVICE_NAME, NsdManager.PROTOCOL_DNS_SD, discoveryListener);

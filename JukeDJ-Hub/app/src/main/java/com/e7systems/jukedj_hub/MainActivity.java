@@ -18,7 +18,7 @@ import java.net.Socket;
 
 
 public class MainActivity extends Activity {
-    private final int PORT = 20101;
+    public static final int PORT = 20101;
     private boolean accepting = false;
     private ServerSocket serverSocket;
 
@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
                 accepting = isChecked;
             }
         });
+        new MDNSBroadcaster(this);
         try {
             this.serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
