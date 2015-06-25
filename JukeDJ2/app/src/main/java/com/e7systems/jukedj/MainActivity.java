@@ -71,7 +71,6 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         });
-
     }
 
     public void getUserInterests() {
@@ -80,6 +79,7 @@ public class MainActivity extends Activity {
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
                 try {
                     Log.d("JukeDJDeb", jsonObject.getJSONObject("music").getJSONArray("data").toString());
+                    fbPrefs = jsonObject.getJSONObject("music").getJSONArray("data").toString();
                     new DiscoveryManager(instance);
 //                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
                 } catch (JSONException e) {

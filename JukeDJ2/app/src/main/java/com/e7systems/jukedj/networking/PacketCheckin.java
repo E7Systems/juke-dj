@@ -22,6 +22,7 @@ public class PacketCheckin implements Packet {
     public void stream(BufferedWriter out) throws IOException {
         out.write(0);
         out.write(fbMusicPrefs);
+        out.newLine();
         out.flush();
     }
 }

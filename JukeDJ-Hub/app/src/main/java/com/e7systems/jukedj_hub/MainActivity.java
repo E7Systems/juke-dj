@@ -1,8 +1,11 @@
 package com.e7systems.jukedj_hub;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.net.nsd.NsdServiceInfo;
-import android.support.v7.app.ActionBarActivity;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,17 +13,18 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
     public static final int PORT = 20101;
+    private static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
     private boolean accepting = false;
-    private ServerSocket serverSocket;
+    private NetHandlerThread networkThread;
+    public List<Integer> songQueue = new ArrayList<>();
+    MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +37,12 @@ public class MainActivity extends Activity {
                 accepting = isChecked;
             }
         });
+
         new MDNSBroadcaster(this);
-        try {
-            this.serverSocket = new ServerSocket(PORT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        Socket socket = serverSocket.accept();
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        System.out.println("ID" + in.read());
-                        String val;
-                        while((val = in.readLine()) != null) {
-                            Log.d("JukeDJDeb", val);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        Log.d("JukeDJDeb", "Started broadcaster.");
+        networkThread = new NetHandlerThread(this);
+        networkThread.start();
+        new SongQueueThread(this).start();
     }
 
     @Override
@@ -79,5 +65,34 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void stream(String id, final Callback<MediaPlayer> finished) {
+        String url = String.format("http://api.soundcloud.com/tracks/%s/stream?client_id=%s", id, CLIENT_ID);
+        try {
+            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(url));
+            mediaPlayer.prepare();
+//            AudioAttributes attr = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA).
+//                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
+//            mediaPlayer.setAudioAttributes(attr);
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mediaPlayer.reset();
+                    finished.call(mp);
+//                    mediaPlayer.stop();
+//                    mediaPlayer.release();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        view.
+    }
+
+    public boolean isAccepting() {
+        return accepting;
     }
 }

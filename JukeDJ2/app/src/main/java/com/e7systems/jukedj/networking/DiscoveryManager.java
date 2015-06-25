@@ -51,19 +51,8 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
             @Override
             public void serviceAdded(ServiceEvent event) {
                 Log.d("JukeDJDeb", "Found service: " + event.getInfo());
-                InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
-                if (inetAddr == null) {
-                    Log.d("JukeDJDeb", "Null ip!");
-                } else {
-                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
-                    Socket socket = null;
-                    try {
-                        socket = new Socket(inetAddr, event.getInfo().getPort());
-                        sendPacket(new PacketCheckin(main.fbPrefs), socket);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                jmdns.requestServiceInfo(event.getType(), event.getName(), 500);
+
             }
 
             @Override
@@ -73,7 +62,21 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceResolved(ServiceEvent event) {
-                jmdns.requestServiceInfo(event.getType(), event.getName(), 500);
+                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
+                InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
+                if (inetAddr == null) {
+                    Log.d("JukeDJDeb", "Null ip!");
+                } else {
+                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
+                    Socket socket;
+                    try {
+                        socket = new Socket(inetAddr, event.getInfo().getPort());
+                        sendPacket(new PacketCheckin(main.fbPrefs), socket);
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
         return null;
