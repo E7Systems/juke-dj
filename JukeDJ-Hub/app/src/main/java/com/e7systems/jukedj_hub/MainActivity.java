@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
     public void stream(String id, final Callback<MediaPlayer> finished) {
         String url = String.format("http://api.soundcloud.com/tracks/%s/stream?client_id=%s", id, CLIENT_ID);
         try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(url));
             mediaPlayer.prepare();
 //            AudioAttributes attr = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA).
@@ -80,7 +82,6 @@ public class MainActivity extends Activity {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    mediaPlayer.reset();
                     finished.call(mp);
 //                    mediaPlayer.stop();
 //                    mediaPlayer.release();
@@ -94,5 +95,9 @@ public class MainActivity extends Activity {
 
     public boolean isAccepting() {
         return accepting;
+    }
+
+    public void setPlayingTitle(String playingTitle) {
+        ((TextView)findViewById(R.id.tv_Song)).setText("Now Playing: \n" + playingTitle);
     }
 }

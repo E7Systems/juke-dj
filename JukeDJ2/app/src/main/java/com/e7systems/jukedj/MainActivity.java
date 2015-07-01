@@ -6,9 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.e7systems.jukedj.networking.DiscoveryManager;
 import com.e7systems.jukedj.networking.NetworkManager;
+import com.e7systems.jukedj.networking.PacketLike;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,14 +36,29 @@ public class MainActivity extends Activity {
     private AccessToken accessToken;
     private MainActivity instance;
     public String fbPrefs = "";
-
+    private boolean loggedIn = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        ToggleButton likeUnlike = (ToggleButton) findViewById(R.id.tb_Like);
+        likeUnlike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!loggedIn) {
+                    displayAlert("Login required", "You need to be logged in to do that!");
+                    return;
+                }
+                try {
+                    DiscoveryManager.getInstance().sendPacket(new PacketLike(isChecked), DiscoveryManager.getInstance().socket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         loginButton = (LoginButton) findViewById(R.id.login_button);
-//        loginButton.setReadPermissions("user_likes");
+        loginButton.setReadPermissions("user_likes");
         fbCallback = CallbackManager.Factory.create();
         accessToken = AccessToken.getCurrentAccessToken();
         instance = this;
@@ -49,6 +69,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 accessToken = loginResult.getAccessToken();
+//                Toast.makeText("Welcome, " + accessToken.)
                 getUserInterests();
             }
 

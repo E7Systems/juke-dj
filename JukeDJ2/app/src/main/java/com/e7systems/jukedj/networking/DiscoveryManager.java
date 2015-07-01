@@ -27,9 +27,13 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
     private MainActivity main;
     private WifiManager.MulticastLock multicastLock;
     private JmDNS jmdns;
+    public Socket socket;
+    private static DiscoveryManager instance;
+
     public DiscoveryManager(MainActivity main) {
         this.main = main;
         execute(main);
+        instance = this;
 
     }
 
@@ -68,7 +72,7 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
                     Log.d("JukeDJDeb", "Null ip!");
                 } else {
                     Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
-                    Socket socket;
+//                    socket;
                     try {
                         socket = new Socket(inetAddr, event.getInfo().getPort());
                         sendPacket(new PacketCheckin(main.fbPrefs), socket);
@@ -86,5 +90,9 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         packet.stream(writer);
         writer.close();
+    }
+
+    public static DiscoveryManager getInstance() {
+        return instance;
     }
 }

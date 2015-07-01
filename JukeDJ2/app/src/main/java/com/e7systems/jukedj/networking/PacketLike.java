@@ -4,24 +4,25 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- * Created by Dylan on 6/15/2015.
+ * Created by Admin on 6/29/2015.
  */
-public class PacketCheckin implements Packet {
-    private String fbMusicPrefs;
+public class PacketLike implements Packet {
 
-    public PacketCheckin(String fbMusicPrefs) {
-        this.fbMusicPrefs = fbMusicPrefs;
+    private boolean like;
+
+    public PacketLike(boolean like) {
+        this.like = like;
     }
 
     @Override
     public int getId() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void stream(BufferedWriter out) throws IOException {
         out.write(getId());
-        out.write(fbMusicPrefs);
+        out.write(like ? 1 : 0);
         out.newLine();
         out.flush();
     }

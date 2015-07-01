@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.net.ServerSocketFactory;
 
@@ -26,6 +27,8 @@ public class NetHandlerThread extends Thread {
     private final MainActivity activity;
     private ServerSocket serverSocket;
     private long MAX_DURATION = 60000 * 4;
+    private Random random = new Random();
+
     public NetHandlerThread(MainActivity activity) {
         this.activity = activity;
     }
@@ -57,9 +60,14 @@ public class NetHandlerThread extends Thread {
                     result += val;
                 }
                 int totalSongs = 0;
-                for(String artist : getArtists(result)) {
+//                int maxSongs = random.nextInt(SONGS_PER_USER / 2);
+                List<String> artists = getArtists(result);
+//                int startIdx = 0;
+                int startIdx = random.nextInt(SONGS_PER_USER);
+
+                for(String artist : artists) {
                     JSONArray songs = APIInterface.search(URLEncoder.encode(artist, "UTF-8"));
-                    for (int i = 0; i < songs.length() && totalSongs < SONGS_PER_USER; i++) {
+                    for (int i = startIdx; i < songs.length() && totalSongs < SONGS_PER_USER; i++) {
                         JSONObject songObj = songs.getJSONObject(i);
                         if(songObj.getBoolean("streamable") && songObj.getLong("duration") <= MAX_DURATION) {
                             if(!activity.songQueue.contains(songObj.getInt("id"))) {

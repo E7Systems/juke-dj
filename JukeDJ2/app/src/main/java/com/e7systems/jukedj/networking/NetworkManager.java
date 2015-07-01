@@ -22,6 +22,7 @@ public class NetworkManager {
     private List<NsdServiceInfo> services = new ArrayList<>();
     private NsdManager.DiscoveryListener discoveryListener;
     private NsdManager.ResolveListener resolveListener;
+    private Socket connection;
 
     public NetworkManager(Context ctx, int port, final String fbPrefs) {
 
