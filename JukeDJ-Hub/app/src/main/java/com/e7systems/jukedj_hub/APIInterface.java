@@ -1,5 +1,7 @@
 package com.e7systems.jukedj_hub;
 
+import com.e7systems.jukedj_hub.entities.Song;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +27,13 @@ public class APIInterface {
         return new JSONArray();
     }
 
-    public static JSONObject getSongInfo(String id, String cid) {
+    public static Song getSongInfo(int id, String cid) {
         try {
-            return new JSONObject(sendGetRequest("http://api.soundcloud.com/tracks/%s.json?client_id=%s", id, cid));
+            return Song.fromJSON(new JSONObject(sendGetRequest("http://api.soundcloud.com/tracks/%s.json?client_id=%s", id + "", cid)));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new JSONObject();
+        return null;
     }
 
     private static String sendGetRequest(String uri, String... params) {

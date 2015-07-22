@@ -3,6 +3,9 @@ package com.e7systems.jukedj_hub;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.util.SongQueue;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,20 +67,22 @@ public class NetHandlerThread extends Thread {
                 List<String> artists = getArtists(result);
 //                int startIdx = 0;
                 int startIdx = random.nextInt(SONGS_PER_USER);
+                List<Song> songsToAdd = new ArrayList<>();
 
                 for(String artist : artists) {
                     JSONArray songs = APIInterface.search(URLEncoder.encode(artist, "UTF-8"));
                     for (int i = startIdx; i < songs.length() && totalSongs < SONGS_PER_USER; i++) {
                         JSONObject songObj = songs.getJSONObject(i);
                         if(songObj.getBoolean("streamable") && songObj.getLong("duration") <= MAX_DURATION) {
-                            if(!activity.songQueue.contains(songObj.getInt("id"))) {
-                                activity.songQueue.add(songObj.getInt("id"));
-                                totalSongs++;
-                                Log.d("JukeDJDeb", "Added " + songObj.getInt("id"));
-                            }
+                            int songId = songObj.getInt("id");
+                            Song song = APIInterface.getSongInfo(songId, MainActivity.CLIENT_ID);
+                            songsToAdd.add(song);
+                            totalSongs++;
+                            Log.d("JukeDJDeb", "Added " + songId);
                         }
                     }
                 }
+                SongQueue.queueSongs(songsToAdd.toArray(new Song[0]));
 
             } catch (IOException e) {
                 e.printStackTrace();

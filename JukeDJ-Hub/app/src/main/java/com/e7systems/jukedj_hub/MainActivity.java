@@ -14,6 +14,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.e7systems.jukedj_hub.entities.Song;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +23,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     public static final int PORT = 20101;
-    private static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
+    public static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
     private boolean accepting = false;
     private NetHandlerThread networkThread;
-    public List<Integer> songQueue = new ArrayList<>();
     MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
@@ -69,8 +70,8 @@ public class MainActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void stream(String id, final Callback<MediaPlayer> finished) {
-        String url = String.format("http://api.soundcloud.com/tracks/%s/stream?client_id=%s", id, CLIENT_ID);
+    public void stream(Song song, final Callback<MediaPlayer> finished) {
+        String url = String.format("http://api.soundcloud.com/tracks/%s/stream?client_id=%s", song.getId(), CLIENT_ID);
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(url));

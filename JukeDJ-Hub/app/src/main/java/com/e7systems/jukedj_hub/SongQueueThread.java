@@ -3,14 +3,15 @@ package com.e7systems.jukedj_hub;
 import android.media.MediaPlayer;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.util.SongQueue;
 
 /**
  * Created by Admin on 6/25/2015.
  */
 public class SongQueueThread extends Thread {
     private MainActivity main;
+    private SongQueue queue = new SongQueue();
     public SongQueueThread(MainActivity main) {
         this.main = main;
     }
@@ -20,16 +21,17 @@ public class SongQueueThread extends Thread {
         playMusic();
     }
     public void playMusic() {
-        while(main.songQueue.size() <= 0) {
+        Song song;
+        if((song = queue.pop()) == null) {
             Log.d("JukeDJDeb", "No music :(");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            return;
         }
-
-        Log.d("JukeDJDeb", "Playing new song: " + main.songQueue.get(0).toString());
+        Log.d("JukeDJDeb", "Playing new song: " + song.getName());
 //        JSONObject songInfo = APIInterface.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
 //        try {
 //            String title = songInfo.getString("title");
@@ -38,13 +40,9 @@ public class SongQueueThread extends Thread {
 //            e.printStackTrace();
 //        }
 
-        main.stream(main.songQueue.get(0).toString(), new Callback<MediaPlayer>() {
+        main.stream(song, new Callback<MediaPlayer>() {
             @Override
             public void call(MediaPlayer obj) {
-                main.songQueue.remove(0);
-                if(main.songQueue.size() > 0) {
-
-                }
                 playMusic();
             }
         });
