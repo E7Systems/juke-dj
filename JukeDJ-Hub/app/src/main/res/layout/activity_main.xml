@@ -21,8 +21,9 @@
         android:layout_height="wrap_content"
         android:text="Enable Incoming Songs"
         android:id="@+id/enabled"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_marginBottom="95dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/textView" />
 
     <WebView
         android:layout_width="wrap_content"
@@ -39,6 +40,16 @@
         android:id="@+id/tv_Song"
         android:layout_marginTop="85dp"
         android:layout_below="@+id/enabled"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="No music playing!"
+        android:id="@+id/tb_SongPlaying"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

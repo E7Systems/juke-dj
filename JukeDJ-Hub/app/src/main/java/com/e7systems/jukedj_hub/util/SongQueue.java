@@ -10,13 +10,18 @@ import java.util.List;
  */
 public class SongQueue {
     private static List<Song> queue = new ArrayList<>();
+
     public static void push(Song song) {
+        set(0, song);
+    }
+
+    public static void set(int idx, Song song) {
         for(Song s : queue) {
             if(s.getId() == song.getId()) {
                 return;
             }
         }
-        queue.add(song);
+        queue.add(idx, song);
     }
 
     public static Song pop() {
@@ -27,9 +32,11 @@ public class SongQueue {
     }
 
     public static void queueSongs(Song... songs) {
-        for(int i = queue.size(); i > 0 && queue.size() - i < songs.length; i--) {
-            if(i % 2 == 0) {
-                queue.add(i, songs[i]);
+        for (int i = 0; i < songs.length; i++) {
+            if(i > queue.size()) {
+                set(i % queue.size(), songs[i]);
+            } else {
+                set(i, songs[i]);
             }
         }
     }
