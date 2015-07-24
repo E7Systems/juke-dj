@@ -80,14 +80,29 @@ public class MainActivity extends Activity {
 //                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
 //            mediaPlayer.setAudioAttributes(attr);
             mediaPlayer.start();
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            //TODO: Remove thread, this is for demonstration purposes only.
+            new Thread(new Runnable() {
                 @Override
-                public void onCompletion(MediaPlayer mp) {
-                    finished.call(mp);
+                public void run() {
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    finished.call(mediaPlayer);
 //                    mediaPlayer.stop();
 //                    mediaPlayer.release();
                 }
-            });
+            }).start();
+
+//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                @Override
+//                public void onCompletion(MediaPlayer mp) {
+//                    finished.call(mp);
+////                    mediaPlayer.stop();
+////                    mediaPlayer.release();
+//                }
+//            });
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -82,7 +82,8 @@ public class NetHandlerThread extends Thread {
                         }
                     }
                 }
-                SongQueue.queueSongs(songsToAdd.toArray(new Song[0]));
+                Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.toArray(new Song[0]));
+                SongQueue.queueSongs(sortedSongs);
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -12,15 +12,19 @@ public class Song {
     private int id;
     private UUID ownerUUID;
     private String name;
-    public Song(int id, UUID ownerUUID, String name) {
+    private int playbacks;
+
+    public Song(int id, UUID ownerUUID, String name, int playbacks) {
         this.id = id;
         this.name = name;
+        this.playbacks = playbacks;
     }
 
     public static Song fromJSON(JSONObject object) throws JSONException {
         int id = object.getInt("id");
         String name = object.getString("title");
-        return new Song(id, UUID.randomUUID(), name);
+        int playbacks = object.getInt("playback_count");
+        return new Song(id, UUID.randomUUID(), name, playbacks);
     }
 
     public int getId() {
@@ -37,5 +41,9 @@ public class Song {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPlaybacks() {
+        return playbacks;
     }
 }

@@ -3,6 +3,9 @@ package com.e7systems.jukedj_hub.util;
 import com.e7systems.jukedj_hub.entities.Song;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -39,6 +42,18 @@ public class SongQueue {
                 set(i, songs[i]);
             }
         }
+    }
+
+    public static Song[] orderSongsByWeight(Song... songs) {
+        Comparator<Song> comparator = new Comparator<Song>() {
+            @Override
+            public int compare(Song lhs, Song rhs) {
+                return lhs.getPlaybacks() - rhs.getPlaybacks();
+            }
+        };
+        List<Song> songList = Arrays.asList(songs);
+        Collections.sort(songList, comparator);
+        return songList.toArray(new Song[0]);
     }
 
 }
