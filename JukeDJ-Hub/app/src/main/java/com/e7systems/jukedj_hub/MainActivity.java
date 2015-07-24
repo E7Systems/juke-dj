@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 
         new MDNSBroadcaster(this);
         Log.d("JukeDJDeb", "Started broadcaster.");
-        networkThread = new NetHandlerThread(this);
+        networkThread = new NetHandlerThread();
         networkThread.start();
         new SongQueueThread(this).start();
     }

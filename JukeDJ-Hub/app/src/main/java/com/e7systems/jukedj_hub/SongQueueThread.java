@@ -22,6 +22,12 @@ public class SongQueueThread extends Thread {
     public void run() {
         playMusic();
     }
+
+    /**
+     * CAREFUL: This function is infinitely recursive and runs with delay.
+     * The reason for this is so we can wait for a song to finish to play the
+     * next song.
+     */
     public void playMusic() {
         final Song song;
         if((song = queue.pop()) == null) {
@@ -42,7 +48,7 @@ public class SongQueueThread extends Thread {
                 songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>"+ Html.escapeHtml(song.getName()) + "</font>"));
             }
         });
-//        JSONObject songInfo = APIInterface.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
+//        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
 //        try {
 //            String title = songInfo.getString("title");
 //            main.setPlayingTitle(title);

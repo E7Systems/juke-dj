@@ -11,6 +11,11 @@ public class AudioInterface {
     AudioInterface(Context ctx) {
         this.ctx = ctx;
     }
+
+    /**
+     * Play a song based upon a given media URI/URL.
+     * @param url the URI or URL of the resource.
+     */
     public void playSound(String url) {
 
         final MediaPlayer mp;

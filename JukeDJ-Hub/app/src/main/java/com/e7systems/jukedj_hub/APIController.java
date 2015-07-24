@@ -17,7 +17,12 @@ import java.net.URLConnection;
 /**
  * Created by Admin on 6/25/2015.
  */
-public class APIInterface {
+public class APIController {
+    /**
+     * Search for all songs matching a specific query
+     * @param query The query string to search for
+     * @return Resulting search data as JSON Array
+     */
     public static JSONArray search(String query) {
         try {
             return new JSONArray(sendGetRequest("http://api.soundcloud.com/tracks?q=" + query));
@@ -27,6 +32,12 @@ public class APIInterface {
         return new JSONArray();
     }
 
+    /**
+     * Get information regarding a specific song
+     * @param id The ID of a song
+     * @param cid The client ID of api account
+     * @return an instance of the 'Song' object
+     */
     public static Song getSongInfo(int id, String cid) {
         try {
             return Song.fromJSON(new JSONObject(sendGetRequest("http://api.soundcloud.com/tracks/%s.json?client_id=%s", id + "", cid)));

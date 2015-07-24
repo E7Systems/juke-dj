@@ -14,6 +14,10 @@ import java.util.List;
 public class SongQueue {
     private static List<Song> queue = new ArrayList<>();
 
+    /**
+     * Add a song to the beginning of the queue
+     * @param song Song to add
+     */
     public static void push(Song song) {
         set(0, song);
     }
@@ -27,6 +31,10 @@ public class SongQueue {
         queue.add(idx, song);
     }
 
+    /**
+     * Return and remove the next song in the queue.
+     * @return Removed song
+     */
     public static Song pop() {
         if(queue.size() <= 0) {
             return null;
@@ -34,16 +42,30 @@ public class SongQueue {
         return queue.remove(0);
     }
 
+    /**
+     * Distribute songs fairly amongst the queue.
+     * @param songs
+     */
     public static void queueSongs(Song... songs) {
         for (int i = 0; i < songs.length; i++) {
+            //If we've exceeded existing queue values, but still have songs,
+            //we begin inserting songs from index 0.
             if(i > queue.size()) {
                 set(i % queue.size(), songs[i]);
             } else {
+                //Otherwise, we simply insert a song at the given index.
                 set(i, songs[i]);
             }
         }
     }
 
+    /**
+     * Order songs by popularity. This is useful for avoiding remixes
+     * and retrieving the real song, or at least a remix that many people
+     * like.
+     * @param songs A set of songs to sort
+     * @return The sorted songs
+     */
     public static Song[] orderSongsByWeight(Song... songs) {
         Comparator<Song> comparator = new Comparator<Song>() {
             @Override
