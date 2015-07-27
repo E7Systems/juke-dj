@@ -2,18 +2,22 @@ package com.e7systems.jukedj;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.e7systems.jukedj.networking.DiscoveryManager;
-import com.e7systems.jukedj.networking.NetworkManager;
-import com.e7systems.jukedj.networking.PacketLike;
+import com.e7systems.jukedj.networking.packet.PacketSkipVote;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,26 +41,33 @@ public class MainActivity extends Activity {
     private MainActivity instance;
     public String fbPrefs = "";
     private boolean loggedIn = false;
+    NotificationManager notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
-        ToggleButton likeUnlike = (ToggleButton) findViewById(R.id.tb_Like);
-        likeUnlike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        Button skip = (Button) findViewById(R.id.btn_SkipSong);
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!loggedIn) {
+            public void onClick(View v) {
+
+                if (!loggedIn) {
                     displayAlert("Login required", "You need to be logged in to do that!");
                     return;
                 }
                 try {
-                    DiscoveryManager.getInstance().sendPacket(new PacketLike(isChecked), DiscoveryManager.getInstance().socket);
+                    DiscoveryManager.getInstance().sendPacket(new PacketSkipVote(), DiscoveryManager.getInstance().socket);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
+
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_likes");
         fbCallback = CallbackManager.Factory.create();
@@ -95,6 +106,7 @@ public class MainActivity extends Activity {
     }
 
     public void getUserInterests() {
+        loggedIn = true;
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
@@ -124,6 +136,22 @@ public class MainActivity extends Activity {
                         dialog.dismiss();
                     }
                 }).create().show();
+    }
+
+    public void notification(CharSequence title, CharSequence text) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.com_facebook_button_icon)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setAutoCancel(true);
+        notificationManager.notify(0, builder.build());
+    }
+
+    public void playPing() {
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
     }
 
     @Override

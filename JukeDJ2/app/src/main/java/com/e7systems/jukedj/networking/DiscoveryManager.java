@@ -6,6 +6,8 @@ import android.text.format.Formatter;
 import android.util.Log;
 
 import com.e7systems.jukedj.MainActivity;
+import com.e7systems.jukedj.networking.packet.Packet;
+import com.e7systems.jukedj.networking.packet.PacketCheckin;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,7 +17,6 @@ import java.net.Socket;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
-import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 
@@ -76,7 +77,8 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
                     try {
                         socket = new Socket(inetAddr, event.getInfo().getPort());
                         sendPacket(new PacketCheckin(main.fbPrefs), socket);
-                        socket.close();
+                        new Thread(new ClientInterfaceThread(main, socket)).start();
+//                        socket.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -88,8 +90,8 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
     public void sendPacket(Packet packet, Socket socket) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        packet.stream(writer);
-        writer.close();
+        packet.write(writer);
+//        writer.close();
     }
 
     public static DiscoveryManager getInstance() {

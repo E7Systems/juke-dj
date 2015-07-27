@@ -1,4 +1,4 @@
-package com.e7systems.jukedj_hub;
+package com.e7systems.jukedj_hub.net;
 
 import com.e7systems.jukedj_hub.entities.Song;
 

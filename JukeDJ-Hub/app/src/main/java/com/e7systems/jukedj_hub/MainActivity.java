@@ -2,7 +2,6 @@ package com.e7systems.jukedj_hub;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -15,10 +14,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.net.MDNSBroadcaster;
+import com.e7systems.jukedj_hub.net.NetHandlerThread;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends Activity {

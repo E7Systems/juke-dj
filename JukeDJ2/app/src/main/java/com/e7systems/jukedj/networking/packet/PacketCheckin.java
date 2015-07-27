@@ -1,5 +1,6 @@
-package com.e7systems.jukedj.networking;
+package com.e7systems.jukedj.networking.packet;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class PacketCheckin implements Packet {
     }
 
     @Override
-    public void stream(BufferedWriter out) throws IOException {
+    public void write(BufferedWriter out) throws IOException {
         out.write(getId());
         out.write(fbMusicPrefs);
         out.newLine();

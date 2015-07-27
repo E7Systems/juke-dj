@@ -2,7 +2,7 @@ package com.e7systems.jukedj_hub.util;
 
 import android.util.Log;
 
-import com.e7systems.jukedj_hub.APIController;
+import com.e7systems.jukedj_hub.net.APIController;
 import com.e7systems.jukedj_hub.MainActivity;
 import com.e7systems.jukedj_hub.entities.Song;
 

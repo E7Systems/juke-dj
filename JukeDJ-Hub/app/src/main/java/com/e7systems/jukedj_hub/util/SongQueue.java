@@ -2,6 +2,7 @@ package com.e7systems.jukedj_hub.util;
 
 import com.e7systems.jukedj_hub.entities.Song;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class SongQueue {
     private static List<Song> queue = new ArrayList<>();
+    private static List<InetAddress> skipVotes = new ArrayList<>();
 
     /**
      * Add a song to the beginning of the queue
@@ -77,5 +79,22 @@ public class SongQueue {
         Collections.sort(songList, comparator);
         return songList.toArray(new Song[0]);
     }
+
+    public static boolean addSkipVote(InetAddress address) {
+        if(!skipVotes.contains(address)) {
+            skipVotes.add(address);
+            return true;
+        }
+        return false;
+    }
+
+    public static Song getCurrentSong() {
+        return queue.get(0);
+    }
+
+    public static int getSkipVotes() {
+        return skipVotes.size();
+    }
+
 
 }

@@ -16,21 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="139dp"
+        android:layout_marginBottom="101dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ToggleButton
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Like"
-        android:id="@+id/tb_Like"
-        android:textOn="Undo Like"
-        android:visibility="invisible"
-        android:textOff="Like Song"
-        android:width="100dp"
-        android:height="100dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="150dp"
+        android:text="Vote to skip song"
+        android:id="@+id/btn_SkipSong"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="171dp" />
 
 </RelativeLayout>

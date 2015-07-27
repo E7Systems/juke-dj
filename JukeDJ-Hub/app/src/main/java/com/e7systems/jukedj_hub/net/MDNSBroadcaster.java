@@ -1,8 +1,10 @@
-package com.e7systems.jukedj_hub;
+package com.e7systems.jukedj_hub.net;
 
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.text.format.Formatter;
+
+import com.e7systems.jukedj_hub.MainActivity;
 
 import java.io.IOException;
 
