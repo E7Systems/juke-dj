@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
 import com.e7systems.jukedj_hub.util.SongQueue;
@@ -17,7 +18,14 @@ import java.io.IOException;
  */
 public class SongQueueThread extends Thread {
     private MainActivity main;
-    private SongQueue queue = new SongQueue();
+    private SongQueue queue = new SongQueue(new Callback<Boolean>() {
+        @Override
+        public void call(Boolean obj) {
+            skip(obj);
+        }
+    });
+    private MediaPlayer mediaPlayer;
+
     public SongQueueThread(MainActivity main) {
         this.main = main;
     }
@@ -35,7 +43,23 @@ public class SongQueueThread extends Thread {
     public void playMusic() {
         final Song song;
         if((song = queue.pop()) == null) {
-            Log.d("JukeDJDeb", "No music :(");
+            Log.d("JukeDJDeb", "Adding new songs...");
+            //replenish songs from future songs of users
+            for(User user : NetHandlerThread.getInstance().getUsers()) {
+                Log.d("JukeDJDeb", "User found.");
+                Song[] songsToAdd = new Song[MainActivity.SONGS_PER_USER];
+                for(int i = 0; i < user.getFutureSongs().size() && i < MainActivity.SONGS_PER_USER; i++) {
+                    songsToAdd[i] = user.getFutureSongs().get(i);
+                    songsToAdd[i].setOwnerIp(user.getIp());
+                    Log.d("JukeDJDeb", "Adding " + user.getFutureSongs().get(i).getName());
+                }
+
+                SongQueue.queueSongs(songsToAdd);
+                if(user.getFutureSongs().size() > MainActivity.SONGS_PER_USER) {
+                    user.clipSongs(MainActivity.SONGS_PER_USER);
+                }
+            }
+
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -65,11 +89,22 @@ public class SongQueueThread extends Thread {
 //            e.printStackTrace();
 //        }
 
-        main.stream(song, new Callback<MediaPlayer>() {
+        mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
             @Override
             public void call(MediaPlayer obj) {
                 playMusic();
             }
         });
     }
+
+    public void skip(boolean songOwner) {
+        //if we want to handle owner skips differently
+       /* if(songOwner) {
+            playMusic();
+        } else {
+
+        }*/
+        playMusic();
+    }
+
 }

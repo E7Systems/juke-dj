@@ -16,8 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="101dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/imgvw_Background"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -25,8 +24,7 @@
         android:layout_height="150dp"
         android:text="Vote to skip song"
         android:id="@+id/btn_SkipSong"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="171dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/login_button" />
 
 </RelativeLayout>

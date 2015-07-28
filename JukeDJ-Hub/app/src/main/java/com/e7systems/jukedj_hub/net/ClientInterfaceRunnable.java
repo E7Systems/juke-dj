@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.e7systems.jukedj_hub.MainActivity;
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.packets.Packet;
 import com.e7systems.jukedj_hub.net.packets.PacketCheckin;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
@@ -48,7 +49,6 @@ public class ClientInterfaceRunnable implements Runnable {
             try {
 //                int id = in.read();
                 Packet packet = packetSerializer.readPacket(in);
-                Log.d("JukeDJDeb", "Packet " + packet.getId());
                 switch(packet.getId()) {
                     case 0:
 //                int maxSongs = random.nextInt(SONGS_PER_USER / 2);
@@ -59,20 +59,30 @@ public class ClientInterfaceRunnable implements Runnable {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        User user = NetHandlerThread.getInstance().getUserByIp(client.getInetAddress());
                         for(Song song : songsToAdd) {
+//                            Log.d("JukeDJDeb", song.getName());
                             song.setOwnerIp(client.getInetAddress());
+                            user.addSong(song);
                         }
-
-                        Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.toArray(new Song[0]));
-                        SongQueue.queueSongs(sortedSongs);
+//                        if(user.getFutureSongs().size() >= MainActivity.SONGS_PER_USER) {
+//                            user.clipSongs(MainActivity.SONGS_PER_USER); //remove first 5.
+//                        }
+//                        Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.subList(0, MainActivity.SONGS_PER_USER).toArray(new Song[0]));
+//                        SongQueue.queueSongs(sortedSongs);
                         break;
                     case 1:
-                        if(!SongQueue.addSkipVote(client.getInetAddress())) {
-                            NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("", "You've already voted to skip!", true),
-                                    SongQueue.getCurrentSong().getOwnerIp());
+                        Song song = SongQueue.getCurrentSong();
+                        if(song != null && song.getOwnerIp() != null) {
+                            if (!SongQueue.addSkipVote(client.getInetAddress())) {
+                                NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("", "You've already voted to skip!", true),
+                                       song.getOwnerIp());
+                            } else {
+                                NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("", "Voted to skip the current song.", true),
+                                        song.getOwnerIp());
+                            }
                         } else {
-                            NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("", "Voted to skip the current song.", true),
-                                    SongQueue.getCurrentSong().getOwnerIp());
+
                         }
                         break;
                 }

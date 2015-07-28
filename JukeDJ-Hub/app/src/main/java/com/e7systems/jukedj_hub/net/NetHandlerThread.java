@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.e7systems.jukedj_hub.MainActivity;
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.packets.Packet;
 import com.e7systems.jukedj_hub.net.packets.PacketCheckin;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
@@ -20,9 +21,11 @@ import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.net.ServerSocketFactory;
 
@@ -31,7 +34,7 @@ import javax.net.ServerSocketFactory;
  */
 public class NetHandlerThread extends Thread {
     private ServerSocket serverSocket;
-    private Map<InetAddress, Socket> clientsConnected = new HashMap<>();
+    private Map<User, Socket> clientsConnected = new HashMap<>();
     private static NetHandlerThread instance;
 
     public NetHandlerThread() {
@@ -43,10 +46,29 @@ public class NetHandlerThread extends Thread {
     }
 
     public void writePacket(Packet packet, InetAddress ip) throws IOException {
-        Socket socket = clientsConnected.get(ip);
+        Socket socket = clientsConnected.get(getUserByIp(ip));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         packet.write(writer);
 //        writer.close();
+    }
+
+    public User getUserByIp(InetAddress address) {
+        for(User user : clientsConnected.keySet()) {
+            if(user.getIp().equals(address)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public void broadcastPacket(Packet packet) throws IOException {
+        for(User user : clientsConnected.keySet()) {
+            writePacket(packet, user.getIp());
+        }
+    }
+
+    public int getNumClientsConnected() {
+        return clientsConnected.size();
     }
 
     @Override
@@ -61,7 +83,7 @@ public class NetHandlerThread extends Thread {
             try {
                 Log.d("JukeDJDeb", "Listening for socket.");
                 Socket socket = serverSocket.accept();
-                clientsConnected.put(socket.getInetAddress(), socket);
+                clientsConnected.put(new User(socket.getInetAddress(), new ArrayList<Song>()), socket);
                 Log.d("JukeDJDeb", "Received socket.");
                 new Thread(new ClientInterfaceRunnable(socket)).start();
 //                in.close();
@@ -73,4 +95,7 @@ public class NetHandlerThread extends Thread {
     }
 
 
+    public Set<User> getUsers() {
+        return clientsConnected.keySet();
+    }
 }

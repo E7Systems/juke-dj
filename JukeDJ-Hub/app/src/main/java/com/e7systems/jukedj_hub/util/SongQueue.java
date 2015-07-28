@@ -1,6 +1,8 @@
 package com.e7systems.jukedj_hub.util;
 
+import com.e7systems.jukedj_hub.Callback;
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.net.NetHandlerThread;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -15,6 +17,11 @@ import java.util.List;
 public class SongQueue {
     private static List<Song> queue = new ArrayList<>();
     private static List<InetAddress> skipVotes = new ArrayList<>();
+    private static Callback<Boolean> skip;
+
+    public SongQueue(Callback<Boolean> skip) {
+        SongQueue.skip = skip;
+    }
 
     /**
      * Add a song to the beginning of the queue
@@ -50,6 +57,9 @@ public class SongQueue {
      */
     public static void queueSongs(Song... songs) {
         for (int i = 0; i < songs.length; i++) {
+            if(songs[i] == null) {
+                continue;
+            }
             //If we've exceeded existing queue values, but still have songs,
             //we begin inserting songs from index 0.
             if(i > queue.size()) {
@@ -81,15 +91,27 @@ public class SongQueue {
     }
 
     public static boolean addSkipVote(InetAddress address) {
+        if(address.equals(getCurrentSong().getOwnerIp())) {
+            skip.call(true);
+            skipVotes.clear();
+        }
         if(!skipVotes.contains(address)) {
             skipVotes.add(address);
             return true;
+        }
+        if(getSkipVotes() > NetHandlerThread.getInstance().getNumClientsConnected() / 2) {
+            skip.call(false);
+            skipVotes.clear();
         }
         return false;
     }
 
     public static Song getCurrentSong() {
-        return queue.get(0);
+        if(queue.size() > 0) {
+            return queue.get(0);
+        } else {
+            return null;
+        }
     }
 
     public static int getSkipVotes() {

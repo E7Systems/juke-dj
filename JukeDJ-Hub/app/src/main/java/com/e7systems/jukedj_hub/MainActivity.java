@@ -22,6 +22,7 @@ import java.io.IOException;
 
 public class MainActivity extends Activity {
     public static final int PORT = 20101;
+    public static final int SONGS_PER_USER = 5;
     public static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
     private boolean accepting = false;
     private NetHandlerThread networkThread;
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void stream(Song song, final Callback<MediaPlayer> finished) {
+    public MediaPlayer stream(Song song, final Callback<MediaPlayer> finished) {
         String url = String.format("http://api.soundcloud.com/tracks/%s/stream?client_id=%s", song.getId(), CLIENT_ID);
         try {
             mediaPlayer.reset();
@@ -80,20 +81,20 @@ public class MainActivity extends Activity {
 //            mediaPlayer.setAudioAttributes(attr);
             mediaPlayer.start();
             //TODO: Remove thread, this is for demonstration purposes only.
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    finished.call(mediaPlayer);
-//                    mediaPlayer.stop();
-//                    mediaPlayer.release();
-                }
-            }).start();
-
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        Thread.sleep(30000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    finished.call(mediaPlayer);
+////                    mediaPlayer.stop();
+////                    mediaPlayer.release();
+//                }
+//            }).start();
+            return mediaPlayer;
 //            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 //                @Override
 //                public void onCompletion(MediaPlayer mp) {
@@ -106,6 +107,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 //        view.
+        return null;
     }
 
     public boolean isAccepting() {

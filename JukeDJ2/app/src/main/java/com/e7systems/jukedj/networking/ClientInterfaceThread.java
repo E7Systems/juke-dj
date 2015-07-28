@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.e7systems.jukedj.MainActivity;
+import com.e7systems.jukedj.networking.packet.PacketCheckin;
 import com.e7systems.jukedj.networking.packet.PacketMakeNotify;
 
 import java.io.BufferedReader;
