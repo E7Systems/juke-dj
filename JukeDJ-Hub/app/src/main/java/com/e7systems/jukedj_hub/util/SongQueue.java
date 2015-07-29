@@ -94,6 +94,7 @@ public class SongQueue {
         if(address.equals(getCurrentSong().getOwnerIp())) {
             skip.call(true);
             skipVotes.clear();
+            return true;
         }
         if(!skipVotes.contains(address)) {
             skipVotes.add(address);
@@ -102,6 +103,7 @@ public class SongQueue {
         if(getSkipVotes() > NetHandlerThread.getInstance().getNumClientsConnected() / 2) {
             skip.call(false);
             skipVotes.clear();
+            return true;
         }
         return false;
     }

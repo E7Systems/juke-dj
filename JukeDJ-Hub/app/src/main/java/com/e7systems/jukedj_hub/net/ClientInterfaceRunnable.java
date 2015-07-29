@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.e7systems.jukedj_hub.MainActivity;
+import com.e7systems.jukedj_hub.SongQueueThread;
 import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.packets.Packet;
@@ -66,11 +67,9 @@ public class ClientInterfaceRunnable implements Runnable {
                             song.setOwnerIp(client.getInetAddress());
                             user.addSong(song);
                         }
-//                        if(user.getFutureSongs().size() >= MainActivity.SONGS_PER_USER) {
-//                            user.clipSongs(MainActivity.SONGS_PER_USER); //remove first 5.
-//                        }
-//                        Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.subList(0, MainActivity.SONGS_PER_USER).toArray(new Song[0]));
-//                        SongQueue.queueSongs(sortedSongs);
+
+                        Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.toArray(new Song[0]));
+                        SongQueue.queueSongs(sortedSongs);
                         break;
                     case 1:
                         Song song = SongQueue.getCurrentSong();
@@ -83,7 +82,7 @@ public class ClientInterfaceRunnable implements Runnable {
                                         song.getOwnerIp());
                             }
                         } else {
-
+                            SongQueueThread.getInstance().skip(true);
                         }
                         break;
                 }

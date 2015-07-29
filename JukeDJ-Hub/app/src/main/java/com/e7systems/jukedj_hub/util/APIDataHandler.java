@@ -20,7 +20,7 @@ import java.util.Random;
  * Created by Dylan Katz on 7/24/2015.
  */
 public class APIDataHandler {
-    private static long MAX_DURATION = 60000 * 4;
+    private static long MAX_DURATION = 60000 * 8;
     private static Random random = new Random();
 
     /**
@@ -49,14 +49,12 @@ public class APIDataHandler {
      * @throws JSONException
      */
     public static List<Song> fetchSongs(List<String> artists) throws UnsupportedEncodingException, JSONException {
-        int totalSongs = 0;
-        int startIdx = 0;
         List<Song> songsToAdd = new ArrayList<>();
 
         for(String artist : artists) {
 
             JSONArray songs = APIController.search(URLEncoder.encode(artist, "UTF-8"));
-            for (int i = startIdx; i < songs.length(); i++) {
+            for (int i = 0; i < songs.length(); i++) {
                 JSONObject songObj = songs.getJSONObject(i);
 
                 if(songObj.getBoolean("streamable") && songObj.getLong("duration") <= MAX_DURATION) {

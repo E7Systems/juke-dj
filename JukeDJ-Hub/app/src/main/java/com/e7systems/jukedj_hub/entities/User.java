@@ -27,7 +27,9 @@ public class User {
     }
 
     public void clipSongs(int start) {
-        futureSongs = futureSongs.subList(start, futureSongs.size());
+        for(int i = start - 1; i > 0; i--) {
+            futureSongs.remove(i);
+        }
     }
 
     public InetAddress getIp() {

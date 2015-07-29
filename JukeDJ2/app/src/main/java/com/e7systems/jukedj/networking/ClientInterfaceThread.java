@@ -42,7 +42,6 @@ public class ClientInterfaceThread implements Runnable {
             try {
                 while(!in.ready());
                 int id = in.read();
-                Log.d("JukeDJDeb", "Packet " + id);
                 switch(id) {
                     case 2:
                         final PacketMakeNotify notify = new PacketMakeNotify();

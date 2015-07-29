@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 public class SongQueueThread extends Thread {
     private MainActivity main;
+    private static SongQueueThread instance;
     private SongQueue queue = new SongQueue(new Callback<Boolean>() {
         @Override
         public void call(Boolean obj) {
@@ -28,6 +29,7 @@ public class SongQueueThread extends Thread {
 
     public SongQueueThread(MainActivity main) {
         this.main = main;
+        instance = this;
     }
 
     @Override
@@ -43,22 +45,7 @@ public class SongQueueThread extends Thread {
     public void playMusic() {
         final Song song;
         if((song = queue.pop()) == null) {
-            Log.d("JukeDJDeb", "Adding new songs...");
-            //replenish songs from future songs of users
-            for(User user : NetHandlerThread.getInstance().getUsers()) {
-                Log.d("JukeDJDeb", "User found. Songs: " + user.getFutureSongs().size());
-                Song[] songsToAdd = new Song[MainActivity.SONGS_PER_USER];
-                for(int i = 0; i < user.getFutureSongs().size() && i < MainActivity.SONGS_PER_USER; i++) {
-                    songsToAdd[i] = user.getFutureSongs().get(i);
-                    songsToAdd[i].setOwnerIp(user.getIp());
-                    Log.d("JukeDJDeb", "Adding " + user.getFutureSongs().get(i).getName());
-                }
-
-                SongQueue.queueSongs(songsToAdd);
-                if(user.getFutureSongs().size() > MainActivity.SONGS_PER_USER) {
-                    user.clipSongs(MainActivity.SONGS_PER_USER);
-                }
-            }
+            Log.d("JukeDJDeb", "Waiting for new songs...");
 
             try {
                 Thread.sleep(3000);
@@ -107,4 +94,7 @@ public class SongQueueThread extends Thread {
         playMusic();
     }
 
+    public static SongQueueThread getInstance() {
+        return instance;
+    }
 }

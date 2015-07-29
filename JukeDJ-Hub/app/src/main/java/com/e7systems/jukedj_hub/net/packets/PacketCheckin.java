@@ -28,7 +28,6 @@ public class PacketCheckin implements Packet {
     public static PacketCheckin read(BufferedReader in) throws IOException {
         String name = in.readLine();
         String songs = in.readLine();
-        Log.d("JukeDJDeb", name + ": " + songs);
         return new PacketCheckin(name, songs);
     }
 
