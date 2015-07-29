@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +15,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.e7systems.jukedj_hub.entities.Song;
+import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.MDNSBroadcaster;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
+import com.e7systems.jukedj_hub.util.SongQueue;
 
 import java.io.IOException;
 
@@ -24,7 +27,6 @@ public class MainActivity extends Activity {
     public static final int PORT = 20101;
     public static final int SONGS_PER_USER = 5;
     public static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
-    private boolean accepting = false;
     private NetHandlerThread networkThread;
     MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -32,18 +34,29 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Switch onOff = (Switch) findViewById(R.id.enabled);
-        onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                accepting = isChecked;
-            }
-        });
 
         new MDNSBroadcaster(this);
         Log.d("JukeDJDeb", "Started broadcaster.");
         networkThread = new NetHandlerThread();
         networkThread.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pollNetThread();
+                        }
+                    });
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         new SongQueueThread(this).start();
     }
 
@@ -110,11 +123,16 @@ public class MainActivity extends Activity {
         return null;
     }
 
-    public boolean isAccepting() {
-        return accepting;
-    }
-
-    public void setPlayingTitle(String playingTitle) {
-        ((TextView)findViewById(R.id.tv_Song)).setText("Now Playing: \n" + playingTitle);
+    public void pollNetThread() {
+        TextView list = (TextView) findViewById(R.id.tv_Users);
+        list.setText("Users online:");
+        for(User user : NetHandlerThread.getInstance().getUsers()) {
+            if(!user.getUsername().isEmpty()) {
+                list.setText(list.getText()
+                        + Html.fromHtml("<br><font color=#868383>" + Html.escapeHtml(user.getUsername()) + "</font>").toString());
+            }
+        }
+        TextView votes = (TextView) findViewById(R.id.tv_SkipVotes);
+        votes.setText("Skip Votes:" + SongQueue.getSkipVotes() + "/" + (int) Math.ceil((double)NetHandlerThread.getInstance().getUsers().size() / 2d));
     }
 }

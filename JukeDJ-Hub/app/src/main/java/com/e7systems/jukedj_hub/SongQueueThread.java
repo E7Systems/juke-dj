@@ -46,7 +46,7 @@ public class SongQueueThread extends Thread {
             Log.d("JukeDJDeb", "Adding new songs...");
             //replenish songs from future songs of users
             for(User user : NetHandlerThread.getInstance().getUsers()) {
-                Log.d("JukeDJDeb", "User found.");
+                Log.d("JukeDJDeb", "User found. Songs: " + user.getFutureSongs().size());
                 Song[] songsToAdd = new Song[MainActivity.SONGS_PER_USER];
                 for(int i = 0; i < user.getFutureSongs().size() && i < MainActivity.SONGS_PER_USER; i++) {
                     songsToAdd[i] = user.getFutureSongs().get(i);

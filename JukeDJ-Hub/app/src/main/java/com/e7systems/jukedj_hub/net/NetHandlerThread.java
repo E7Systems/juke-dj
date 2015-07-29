@@ -6,24 +6,15 @@ import com.e7systems.jukedj_hub.MainActivity;
 import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.packets.Packet;
-import com.e7systems.jukedj_hub.net.packets.PacketCheckin;
-import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
-import com.e7systems.jukedj_hub.util.APIDataHandler;
-import com.e7systems.jukedj_hub.util.SongQueue;
 
-import org.json.JSONException;
-
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -83,7 +74,7 @@ public class NetHandlerThread extends Thread {
             try {
                 Log.d("JukeDJDeb", "Listening for socket.");
                 Socket socket = serverSocket.accept();
-                clientsConnected.put(new User(socket.getInetAddress(), new ArrayList<Song>()), socket);
+                clientsConnected.put(new User(socket.getInetAddress(), new ArrayList<Song>(), ""), socket);
                 Log.d("JukeDJDeb", "Received socket.");
                 new Thread(new ClientInterfaceRunnable(socket)).start();
 //                in.close();

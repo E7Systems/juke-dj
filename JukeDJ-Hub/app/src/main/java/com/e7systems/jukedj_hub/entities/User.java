@@ -10,10 +10,12 @@ import java.util.List;
 public class User {
     private List<Song> futureSongs = new ArrayList<>();
     private InetAddress ip;
+    private String username;
 
-    public User(InetAddress ip, List<Song> futureSongs) {
+    public User(InetAddress ip, List<Song> futureSongs, String username) {
         this.ip = ip;
         this.futureSongs = futureSongs;
+        this.username = username;
     }
 
     public List<Song> getFutureSongs() {
@@ -30,5 +32,13 @@ public class User {
 
     public InetAddress getIp() {
         return ip;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

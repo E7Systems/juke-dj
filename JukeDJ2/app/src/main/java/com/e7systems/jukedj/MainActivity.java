@@ -25,6 +25,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -42,6 +43,8 @@ public class MainActivity extends Activity {
     public String fbPrefs = "";
     private boolean loggedIn = false;
     NotificationManager notificationManager;
+    public String fbUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,19 +77,18 @@ public class MainActivity extends Activity {
         accessToken = AccessToken.getCurrentAccessToken();
         instance = this;
         if(accessToken != null && !accessToken.isExpired()) {
-            getUserInterests();
+            onLoginSuccess();
         }
         loginButton.registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 accessToken = loginResult.getAccessToken();
 //                Toast.makeText("Welcome, " + accessToken.)
-                getUserInterests();
+                onLoginSuccess();
             }
 
             @Override
             public void onCancel() {
-                Log.d("JukeDJDeb", "Cancelled");
                 new AlertDialog.Builder(MainActivity.this).setTitle("Login required")
                         .setMessage("You need to log in to use this application!")
                         .setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -105,8 +107,13 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void getUserInterests() {
+    public void onLoginSuccess() {
         loggedIn = true;
+        fetchUserInterests();
+        fetchUsername();
+    }
+
+    public void fetchUserInterests() {
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
@@ -126,6 +133,20 @@ public class MainActivity extends Activity {
         request.executeAsync();
     }
 
+    public void fetchUsername() {
+        new GraphRequest(accessToken, "/" + accessToken.getUserId(), null, HttpMethod.GET, new GraphRequest.Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+                try {
+                    fbUsername = graphResponse.getJSONObject().getString("first_name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).executeAsync();
+
+    }
+
     public void displayAlert(String title, String content) {
         new AlertDialog.Builder(getApplicationContext()).setTitle(title)
                 .setMessage(content)
@@ -140,7 +161,7 @@ public class MainActivity extends Activity {
 
     public void notification(CharSequence title, CharSequence text) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.com_facebook_button_icon)
+                .setSmallIcon(android.R.drawable.ic_media_play)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setDefaults(Notification.DEFAULT_SOUND)

@@ -16,15 +16,6 @@
         android:layout_marginTop="70dp"
         android:textSize="60dp" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enable Incoming Songs"
-        android:id="@+id/enabled"
-        android:layout_marginBottom="95dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView" />
-
     <WebView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,8 +30,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tv_Song"
         android:layout_marginTop="85dp"
-        android:layout_below="@+id/enabled"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tb_SongPlaying" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,5 +42,38 @@
         android:layout_marginTop="52dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="173px"
+        android:layout_x="0px"
+        android:layout_y="25px"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Users online:"
+                android:id="@+id/tv_Users"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip Votes: 0/0"
+        android:id="@+id/tv_SkipVotes"
+        android:layout_gravity="right"
+        android:layout_alignTop="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView" />
 
 </RelativeLayout>

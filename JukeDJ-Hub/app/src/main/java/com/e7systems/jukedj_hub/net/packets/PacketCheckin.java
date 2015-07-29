@@ -10,11 +10,13 @@ import java.io.IOException;
  * Created by Dylan on 6/15/2015.
  */
 public class PacketCheckin implements Packet {
+    private String fbUsername;
     private String fbMusicPrefs;
 
     public PacketCheckin() {}
 
-    public PacketCheckin(String fbMusicPrefs) {
+    public PacketCheckin(String fbUsername, String fbMusicPrefs) {
+        this.fbUsername = fbUsername;
         this.fbMusicPrefs = fbMusicPrefs;
     }
 
@@ -24,7 +26,10 @@ public class PacketCheckin implements Packet {
     }
 
     public static PacketCheckin read(BufferedReader in) throws IOException {
-        return new PacketCheckin(in.readLine());
+        String name = in.readLine();
+        String songs = in.readLine();
+        Log.d("JukeDJDeb", name + ": " + songs);
+        return new PacketCheckin(name, songs);
     }
 
     @Override
@@ -37,5 +42,9 @@ public class PacketCheckin implements Packet {
 
     public String getBlob() {
         return fbMusicPrefs;
+    }
+
+    public String getFbUsername() {
+        return fbUsername;
     }
 }

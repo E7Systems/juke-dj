@@ -9,9 +9,11 @@ import java.io.IOException;
  */
 public class PacketCheckin implements Packet {
     private String fbMusicPrefs;
+    private String username;
 
-    public PacketCheckin(String fbMusicPrefs) {
+    public PacketCheckin(String fbMusicPrefs, String username) {
         this.fbMusicPrefs = fbMusicPrefs;
+        this.username = username;
     }
 
     @Override
@@ -22,8 +24,14 @@ public class PacketCheckin implements Packet {
     @Override
     public void write(BufferedWriter out) throws IOException {
         out.write(getId());
+        out.write(username);
+        out.newLine();
         out.write(fbMusicPrefs);
         out.newLine();
         out.flush();
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
