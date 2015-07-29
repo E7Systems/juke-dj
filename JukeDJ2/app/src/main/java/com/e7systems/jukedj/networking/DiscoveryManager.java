@@ -57,7 +57,6 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
             public void serviceAdded(ServiceEvent event) {
 //                Log.d("JukeDJDeb", "Found service: " + event.getInfo());
                 jmdns.requestServiceInfo(event.getType(), event.getName(), 500);
-
             }
 
             @Override
