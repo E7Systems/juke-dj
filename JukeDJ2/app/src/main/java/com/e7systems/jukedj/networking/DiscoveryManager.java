@@ -55,24 +55,24 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
         jmdns.addServiceListener("_jdjmp._tcp.local.", new ServiceListener() {
             @Override
             public void serviceAdded(ServiceEvent event) {
-                Log.d("JukeDJDeb", "Found service: " + event.getInfo());
+//                Log.d("JukeDJDeb", "Found service: " + event.getInfo());
                 jmdns.requestServiceInfo(event.getType(), event.getName(), 500);
 
             }
 
             @Override
             public void serviceRemoved(ServiceEvent event) {
-                Log.d("JukeDJDeb", "Lost service: " + event.getInfo());
+//                Log.d("JukeDJDeb", "Lost service: " + event.getInfo());
             }
 
             @Override
             public void serviceResolved(ServiceEvent event) {
-                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
+//                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
                 InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
                 if (inetAddr == null) {
-                    Log.d("JukeDJDeb", "Null ip!");
+                    Log.e("JukeDJ", "Null ip!");
                 } else {
-                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
+//                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
 //                    socket;
                     try {
                         socket = new Socket(inetAddr, event.getInfo().getPort());

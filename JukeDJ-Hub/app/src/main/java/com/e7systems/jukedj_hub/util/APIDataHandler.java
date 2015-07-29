@@ -35,7 +35,7 @@ public class APIDataHandler {
         for (int i = 0; i < music.length(); i++) {
             JSONObject musicItem = music.getJSONObject(i);
             String artist = musicItem.getString("name");
-            Log.d("JukeDJDeb", artist);
+//            Log.d("JukeDJDeb", artist);
             artists.add(artist);
         }
         return artists;

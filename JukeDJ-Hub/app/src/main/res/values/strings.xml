@@ -3,4 +3,7 @@
 
     <string name="title">JukeDJ</string>
     <string name="action_settings">Settings</string>
+    <string name="usersOnline">Users online:</string>
+    <string name="skipVotes">Skip Votes: 0/0</string>
+    <string name="noMusicPlaying">No music playing!</string>
 </resources>

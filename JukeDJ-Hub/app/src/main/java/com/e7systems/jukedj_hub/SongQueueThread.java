@@ -45,7 +45,7 @@ public class SongQueueThread extends Thread {
     public void playMusic() {
         final Song song;
         if((song = queue.pop()) == null) {
-            Log.d("JukeDJDeb", "Waiting for new songs...");
+//            Log.d("JukeDJDeb", "Waiting for new songs...");
 
             try {
                 Thread.sleep(3000);
@@ -55,7 +55,7 @@ public class SongQueueThread extends Thread {
             playMusic();
             return;
         }
-        Log.d("JukeDJDeb", "Playing new song: " + song.getName());
+//        Log.d("JukeDJDeb", "Playing new song: " + song.getName());
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {

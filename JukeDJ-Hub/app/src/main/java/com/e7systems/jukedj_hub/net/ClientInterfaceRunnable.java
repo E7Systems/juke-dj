@@ -87,7 +87,7 @@ public class ClientInterfaceRunnable implements Runnable {
                         break;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }
