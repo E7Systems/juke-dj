@@ -47,6 +47,12 @@ public class APIController {
         return null;
     }
 
+    /**
+     * Send a get request to the specified uri formatted with the specified parameters.
+     * @param uri The destination uri
+     * @param params These will be used in String.format().
+     * @return
+     */
     private static String sendGetRequest(String uri, String... params) {
         try {
             if(params != null && params.length > 0) {

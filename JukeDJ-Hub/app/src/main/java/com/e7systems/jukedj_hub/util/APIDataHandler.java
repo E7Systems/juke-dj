@@ -20,8 +20,8 @@ import java.util.Random;
  * Created by Dylan Katz on 7/24/2015.
  */
 public class APIDataHandler {
+    //TODO: Make maximum duration configurable server-side
     private static long MAX_DURATION = 60000 * 8;
-    private static Random random = new Random();
 
     /**
      * Retrieve a lists of artists from a user's musical preferences.

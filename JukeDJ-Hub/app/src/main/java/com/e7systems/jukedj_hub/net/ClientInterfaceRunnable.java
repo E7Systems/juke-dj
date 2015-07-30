@@ -44,6 +44,7 @@ public class ClientInterfaceRunnable implements Runnable {
         }
     }
 
+    //TODO: Break packet parsing away from case statements and into utility class.
     @Override
     public void run() {
         while(!client.isClosed()) {

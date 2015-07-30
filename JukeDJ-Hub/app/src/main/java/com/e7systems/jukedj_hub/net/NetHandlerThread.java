@@ -32,10 +32,20 @@ public class NetHandlerThread extends Thread {
         instance = this;
     }
 
+    /**
+     * Returns a static instance of NetHandlerThread.
+     * @return instance of thread
+     */
     public static NetHandlerThread getInstance() {
         return instance;
     }
 
+    /**
+     * Send a packet to the given ip, assuming a socket is open.
+     * @param packet The packet to send
+     * @param ip The ip destination
+     * @throws IOException
+     */
     public void writePacket(Packet packet, InetAddress ip) throws IOException {
         Socket socket = clientsConnected.get(getUserByIp(ip));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -43,6 +53,11 @@ public class NetHandlerThread extends Thread {
 //        writer.close();
     }
 
+    /**
+     * Get an instance of the User object via InetAddress.
+     * @param address
+     * @return user
+     */
     public User getUserByIp(InetAddress address) {
         for(User user : clientsConnected.keySet()) {
             if(user.getIp().equals(address)) {
@@ -52,12 +67,21 @@ public class NetHandlerThread extends Thread {
         return null;
     }
 
+    /**
+     * Send a packet to all clients
+     * @param packet The packet to send
+     * @throws IOException
+     */
     public void broadcastPacket(Packet packet) throws IOException {
         for(User user : clientsConnected.keySet()) {
             writePacket(packet, user.getIp());
         }
     }
 
+    /**
+     * Get the number of clients connected
+     * @return clients connected
+     */
     public int getNumClientsConnected() {
         return clientsConnected.size();
     }

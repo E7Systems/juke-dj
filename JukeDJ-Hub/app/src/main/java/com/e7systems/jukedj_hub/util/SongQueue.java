@@ -90,6 +90,11 @@ public class SongQueue {
         return songList.toArray(new Song[0]);
     }
 
+    /**
+     * Add a vote to skip the existing song
+     * @param address The ip from which the vote originated
+     * @return success
+     */
     public static boolean addSkipVote(InetAddress address) {
         if(address.equals(getCurrentSong().getOwnerIp())) {
             skip.call(true);
@@ -108,6 +113,10 @@ public class SongQueue {
         return false;
     }
 
+    /**
+     * Get current song playing
+     * @return song
+     */
     public static Song getCurrentSong() {
         if(queue.size() > 0) {
             return queue.get(0);
@@ -116,6 +125,10 @@ public class SongQueue {
         }
     }
 
+    /**
+     * Get the number of votes to skip issued for the current song.
+     * @return votes
+     */
     public static int getSkipVotes() {
         return skipVotes.size();
     }
