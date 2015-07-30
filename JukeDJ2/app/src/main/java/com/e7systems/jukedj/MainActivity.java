@@ -2,8 +2,10 @@ package com.e7systems.jukedj;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +42,7 @@ public class MainActivity extends Activity {
     private CallbackManager fbCallback;
     private AccessToken accessToken;
     private MainActivity instance;
+    public Dialog progressDialog;
     public String fbPrefs = "";
     private boolean loggedIn = false;
     NotificationManager notificationManager;
@@ -54,7 +57,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        Button skip = (Button) findViewById(R.id.btn_SkipSong);
+        final Button skip = (Button) findViewById(R.id.btn_SkipSong);
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +66,12 @@ public class MainActivity extends Activity {
                     displayAlert("Login required", "You need to be logged in to do that!");
                     return;
                 }
+                if(!DiscoveryManager.getInstance().socket.isConnected()) {
+                    displayAlert("Not connected", "The connection to a hub has not been established.");
+                }
                 try {
                     DiscoveryManager.getInstance().sendPacket(new PacketSkipVote(), DiscoveryManager.getInstance().socket);
+                    skip.setEnabled(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -111,6 +118,37 @@ public class MainActivity extends Activity {
         loggedIn = true;
         fetchUserInterests();
         fetchUsername();
+        progressDialog = ProgressDialog.show(this, "Searching...", "Attempting to find hub devices on the network...", true);
+
+        //Allow the user to confirm they wish to continue searching for devices. In reality this does nothing, but the illusion
+        //of control is a very powerful thing.
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    try {
+                        Thread.sleep(30000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.hide();
+                            displayAlert("Error", "Failed to find a hub device on your network. Press \"Ok\" to try again.", new Callback<Boolean>() {
+                                @Override
+                                public void call(Boolean obj) {
+                                    progressDialog = ProgressDialog.show(instance, "Searching...", "Attempting to find hub devices on the network...", true);
+                                }
+                            });
+                        }
+                    });
+                    while(!progressDialog.isShowing());
+                }
+            }
+        }).start();
+        new DiscoveryManager(instance);
     }
 
     public void fetchUserInterests() {
@@ -119,7 +157,6 @@ public class MainActivity extends Activity {
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
                 try {
                     fbPrefs = jsonObject.getJSONObject("music").getJSONArray("data").toString();
-                    new DiscoveryManager(instance);
 //                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -146,16 +183,24 @@ public class MainActivity extends Activity {
 
     }
 
-    public void displayAlert(String title, String content) {
-        new AlertDialog.Builder(getApplicationContext()).setTitle(title)
+    public void displayAlert(String title, String content, final Callback<Boolean> callback) {
+        new AlertDialog.Builder(this).setTitle(title)
                 .setMessage(content)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        callback.call(true);
                     }
                 }).create().show();
+    }
+
+    public void displayAlert(String title, String content) {
+        displayAlert(title, content, new Callback<Boolean>() {
+            @Override
+            public void call(Boolean obj) {}
+        });
     }
 
     public void notification(CharSequence title, CharSequence text) {

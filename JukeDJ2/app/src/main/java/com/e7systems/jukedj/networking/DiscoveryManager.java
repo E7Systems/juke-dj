@@ -77,6 +77,12 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
                         socket = new Socket(inetAddr, event.getInfo().getPort());
                         sendPacket(new PacketCheckin(main.fbPrefs, main.fbUsername), socket);
                         new Thread(new ClientInterfaceThread(main, socket)).start();
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                main.progressDialog.dismiss();
+                            }
+                        });
 //                        socket.close();
                     } catch (IOException e) {
                         e.printStackTrace();
