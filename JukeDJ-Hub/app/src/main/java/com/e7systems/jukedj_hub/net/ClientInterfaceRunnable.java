@@ -9,6 +9,7 @@ import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.packets.Packet;
 import com.e7systems.jukedj_hub.net.packets.PacketCheckin;
+import com.e7systems.jukedj_hub.net.packets.PacketHeartbeat;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
 import com.e7systems.jukedj_hub.util.APIDataHandler;
 import com.e7systems.jukedj_hub.util.SongQueue;
@@ -53,6 +54,7 @@ public class ClientInterfaceRunnable implements Runnable {
                 Packet packet = packetSerializer.readPacket(in);
                 switch(packet.getId()) {
                     case 0:
+                        NetHandlerThread.getInstance().writePacket(new PacketHeartbeat(), client.getInetAddress());
 //                int maxSongs = random.nextInt(SONGS_PER_USER / 2);
 //                int startIdx = 0;
                         List<Song> songsToAdd = null;
@@ -86,8 +88,18 @@ public class ClientInterfaceRunnable implements Runnable {
                             SongQueueThread.getInstance().skip(true);
                         }
                         break;
+                    case 4:
+                        NetHandlerThread.getInstance().writePacket(new PacketHeartbeat(), client.getInetAddress());
+                        break;
                 }
             } catch (IOException e) {
+                //You ditched us :(
+                NetHandlerThread.getInstance().removeUser(NetHandlerThread.getInstance().getUserByIp(client.getInetAddress()));
+                try {
+                    client.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 //                e.printStackTrace();
             }
         }

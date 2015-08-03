@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.e7systems.jukedj.MainActivity;
 import com.e7systems.jukedj.networking.packet.PacketCheckin;
+import com.e7systems.jukedj.networking.packet.PacketHeartbeat;
 import com.e7systems.jukedj.networking.packet.PacketMakeNotify;
 
 import java.io.BufferedReader;
@@ -24,6 +25,7 @@ public class ClientInterfaceThread implements Runnable {
     private Socket client;
     private BufferedReader in;
     private BufferedWriter out;
+    private long lastHeartbeat = 0;
 
     public ClientInterfaceThread(MainActivity activity, Socket client) {
         this.activity = activity;
@@ -38,7 +40,7 @@ public class ClientInterfaceThread implements Runnable {
 
     @Override
     public void run() {
-        while(!client.isClosed()) {
+        while(!client.isClosed() && (System.currentTimeMillis() - lastHeartbeat <= 20000 || lastHeartbeat == 0)) {
             try {
                 while(!in.ready());
                 int id = in.read();
@@ -57,7 +59,23 @@ public class ClientInterfaceThread implements Runnable {
                             activity.notification(notify.getTitle(), notify.getText());
                         }
                         break;
+                    case 3:
+                        Log.d("JukeDJDeb", "Finished song.");
+                        activity.onSongFinished();
+                        break;
+                    case 4:
+                        lastHeartbeat = System.currentTimeMillis();
+                        DiscoveryManager.getInstance().sendPacket(new PacketHeartbeat(), client);
+                        break;
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        activity.onSocketEnd();
+        if(!client.isClosed()) {
+            try {
+                client.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,10 @@
 package com.e7systems.jukedj_hub.net;
 
+import android.util.Log;
+
 import com.e7systems.jukedj_hub.net.packets.Packet;
 import com.e7systems.jukedj_hub.net.packets.PacketCheckin;
+import com.e7systems.jukedj_hub.net.packets.PacketHeartbeat;
 import com.e7systems.jukedj_hub.net.packets.PacketSkipVote;
 
 import java.io.BufferedInputStream;
@@ -20,6 +23,7 @@ public class PacketSerializer {
     public PacketSerializer() {
         packetTypes.put(0, PacketCheckin.class);
         packetTypes.put(1, PacketSkipVote.class);
+        packetTypes.put(4, PacketHeartbeat.class);
     }
 
     public Class getPacketType(int id) {
@@ -35,7 +39,11 @@ public class PacketSerializer {
     public Packet readPacket(BufferedReader inputStream) throws IOException {
         int id = inputStream.read();
         Class packetCs = getPacketType(id);
+        if(packetCs == null) {
+            throw new IOException("Invalid packet id: " + id);
+        }
         try {
+            Log.d("JukeDJDeb", packetCs.getName());
             Method readMethod = packetCs.getDeclaredMethod("read", BufferedReader.class);
             if(readMethod == null) {
                 return null;

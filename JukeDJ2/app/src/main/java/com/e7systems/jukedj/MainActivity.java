@@ -38,7 +38,6 @@ import java.io.IOException;
 
 
 public class MainActivity extends Activity {
-    private LoginButton loginButton;
     private CallbackManager fbCallback;
     private AccessToken accessToken;
     private MainActivity instance;
@@ -46,6 +45,7 @@ public class MainActivity extends Activity {
     public String fbPrefs = "";
     private boolean loggedIn = false;
     NotificationManager notificationManager;
+    public Thread searchThread;
     public String fbUsername;
 
     @Override
@@ -66,8 +66,14 @@ public class MainActivity extends Activity {
                     displayAlert("Login required", "You need to be logged in to do that!");
                     return;
                 }
-                if(!DiscoveryManager.getInstance().socket.isConnected()) {
-                    displayAlert("Not connected", "The connection to a hub has not been established.");
+                if(DiscoveryManager.getInstance().socket.isClosed()) {
+                    displayAlert("Not connected", "The connection to a hub has not been established.", new Callback<Boolean>() {
+                        @Override
+                        public void call(Boolean obj) {
+                            startSearchProcess();
+                        }
+                    });
+                    return;
                 }
                 try {
                     DiscoveryManager.getInstance().sendPacket(new PacketSkipVote(), DiscoveryManager.getInstance().socket);
@@ -78,7 +84,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_likes");
         fbCallback = CallbackManager.Factory.create();
         accessToken = AccessToken.getCurrentAccessToken();
@@ -99,11 +105,11 @@ public class MainActivity extends Activity {
                 new AlertDialog.Builder(MainActivity.this).setTitle("Login required")
                         .setMessage("You need to log in to use this application!")
                         .setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create().show();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
             }
 
             @Override
@@ -118,19 +124,19 @@ public class MainActivity extends Activity {
         loggedIn = true;
         fetchUserInterests();
         fetchUsername();
+        new DiscoveryManager(instance);
+        startSearchProcess();
+    }
+
+    public void startSearchProcess() {
         progressDialog = ProgressDialog.show(this, "Searching...", "Attempting to find hub devices on the network...", true);
 
         //Allow the user to confirm they wish to continue searching for devices. In reality this does nothing, but the illusion
         //of control is a very powerful thing.
-        new Thread(new Runnable() {
+        searchThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true) {
-                    try {
-                        Thread.sleep(30000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                while(shouldShowSearchUI()) {
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -139,16 +145,35 @@ public class MainActivity extends Activity {
                             displayAlert("Error", "Failed to find a hub device on your network. Press \"Ok\" to try again.", new Callback<Boolean>() {
                                 @Override
                                 public void call(Boolean obj) {
-                                    progressDialog = ProgressDialog.show(instance, "Searching...", "Attempting to find hub devices on the network...", true);
+                                    if(shouldShowSearchUI()) {
+                                        progressDialog = ProgressDialog.show(instance, "Searching...", "Attempting to find hub devices on the network...", true);
+                                    } else {
+
+                                    }
                                 }
                             });
                         }
                     });
-                    while(!progressDialog.isShowing());
+                    try {
+                        Thread.sleep(30000);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                    while(!progressDialog.isShowing() && shouldShowSearchUI());
                 }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.hide();
+                    }
+                });
             }
-        }).start();
-        new DiscoveryManager(instance);
+        });
+        searchThread.start();
+    }
+
+    private boolean shouldShowSearchUI() {
+        return !searchThread.isInterrupted() && (DiscoveryManager.getInstance().socket == null || !DiscoveryManager.getInstance().socket.isConnected());
     }
 
     public void fetchUserInterests() {
@@ -199,7 +224,8 @@ public class MainActivity extends Activity {
     public void displayAlert(String title, String content) {
         displayAlert(title, content, new Callback<Boolean>() {
             @Override
-            public void call(Boolean obj) {}
+            public void call(Boolean obj) {
+            }
         });
     }
 
@@ -226,4 +252,18 @@ public class MainActivity extends Activity {
     }
 
 
+    public void onSongFinished() {
+        final Button skip = (Button) findViewById(R.id.btn_SkipSong);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                skip.setEnabled(true);
+            }
+        });
+    }
+
+    public void onSocketEnd() {
+        onSongFinished();
+        displayAlert("Disconnected!", "We've lost our connection to the hub, sorry!");
+    }
 }

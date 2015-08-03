@@ -44,12 +44,24 @@ public class NetHandlerThread extends Thread {
      * Send a packet to the given ip, assuming a socket is open.
      * @param packet The packet to send
      * @param ip The ip destination
-     * @throws IOException
      */
-    public void writePacket(Packet packet, InetAddress ip) throws IOException {
+    public void writePacket(Packet packet, InetAddress ip) {
         Socket socket = clientsConnected.get(getUserByIp(ip));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        packet.write(writer);
+        if(socket == null || socket.isClosed()) {
+            return; //fail silently for unknown users.
+        }
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            packet.write(writer);
+        } catch (IOException e) {
+            clientsConnected.remove(getUserByIp(ip));
+            try {
+                socket.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
 //        writer.close();
     }
 
@@ -109,6 +121,9 @@ public class NetHandlerThread extends Thread {
         }
     }
 
+    public void removeUser(User user) {
+        clientsConnected.remove(user);
+    }
 
     public Set<User> getUsers() {
         return clientsConnected.keySet();

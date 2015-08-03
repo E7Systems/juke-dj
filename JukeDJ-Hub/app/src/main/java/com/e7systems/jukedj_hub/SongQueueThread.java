@@ -9,6 +9,7 @@ import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
+import com.e7systems.jukedj_hub.net.packets.PacketSongFinished;
 import com.e7systems.jukedj_hub.util.SongQueue;
 
 import java.io.IOException;
@@ -63,12 +64,8 @@ public class SongQueueThread extends Thread {
                 songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>" + Html.escapeHtml(song.getName()) + "</font>"));
             }
         });
-        try {
-            NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "A song is playing based upon your preferences!", false), song.getOwnerIp());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
+        NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '" + song.getName() +"' is playing based upon your preferences!", false), song.getOwnerIp());
+        //        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
 //        try {
 //            String title = songInfo.getString("title");
 //            main.setPlayingTitle(title);
@@ -79,6 +76,11 @@ public class SongQueueThread extends Thread {
         mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
             @Override
             public void call(MediaPlayer obj) {
+                try {
+                    NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 playMusic();
             }
         });
@@ -91,6 +93,11 @@ public class SongQueueThread extends Thread {
         } else {
 
         }*/
+        try {
+            NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         playMusic();
     }
 

@@ -74,6 +74,7 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 //                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
 //                    socket;
                     try {
+                        main.searchThread.interrupt();
                         socket = new Socket(inetAddr, event.getInfo().getPort());
                         sendPacket(new PacketCheckin(main.fbPrefs, main.fbUsername), socket);
                         new Thread(new ClientInterfaceThread(main, socket)).start();
