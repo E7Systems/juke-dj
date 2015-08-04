@@ -40,45 +40,48 @@ public class ClientInterfaceThread implements Runnable {
 
     @Override
     public void run() {
-        while(!client.isClosed() && (System.currentTimeMillis() - lastHeartbeat <= 20000 || lastHeartbeat == 0)) {
+        while (DiscoveryManager.getInstance().socket != null && DiscoveryManager.getInstance().socket.isConnected() &&
+                (System.currentTimeMillis() - lastHeartbeat <= 20000 || lastHeartbeat == 0)) {
             try {
-                while(!in.ready());
-                int id = in.read();
-                switch(id) {
-                    case 2:
-                        final PacketMakeNotify notify = new PacketMakeNotify();
-                        notify.read(in);
-                        if(notify.isToast()) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(activity.getApplicationContext(), notify.getText(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        } else {
-                            activity.notification(notify.getTitle(), notify.getText());
-                        }
-                        break;
-                    case 3:
-                        Log.d("JukeDJDeb", "Finished song.");
-                        activity.onSongFinished();
-                        break;
-                    case 4:
-                        lastHeartbeat = System.currentTimeMillis();
-                        DiscoveryManager.getInstance().sendPacket(new PacketHeartbeat(), client);
-                        break;
+                if (in.ready()) {
+                    lastHeartbeat = System.currentTimeMillis();
+                    Log.d("JukeDJDeb", "Heartbeat: " + lastHeartbeat);
+                    int id = in.read();
+                    switch (id) {
+                        case 2:
+                            final PacketMakeNotify notify = new PacketMakeNotify();
+                            notify.read(in);
+                            if (notify.isToast()) {
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(activity.getApplicationContext(), notify.getText(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            } else {
+                                activity.notification(notify.getTitle(), notify.getText());
+                            }
+                            break;
+                        case 3:
+                            activity.onSongFinished();
+                            break;
+                        case 4:
+                            DiscoveryManager.getInstance().sendPacket(new PacketHeartbeat(), client);
+                            break;
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        activity.onSocketEnd();
-        if(!client.isClosed()) {
+        Log.d("JukeDJDeb", "Timed out.");
+        if (!client.isClosed()) {
             try {
                 client.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        activity.onSocketEnd();
     }
 }

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.net.ServerSocketFactory;
 
@@ -25,7 +27,7 @@ import javax.net.ServerSocketFactory;
  */
 public class NetHandlerThread extends Thread {
     private ServerSocket serverSocket;
-    private Map<User, Socket> clientsConnected = new HashMap<>();
+    private ConcurrentMap<User, Socket> clientsConnected = new ConcurrentHashMap<>();
     private static NetHandlerThread instance;
 
     public NetHandlerThread() {
@@ -46,7 +48,11 @@ public class NetHandlerThread extends Thread {
      * @param ip The ip destination
      */
     public void writePacket(Packet packet, InetAddress ip) {
-        Socket socket = clientsConnected.get(getUserByIp(ip));
+        User user = getUserByIp(ip);
+        if(user == null || !clientsConnected.containsKey(user)) {
+            return;
+        }
+        Socket socket = clientsConnected.get(user);
         if(socket == null || socket.isClosed()) {
             return; //fail silently for unknown users.
         }

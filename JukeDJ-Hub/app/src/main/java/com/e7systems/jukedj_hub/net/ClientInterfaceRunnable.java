@@ -65,6 +65,7 @@ public class ClientInterfaceRunnable implements Runnable {
                         }
                         User user = NetHandlerThread.getInstance().getUserByIp(client.getInetAddress());
                         user.setUsername(((PacketCheckin)packet).getFbUsername());
+
                         for(Song song : songsToAdd) {
 //                            Log.d("JukeDJDeb", song.getName());
                             song.setOwnerIp(client.getInetAddress());

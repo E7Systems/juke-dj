@@ -44,28 +44,28 @@ public class SongQueueThread extends Thread {
      * next song.
      */
     public void playMusic() {
-        final Song song;
-        if((song = queue.pop()) == null) {
+        while(true) {
+            final Song song;
+            if ((song = queue.pop()) == null) {
 //            Log.d("JukeDJDeb", "Waiting for new songs...");
 
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                continue;
             }
-            playMusic();
-            return;
-        }
 //        Log.d("JukeDJDeb", "Playing new song: " + song.getName());
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView songPlaying = (TextView) main.findViewById(R.id.tb_SongPlaying);
-                songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>" + Html.escapeHtml(song.getName()) + "</font>"));
-            }
-        });
-        NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '" + song.getName() +"' is playing based upon your preferences!", false), song.getOwnerIp());
-        //        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
+            main.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView songPlaying = (TextView) main.findViewById(R.id.tb_SongPlaying);
+                    songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>" + Html.escapeHtml(song.getName()) + "</font>"));
+                }
+            });
+            NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '" + song.getName() + "' is playing based upon your preferences!", false), song.getOwnerIp());
+            //        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
 //        try {
 //            String title = songInfo.getString("title");
 //            main.setPlayingTitle(title);
@@ -73,17 +73,18 @@ public class SongQueueThread extends Thread {
 //            e.printStackTrace();
 //        }
 
-        mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
-            @Override
-            public void call(MediaPlayer obj) {
-                try {
-                    NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
-                } catch (IOException e) {
-                    e.printStackTrace();
+            mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
+                @Override
+                public void call(MediaPlayer obj) {
+                    try {
+                        NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    playMusic();
                 }
-                playMusic();
-            }
-        });
+            });
+        }
     }
 
     public void skip(boolean songOwner) {

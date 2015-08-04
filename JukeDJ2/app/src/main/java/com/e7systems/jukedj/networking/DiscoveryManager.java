@@ -52,6 +52,12 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        addServiceListener();
+
+        return null;
+    }
+    public void addServiceListener() {
+
         jmdns.addServiceListener("_jdjmp._tcp.local.", new ServiceListener() {
             @Override
             public void serviceAdded(ServiceEvent event) {
@@ -61,12 +67,19 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceRemoved(ServiceEvent event) {
-//                Log.d("JukeDJDeb", "Lost service: " + event.getInfo());
+                Log.d("JukeDJDeb", "Lost service: " + event.getInfo());
+                main.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        main.progressDialog.dismiss();
+                    }
+                });
+                main.searchThread.start();
             }
 
             @Override
             public void serviceResolved(ServiceEvent event) {
-//                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
+                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
                 InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
                 if (inetAddr == null) {
                     Log.e("JukeDJ", "Null ip!");
@@ -91,9 +104,13 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
                 }
             }
         });
-        return null;
     }
 
+   /* public void refresh() {
+        jmdns.unregisterAllServices();
+        addServiceListener();
+    }
+*/
     public void sendPacket(Packet packet, Socket socket) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         packet.write(writer);

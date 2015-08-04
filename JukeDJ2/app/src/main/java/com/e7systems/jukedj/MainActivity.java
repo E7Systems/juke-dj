@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.e7systems.jukedj.networking.ClientInterfaceThread;
 import com.e7systems.jukedj.networking.DiscoveryManager;
+import com.e7systems.jukedj.networking.packet.PacketCheckin;
 import com.e7systems.jukedj.networking.packet.PacketSkipVote;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -35,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.Socket;
 
 
 public class MainActivity extends Activity {
@@ -66,20 +69,20 @@ public class MainActivity extends Activity {
                     displayAlert("Login required", "You need to be logged in to do that!");
                     return;
                 }
-                if(DiscoveryManager.getInstance().socket.isClosed()) {
-                    displayAlert("Not connected", "The connection to a hub has not been established.", new Callback<Boolean>() {
-                        @Override
-                        public void call(Boolean obj) {
-                            startSearchProcess();
-                        }
-                    });
+                if(DiscoveryManager.getInstance().socket != null && DiscoveryManager.getInstance().socket.isClosed()) {
+                    displayAlert("Not connected", "The connection to a hub has not been established.");
                     return;
                 }
                 try {
                     DiscoveryManager.getInstance().sendPacket(new PacketSkipVote(), DiscoveryManager.getInstance().socket);
                     skip.setEnabled(false);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        DiscoveryManager.getInstance().socket.close();
+                    } catch (IOException e1) {
+                        e.printStackTrace();
+                        e1.printStackTrace();
+                    }
                 }
             }
         });
@@ -180,6 +183,9 @@ public class MainActivity extends Activity {
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                if(graphResponse.getError() != null) {
+                    throw graphResponse.getError().getException();
+                }
                 try {
                     fbPrefs = jsonObject.getJSONObject("music").getJSONArray("data").toString();
 //                    manager = new NetworkManager(getApplicationContext(), 20101, jsonObject.getJSONObject("music").getJSONArray("data").toString());
@@ -264,6 +270,22 @@ public class MainActivity extends Activity {
 
     public void onSocketEnd() {
         onSongFinished();
-        displayAlert("Disconnected!", "We've lost our connection to the hub, sorry!");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                startSearchProcess();
+                displayAlert("Disconnected!", "We've lost our connection to the hub, trying to reconnect.");
+
+            }
+        });
+        Socket old = DiscoveryManager.getInstance().socket;
+        try {
+            Socket newSocket =  new Socket(old.getInetAddress(), old.getPort());
+            DiscoveryManager.getInstance().socket = newSocket;
+            DiscoveryManager.getInstance().sendPacket(new PacketCheckin(fbPrefs, fbUsername), newSocket);
+            new Thread(new ClientInterfaceThread(this, newSocket)).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
