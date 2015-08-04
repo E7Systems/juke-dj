@@ -46,7 +46,7 @@ public class SongQueueThread extends Thread {
     public void playMusic() {
         while(true) {
             final Song song;
-            if ((song = queue.pop()) == null) {
+            if ((song = queue.pop()) == null || main.mediaPlayer.isPlaying()) {
 //            Log.d("JukeDJDeb", "Waiting for new songs...");
 
                 try {

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class ClientInterfaceRunnable implements Runnable {
                         NetHandlerThread.getInstance().writePacket(new PacketHeartbeat(), client.getInetAddress());
 //                int maxSongs = random.nextInt(SONGS_PER_USER / 2);
 //                int startIdx = 0;
-                        List<Song> songsToAdd = null;
+                        List<Song> songsToAdd = new ArrayList<>();
                         try {
                             songsToAdd = APIDataHandler.fetchSongs(APIDataHandler.getArtists(((PacketCheckin) packet).getBlob()));
                         } catch (JSONException e) {
