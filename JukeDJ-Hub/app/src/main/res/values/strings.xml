@@ -6,4 +6,5 @@
     <string name="usersOnline">Users online:</string>
     <string name="skipVotes">Skip Votes: 0/0</string>
     <string name="noMusicPlaying">No music playing!</string>
+    <string name="promptBuy">Want to get rid of ads? Click the button to buy pro!</string>
 </resources>

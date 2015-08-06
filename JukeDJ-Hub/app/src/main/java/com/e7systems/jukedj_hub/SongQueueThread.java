@@ -20,6 +20,7 @@ import java.io.IOException;
 public class SongQueueThread extends Thread {
     private MainActivity main;
     private static SongQueueThread instance;
+    private int songsPlayed = 0;
     private SongQueue queue = new SongQueue(new Callback<Boolean>() {
         @Override
         public void call(Boolean obj) {
@@ -44,47 +45,49 @@ public class SongQueueThread extends Thread {
      * next song.
      */
     public void playMusic() {
-        while(true) {
-            final Song song;
-            if ((song = queue.pop()) == null || main.mediaPlayer.isPlaying()) {
-//            Log.d("JukeDJDeb", "Waiting for new songs...");
+        final Song song = waitForSong();
 
+        main.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView songPlaying = (TextView) main.findViewById(R.id.tb_SongPlaying);
+                songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>"
+                        + Html.escapeHtml(song.getName()) + "</font>"));
+            }
+        });
+
+        NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '"
+                + song.getName() + "' is playing based upon your preferences!", false), song.getOwnerIp());
+
+        mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
+            @Override
+            public void call(MediaPlayer obj) {
                 try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
+                    NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-                continue;
+                songsPlayed++;
+                playMusic();
             }
-//        Log.d("JukeDJDeb", "Playing new song: " + song.getName());
-            main.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    TextView songPlaying = (TextView) main.findViewById(R.id.tb_SongPlaying);
-                    songPlaying.setText(Html.fromHtml("Now playing:<br><font color=#868383>" + Html.escapeHtml(song.getName()) + "</font>"));
-                }
-            });
-            NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '" + song.getName() + "' is playing based upon your preferences!", false), song.getOwnerIp());
-            //        JSONObject songInfo = APIController.getSongInfo(main.songQueue.get(0).toString(), "437d961ac979c05ea6bae1d5cb3993ec");
-//        try {
-//            String title = songInfo.getString("title");
-//            main.setPlayingTitle(title);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        });
+    }
 
-            mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
-                @Override
-                public void call(MediaPlayer obj) {
-                    try {
-                        NetHandlerThread.getInstance().broadcastPacket(new PacketSongFinished());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    playMusic();
-                }
-            });
+    public boolean playAdIfNeeded() {
+        return false;
+    }
+
+    public Song waitForSong() {
+        Song song;
+        while ((song = queue.pop()) == null || main.mediaPlayer.isPlaying()) {
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        return song;
     }
 
     public void skip(boolean songOwner) {

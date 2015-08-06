@@ -7,18 +7,29 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.VideoView;
 
+import com.e7systems.jukedj_hub.ads.AdResponseListener;
 import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.MDNSBroadcaster;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.util.SongQueue;
+import com.e7systems.jukedj_hub.util.payments.IabHelper;
+import com.e7systems.jukedj_hub.util.payments.IabResult;
+import com.e7systems.jukedj_hub.util.payments.Purchase;
+import com.google.ads.interactivemedia.v3.api.AdEvent;
+import com.google.ads.interactivemedia.v3.api.AdsLoader;
+import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
+import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 
 import java.io.IOException;
 
@@ -27,16 +38,59 @@ public class MainActivity extends Activity {
     public static final int PORT = 20101;
     public static final int SONGS_PER_USER = 5;
     public static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
+    public static final String AD_PURCHASE_ID = "android.test.purchased";
+    public static final String PUB_KEY = "";
     private NetHandlerThread networkThread;
     MediaPlayer mediaPlayer = new MediaPlayer();
+    private AdResponseListener listener;
+    private ImaSdkFactory sdkFactory;
+    private IabHelper iabHelper;
+    private MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = this;
+        setAdContentVisible(true);
+        Button buyButton = (Button) findViewById(R.id.btn_Buy);
+        iabHelper = new IabHelper(this, PUB_KEY);
+        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            @Override
+            public void onIabSetupFinished(IabResult result) {
+                if(result.isFailure()) {
+                    Log.e("Main", "Failed to initialize iab helper, Error code " + result.getMessage());
+                } else {
+                    Log.d("Main", "Successfully initialized iab helper.");
+                }
+            }
+        });
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iabHelper.launchPurchaseFlow(mainActivity, AD_PURCHASE_ID, 1337, new IabHelper.OnIabPurchaseFinishedListener() {
+                    @Override
+                    public void onIabPurchaseFinished(IabResult result, Purchase info) {
+                        if(result.isFailure()) {
+                            Log.e("Main", "Error: " + result.getMessage());
+                        } else {
+                            Log.d("Main", info.toString());
+                        }
+                    }
+                }, "removeAds");
+            }
+        });
 
         new MDNSBroadcaster(this);
-//        Log.d("JukeDJDeb", "Started broadcaster.");
+        sdkFactory = ImaSdkFactory.getInstance();
+        ImaSdkSettings settings = sdkFactory.createImaSdkSettings();
+        settings.setAutoPlayAdBreaks(false);
+
+        AdsLoader adsLoader = sdkFactory.createAdsLoader(this);
+        listener = new AdResponseListener(this);
+        adsLoader.addAdErrorListener(listener);
+        adsLoader.addAdsLoadedListener(listener);
+
         networkThread = new NetHandlerThread();
         networkThread.start();
         new Thread(new Runnable() {
@@ -134,5 +188,46 @@ public class MainActivity extends Activity {
         }
         TextView votes = (TextView) findViewById(R.id.tv_SkipVotes);
         votes.setText("Skip Votes:" + SongQueue.getSkipVotes() + "/" + (int) Math.ceil((double)NetHandlerThread.getInstance().getUsers().size() / 2d));
+    }
+
+    public void onContentPauseRequested(AdEvent adEvent) {
+    }
+
+    public void onAdLoaded(AdEvent event) {
+    }
+
+    public void onContentResumeRequested(AdEvent adEvent) {
+    }
+
+    public void onAdClicked(AdEvent adEvent) {
+    }
+
+    public void onAdCompleted(AdEvent adEvent) {
+
+    }
+
+    public void setAdContentVisible(boolean visible) {
+        TextView promptBuyView = (TextView) findViewById(R.id.tv_PromptBuy);
+        VideoView adDisplay = (VideoView) findViewById(R.id.vv_Ad);
+        Button buyButton = (Button) findViewById(R.id.btn_Buy);
+        if(visible) {
+            promptBuyView.setVisibility(View.VISIBLE);
+            adDisplay.setVisibility(View.VISIBLE);
+            buyButton.setVisibility(View.VISIBLE);
+//            Linkify.addLinks(promptBuyView, Linkify.ALL);
+        } else {
+            promptBuyView.setVisibility(View.INVISIBLE);
+            adDisplay.setVisibility(View.INVISIBLE);
+            buyButton.setVisibility(View.INVISIBLE);
+            adDisplay.stopPlayback();
+        }
+    }
+
+    public AdResponseListener getAdsListener() {
+        return listener;
+    }
+
+    public ImaSdkFactory getSdkFactory() {
+        return sdkFactory;
     }
 }
