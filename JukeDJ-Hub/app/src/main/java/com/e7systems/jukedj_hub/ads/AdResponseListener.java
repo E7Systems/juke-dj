@@ -1,8 +1,11 @@
 package com.e7systems.jukedj_hub.ads;
 
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import com.e7systems.jukedj_hub.MainActivity;
+import com.e7systems.jukedj_hub.R;
 import com.google.ads.interactivemedia.v3.api.AdDisplayContainer;
 import com.google.ads.interactivemedia.v3.api.AdErrorEvent;
 import com.google.ads.interactivemedia.v3.api.AdEvent;
@@ -10,6 +13,7 @@ import com.google.ads.interactivemedia.v3.api.AdsLoader;
 import com.google.ads.interactivemedia.v3.api.AdsManager;
 import com.google.ads.interactivemedia.v3.api.AdsManagerLoadedEvent;
 import com.google.ads.interactivemedia.v3.api.AdsRequest;
+import com.google.ads.interactivemedia.v3.api.player.VideoAdPlayer;
 
 /**
  * Created by Dylan Katz on 8/5/2015.
@@ -33,6 +37,7 @@ public class AdResponseListener implements AdErrorEvent.AdErrorListener, AdsLoad
         adsManager.addAdErrorListener(this);
         adsManager.addAdEventListener(this);
         adsManager.init();
+        Log.d("AdsResponse", "Loaded ads.");
     }
 
     @Override
@@ -61,10 +66,14 @@ public class AdResponseListener implements AdErrorEvent.AdErrorListener, AdsLoad
 
     public void playAd() {
         AdsRequest request = main.getSdkFactory().createAdsRequest();
-        request.setAdTagUrl("http://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/6062/iab_vast_samples/skippable&ciu_szs=300x250,728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast3&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]]]");
+        request.setAdTagUrl("http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fiab_vast_samples&ciu_szs=300x250%2C728x90&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=iab_vast_samples%3Dlinear");
         AdDisplayContainer container = main.getSdkFactory().createAdDisplayContainer();
+        VideoAdPlayer player = new AdVideoPlayer((VideoView) main.findViewById(R.id.vv_Ad));
+        container.setAdContainer((ViewGroup) main.findViewById(R.id.vv_Ad).getParent());
+        container.setPlayer(player);
 //        container.setPlayer();
         request.setAdDisplayContainer(container);
+        main.getAdsLoader().requestAds(request);
     }
 
     public AdsManager getAdsManager() {

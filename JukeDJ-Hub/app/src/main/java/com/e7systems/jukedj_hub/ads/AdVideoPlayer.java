@@ -2,11 +2,15 @@ package com.e7systems.jukedj_hub.ads;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.e7systems.jukedj_hub.Callback;
+import com.google.ads.interactivemedia.v3.api.player.VideoAdPlayer;
+import com.google.ads.interactivemedia.v3.api.player.VideoProgressUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,54 +18,16 @@ import java.util.List;
 /**
  * Created by Dylan Katz on 8/5/2015.
  */
-public class AdVideoPlayer extends VideoView {
+public class AdVideoPlayer implements VideoAdPlayer {
+    private final VideoView view;
     private AdPlayState state = AdPlayState.FINISHED;
-    private MediaController mediaController;
-    private List<Callback<AdCallbackResponseType>> callbacks = new ArrayList<>();
-    public AdVideoPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    public AdVideoPlayer(Context context) {
-        super(context);
-        init();
-    }
-
-    public AdVideoPlayer(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public void init() {
-        mediaController = new MediaController(getContext());
-        mediaController.setAnchorView(this);
-        setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                state = AdPlayState.FINISHED;
-                mp.reset();
-                mp.setDisplay(getHolder());
-                for (Callback<AdCallbackResponseType> callback : callbacks) {
-                    callback.call(AdCallbackResponseType.COMPLETED);
-                }
-            }
-        });
-
-        setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                state = AdPlayState.FAILURE;
-                for (Callback<AdCallbackResponseType> callback : callbacks) {
-                    callback.call(AdCallbackResponseType.FAILURE);
-                }
-
-                return true;
-            }
-        });
+    private List<VideoAdPlayer.VideoAdPlayerCallback> callbacks = new ArrayList<>();
+    public AdVideoPlayer(VideoView view) {
+        this.view = view;
     }
 
     public void play() {
+        view.start();
         AdCallbackResponseType responseType = AdCallbackResponseType.COMPLETED;
         switch(state) {
             case PAUSED:
@@ -76,16 +42,69 @@ public class AdVideoPlayer extends VideoView {
             default:
                 break;
         }
-        for(Callback<AdCallbackResponseType> callback : callbacks) {
-            callback.call(responseType);
+        for(VideoAdPlayer.VideoAdPlayerCallback callback : callbacks) {
+            switch (responseType) {
+                case PAUSED:
+                    callback.onPause();
+                    break;
+                case COMPLETED:
+                    callback.onEnded();
+                    break;
+                case FAILURE:
+                    callback.onError();
+            }
         }
     }
 
     public void pause() {
+        view.pause();
+        for (VideoAdPlayer.VideoAdPlayerCallback callback : callbacks) {
+            callback.onPause();
+        }
 
     }
 
-    public void registerCallback(Callback<AdCallbackResponseType> callback) {
-        callbacks.add(callback);
+    @Override
+    public void playAd() {
+        play();
+    }
+
+    @Override
+    public void loadAd(String s) {
+        Log.d("VIDEO", s);
+        view.setVideoURI(Uri.parse(s));
+    }
+
+    @Override
+    public void stopAd() {
+        view.stopPlayback();
+    }
+
+    @Override
+    public void pauseAd() {
+        pause();
+    }
+
+    @Override
+    public void resumeAd() {
+        view.resume();
+        for (VideoAdPlayer.VideoAdPlayerCallback callback : callbacks) {
+            callback.onResume();
+        }
+    }
+
+    @Override
+    public void addCallback(VideoAdPlayerCallback videoAdPlayerCallback) {
+        callbacks.add(videoAdPlayerCallback);
+    }
+
+    @Override
+    public void removeCallback(VideoAdPlayerCallback videoAdPlayerCallback) {
+        callbacks.remove(videoAdPlayerCallback);
+    }
+
+    @Override
+    public VideoProgressUpdate getAdProgress() {
+        return new VideoProgressUpdate(view.getCurrentPosition(), view.getDuration());
     }
 }

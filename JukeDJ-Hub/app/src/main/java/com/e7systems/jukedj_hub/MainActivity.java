@@ -46,13 +46,13 @@ public class MainActivity extends Activity {
     private ImaSdkFactory sdkFactory;
     private IabHelper iabHelper;
     private MainActivity mainActivity;
+    private AdsLoader adsLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainActivity = this;
-        setAdContentVisible(true);
         Button buyButton = (Button) findViewById(R.id.btn_Buy);
         iabHelper = new IabHelper(this, PUB_KEY);
         iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
@@ -72,9 +72,14 @@ public class MainActivity extends Activity {
                     @Override
                     public void onIabPurchaseFinished(IabResult result, Purchase info) {
                         if(result.isFailure()) {
+                            if(result.getResponse() == 7) {
+//                                Log.d("Main", info.toString());
+                                setAdContentVisible(false);
+                            }
                             Log.e("Main", "Error: " + result.getMessage());
                         } else {
                             Log.d("Main", info.toString());
+                            setAdContentVisible(false);
                         }
                     }
                 }, "removeAds");
@@ -86,10 +91,11 @@ public class MainActivity extends Activity {
         ImaSdkSettings settings = sdkFactory.createImaSdkSettings();
         settings.setAutoPlayAdBreaks(false);
 
-        AdsLoader adsLoader = sdkFactory.createAdsLoader(this);
+        adsLoader = sdkFactory.createAdsLoader(this);
         listener = new AdResponseListener(this);
         adsLoader.addAdErrorListener(listener);
         adsLoader.addAdsLoadedListener(listener);
+        setAdContentVisible(true);
 
         networkThread = new NetHandlerThread();
         networkThread.start();
@@ -194,6 +200,7 @@ public class MainActivity extends Activity {
     }
 
     public void onAdLoaded(AdEvent event) {
+        listener.getAdsManager().start();
     }
 
     public void onContentResumeRequested(AdEvent adEvent) {
@@ -214,6 +221,8 @@ public class MainActivity extends Activity {
             promptBuyView.setVisibility(View.VISIBLE);
             adDisplay.setVisibility(View.VISIBLE);
             buyButton.setVisibility(View.VISIBLE);
+            getAdsListener().playAd();
+//            getAdsListener().getAdsManager().start();
 //            Linkify.addLinks(promptBuyView, Linkify.ALL);
         } else {
             promptBuyView.setVisibility(View.INVISIBLE);
@@ -229,5 +238,9 @@ public class MainActivity extends Activity {
 
     public ImaSdkFactory getSdkFactory() {
         return sdkFactory;
+    }
+
+    public AdsLoader getAdsLoader() {
+        return adsLoader;
     }
 }
