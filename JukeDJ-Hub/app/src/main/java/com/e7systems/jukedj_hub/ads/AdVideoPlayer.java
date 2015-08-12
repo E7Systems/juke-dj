@@ -1,14 +1,9 @@
 package com.e7systems.jukedj_hub.ads;
 
-import android.content.Context;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.e7systems.jukedj_hub.Callback;
 import com.google.ads.interactivemedia.v3.api.player.VideoAdPlayer;
 import com.google.ads.interactivemedia.v3.api.player.VideoProgressUpdate;
 

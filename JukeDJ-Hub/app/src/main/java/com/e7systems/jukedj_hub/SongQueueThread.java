@@ -2,11 +2,9 @@ package com.e7systems.jukedj_hub;
 
 import android.media.MediaPlayer;
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.e7systems.jukedj_hub.entities.Song;
-import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.net.packets.PacketMakeNotify;
 import com.e7systems.jukedj_hub.net.packets.PacketSongFinished;
@@ -27,7 +25,6 @@ public class SongQueueThread extends Thread {
             skip(obj);
         }
     });
-    private MediaPlayer mediaPlayer;
 
     public SongQueueThread(MainActivity main) {
         this.main = main;
@@ -40,11 +37,10 @@ public class SongQueueThread extends Thread {
     }
 
     /**
-     * CAREFUL: This function is infinitely recursive and runs with delay.
-     * The reason for this is so we can wait for a song to finish to play the
-     * next song.
+     * Starts music loop, this is a recursive method so that we can continue the loop once the song has finished.
      */
     public void playMusic() {
+        //Wait for new song
         final Song song = waitForSong();
 
         main.runOnUiThread(new Runnable() {
@@ -56,10 +52,17 @@ public class SongQueueThread extends Thread {
             }
         });
 
+        //Alert client their song is playing.
         NetHandlerThread.getInstance().writePacket(new PacketMakeNotify("JukeDJ", "The song, '"
                 + song.getName() + "' is playing based upon your preferences!", false), song.getOwnerIp());
 
-        mediaPlayer = main.stream(song, new Callback<MediaPlayer>() {
+        //If we've played 5 songs, play an ad. Also displays on the first song.
+        if(songsPlayed % 5 == 0 && !main.hasRemovedAds() && main.isAdCompleted()) {
+            main.setAdContentVisible(true);
+        }
+        while(!main.isAdCompleted()); //wait for advert to finish
+        main.setAdContentVisible(false);
+        main.stream(song, new Callback<MediaPlayer>() {
             @Override
             public void call(MediaPlayer obj) {
                 try {
@@ -73,13 +76,10 @@ public class SongQueueThread extends Thread {
         });
     }
 
-    public boolean playAdIfNeeded() {
-        return false;
-    }
-
+    //If there's no songs in the queue, wait in a loop for new songs to appear.
     public Song waitForSong() {
         Song song;
-        while ((song = queue.pop()) == null || main.mediaPlayer.isPlaying()) {
+        while (((song = queue.pop()) == null || main.mediaPlayer.isPlaying())) {
 
             try {
                 Thread.sleep(3000);
@@ -102,6 +102,12 @@ public class SongQueueThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //kill the current song
+        if(main.mediaPlayer.isPlaying()) {
+            main.mediaPlayer.stop();
+        }
+
+        //play the next one
         playMusic();
     }
 

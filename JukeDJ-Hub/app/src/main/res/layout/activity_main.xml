@@ -77,12 +77,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/relativeLayout">
-            <VideoView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:id="@+id/vv_Ad"
-            android:layout_centerHorizontal="true"
-                android:visibility="invisible" />
+                android:layout_height="wrap_content">
+                <VideoView
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:id="@+id/vv_Ad"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_Buy"

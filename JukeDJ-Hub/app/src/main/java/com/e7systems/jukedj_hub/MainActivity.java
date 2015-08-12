@@ -23,8 +23,10 @@ import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.MDNSBroadcaster;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.util.SongQueue;
+import com.e7systems.jukedj_hub.util.payments.IabException;
 import com.e7systems.jukedj_hub.util.payments.IabHelper;
 import com.e7systems.jukedj_hub.util.payments.IabResult;
+import com.e7systems.jukedj_hub.util.payments.Inventory;
 import com.e7systems.jukedj_hub.util.payments.Purchase;
 import com.google.ads.interactivemedia.v3.api.AdEvent;
 import com.google.ads.interactivemedia.v3.api.AdsLoader;
@@ -41,12 +43,14 @@ public class MainActivity extends Activity {
     public static final String AD_PURCHASE_ID = "android.test.purchased";
     public static final String PUB_KEY = "";
     private NetHandlerThread networkThread;
+    private boolean hasRemovedAds = true;
     MediaPlayer mediaPlayer = new MediaPlayer();
     private AdResponseListener listener;
     private ImaSdkFactory sdkFactory;
     private IabHelper iabHelper;
     private MainActivity mainActivity;
     private AdsLoader adsLoader;
+    private boolean adCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,35 +62,20 @@ public class MainActivity extends Activity {
         iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             @Override
             public void onIabSetupFinished(IabResult result) {
-                if(result.isFailure()) {
+                if (result.isFailure()) {
                     Log.e("Main", "Failed to initialize iab helper, Error code " + result.getMessage());
                 } else {
                     Log.d("Main", "Successfully initialized iab helper.");
                 }
             }
         });
-        buyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iabHelper.launchPurchaseFlow(mainActivity, AD_PURCHASE_ID, 1337, new IabHelper.OnIabPurchaseFinishedListener() {
-                    @Override
-                    public void onIabPurchaseFinished(IabResult result, Purchase info) {
-                        if(result.isFailure()) {
-                            if(result.getResponse() == 7) {
-//                                Log.d("Main", info.toString());
-                                setAdContentVisible(false);
-                            }
-                            Log.e("Main", "Error: " + result.getMessage());
-                        } else {
-                            Log.d("Main", info.toString());
-                            setAdContentVisible(false);
-                        }
-                    }
-                }, "removeAds");
-            }
-        });
 
+
+        //Networking broadcaster for LAN discovery
         new MDNSBroadcaster(this);
+
+        //Advertisment code
+        doAdsStuff(buyButton);
         sdkFactory = ImaSdkFactory.getInstance();
         ImaSdkSettings settings = sdkFactory.createImaSdkSettings();
         settings.setAutoPlayAdBreaks(false);
@@ -96,7 +85,9 @@ public class MainActivity extends Activity {
         adsLoader.addAdErrorListener(listener);
         adsLoader.addAdsLoadedListener(listener);
         setAdContentVisible(true);
+        //End ad code
 
+        //Networking/processing new clients
         networkThread = new NetHandlerThread();
         networkThread.start();
         new Thread(new Runnable() {
@@ -117,7 +108,51 @@ public class MainActivity extends Activity {
                 }
             }
         }).start();
+
+        //Song cycling/queue
         new SongQueueThread(this).start();
+    }
+
+    /**
+     * Initialize advertisment setup/button control/etc
+     * @param buyButton
+     */
+    private void doAdsStuff(Button buyButton) {
+        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            @Override
+            public void onIabSetupFinished(IabResult result) {
+                try {
+                    Inventory inventory = iabHelper.queryInventory(false, null, null);
+                    if(inventory.getPurchase(AD_PURCHASE_ID) != null) {
+                        hasRemovedAds = true;
+                    }
+                } catch (IabException e) {
+                    Log.e("Main", e.getMessage());
+                }
+
+            }
+        });
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iabHelper.launchPurchaseFlow(mainActivity, AD_PURCHASE_ID, 1337, new IabHelper.OnIabPurchaseFinishedListener() {
+                    @Override
+                    public void onIabPurchaseFinished(IabResult result, Purchase info) {
+                        if(result.isFailure()) {
+                            if(result.getResponse() == 7) {
+//                                Log.d("Main", info.toString());
+                                hasRemovedAds = true;
+                                setAdContentVisible(false);
+                            }
+                            Log.e("Main", "Error: " + result.getMessage());
+                        } else {
+                            hasRemovedAds = true;
+                            setAdContentVisible(false);
+                        }
+                    }
+                }, "removeAds");
+            }
+        });
     }
 
     @Override
@@ -153,6 +188,12 @@ public class MainActivity extends Activity {
 //                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
 //            mediaPlayer.setAudioAttributes(attr);
             mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    finished.call(mediaPlayer);
+                }
+            });
             //TODO: Remove thread, this is for demonstration purposes only.
 //            new Thread(new Runnable() {
 //                @Override
@@ -200,6 +241,7 @@ public class MainActivity extends Activity {
     }
 
     public void onAdLoaded(AdEvent event) {
+        adCompleted = false;
         listener.getAdsManager().start();
     }
 
@@ -210,7 +252,7 @@ public class MainActivity extends Activity {
     }
 
     public void onAdCompleted(AdEvent adEvent) {
-
+        this.adCompleted = true;
     }
 
     public void setAdContentVisible(boolean visible) {
@@ -242,5 +284,13 @@ public class MainActivity extends Activity {
 
     public AdsLoader getAdsLoader() {
         return adsLoader;
+    }
+
+    public boolean hasRemovedAds() {
+        return hasRemovedAds;
+    }
+
+    public boolean isAdCompleted() {
+        return adCompleted;
     }
 }
