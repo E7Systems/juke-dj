@@ -18,18 +18,8 @@ public class User {
         this.username = username;
     }
 
-    public List<Song> getFutureSongs() {
-        return futureSongs;
-    }
-
     public void addSong(Song song) {
         futureSongs.add(song);
-    }
-
-    public void clipSongs(int start) {
-        for(int i = start - 1; i > 0; i--) {
-            futureSongs.remove(i);
-        }
     }
 
     public InetAddress getIp() {
