@@ -1,6 +1,5 @@
 package com.e7systems.jukedj.networking.packet;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
@@ -9,6 +8,7 @@ import java.io.IOException;
  */
 public interface Packet {
     public int getId();
+
     public void write(BufferedWriter out) throws IOException;
 
 }

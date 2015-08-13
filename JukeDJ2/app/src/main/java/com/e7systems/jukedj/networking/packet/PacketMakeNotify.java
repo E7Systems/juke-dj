@@ -17,7 +17,8 @@ public class PacketMakeNotify implements Packet {
         this.toast = toast;
     }
 
-    public PacketMakeNotify() {}
+    public PacketMakeNotify() {
+    }
 
     @Override
     public int getId() {
@@ -25,7 +26,8 @@ public class PacketMakeNotify implements Packet {
     }
 
     @Override
-    public void write(BufferedWriter out) throws IOException {}
+    public void write(BufferedWriter out) throws IOException {
+    }
 
     public void read(BufferedReader in) throws IOException {
         this.toast = in.read() == 1;

@@ -1,6 +1,5 @@
 package com.e7systems.jukedj.networking.packet;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 

@@ -79,6 +79,7 @@ public class ClientInterfaceRunnable implements Runnable {
                         Song[] sortedSongs = SongQueue.orderSongsByWeight(songsToAdd.toArray(new Song[0]));
                         SongQueue.queueSongs(sortedSongs);
                         break;
+
                     case 1:
                         Song song = SongQueue.getCurrentSong();
                         if(song != null && song.getOwnerIp() != null) {
@@ -93,6 +94,7 @@ public class ClientInterfaceRunnable implements Runnable {
                             SongQueueThread.getInstance().skip(true);
                         }
                         break;
+
                     case 4:
                         NetHandlerThread.getInstance().writePacket(new PacketHeartbeat(), client.getInetAddress());
                         break;
