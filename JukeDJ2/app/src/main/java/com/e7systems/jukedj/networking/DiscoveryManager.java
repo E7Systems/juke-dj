@@ -56,6 +56,7 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
         return null;
     }
+
     public void addServiceListener() {
 
         jmdns.addServiceListener("_jdjmp._tcp.local.", new ServiceListener() {
@@ -67,7 +68,6 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceRemoved(ServiceEvent event) {
-                Log.d("JukeDJDeb", "Lost service: " + event.getInfo());
                 main.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -79,7 +79,6 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceResolved(ServiceEvent event) {
-                Log.d("JukeDJDeb", "Service resolved: " + event.getInfo());
                 InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
                 if (inetAddr == null) {
                     Log.e("JukeDJ", "Null ip!");

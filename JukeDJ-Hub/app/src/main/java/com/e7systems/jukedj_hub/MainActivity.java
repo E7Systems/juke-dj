@@ -64,8 +64,6 @@ public class MainActivity extends Activity {
             public void onIabSetupFinished(IabResult result) {
                 if (result.isFailure()) {
                     Log.e("Main", "Failed to initialize iab helper, Error code " + result.getMessage());
-                } else {
-                    Log.d("Main", "Successfully initialized iab helper.");
                 }
             }
         });

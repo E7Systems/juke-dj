@@ -43,7 +43,6 @@ public class PacketSerializer {
             throw new IOException("Invalid packet id: " + id);
         }
         try {
-            Log.d("JukeDJDeb", packetCs.getName());
             Method readMethod = packetCs.getDeclaredMethod("read", BufferedReader.class);
             if(readMethod == null) {
                 return null;

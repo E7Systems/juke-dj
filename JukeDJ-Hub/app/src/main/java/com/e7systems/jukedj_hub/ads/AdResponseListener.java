@@ -37,7 +37,6 @@ public class AdResponseListener implements AdErrorEvent.AdErrorListener, AdsLoad
         adsManager.addAdErrorListener(this);
         adsManager.addAdEventListener(this);
         adsManager.init();
-        Log.d("AdsResponse", "Loaded ads.");
     }
 
     @Override

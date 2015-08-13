@@ -41,11 +41,10 @@ public class ClientInterfaceThread implements Runnable {
     @Override
     public void run() {
         while (DiscoveryManager.getInstance().socket != null && DiscoveryManager.getInstance().socket.isConnected() &&
-                (System.currentTimeMillis() - lastHeartbeat <= 20000 || lastHeartbeat == 0)) {
+                (System.currentTimeMillis() - lastHeartbeat <= 40000 || lastHeartbeat == 0)) {
             try {
                 if (in.ready()) {
                     lastHeartbeat = System.currentTimeMillis();
-                    Log.d("JukeDJDeb", "Heartbeat: " + lastHeartbeat);
                     int id = in.read();
                     switch (id) {
                         case 2:
@@ -74,7 +73,7 @@ public class ClientInterfaceThread implements Runnable {
                 e.printStackTrace();
             }
         }
-        Log.d("JukeDJDeb", "Timed out.");
+
         if (!client.isClosed()) {
             try {
                 client.close();

@@ -66,7 +66,6 @@ public class AdVideoPlayer implements VideoAdPlayer {
 
     @Override
     public void loadAd(String s) {
-        Log.d("VIDEO", s);
         view.setVideoURI(Uri.parse(s));
     }
 
