@@ -34,6 +34,7 @@ public class ClientInterfaceRunnable implements Runnable {
     private PacketSerializer packetSerializer;
     private BufferedReader in;
     private BufferedWriter out;
+    private long lastPacket = 0;
 
     public ClientInterfaceRunnable(Socket client) {
         packetSerializer = new PacketSerializer();
@@ -49,10 +50,11 @@ public class ClientInterfaceRunnable implements Runnable {
     //TODO: Break packet parsing away from case statements and into utility class.
     @Override
     public void run() {
-        while(!client.isClosed()) {
+        while(!client.isClosed() && System.currentTimeMillis() - lastPacket >= 40000) {
             try {
 //                int id = in.read();
                 Packet packet = packetSerializer.readPacket(in);
+                lastPacket = System.currentTimeMillis();
                 switch(packet.getId()) {
                     case 0:
                         NetHandlerThread.getInstance().writePacket(new PacketHeartbeat(), client.getInetAddress());
@@ -64,6 +66,7 @@ public class ClientInterfaceRunnable implements Runnable {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         User user = NetHandlerThread.getInstance().getUserByIp(client.getInetAddress());
                         user.setUsername(((PacketCheckin)packet).getFbUsername());
 
