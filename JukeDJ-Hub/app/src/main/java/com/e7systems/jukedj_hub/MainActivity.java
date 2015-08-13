@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         listener = new AdResponseListener(this);
         adsLoader.addAdErrorListener(listener);
         adsLoader.addAdsLoadedListener(listener);
-        setAdContentVisible(true);
+//        setAdContentVisible(true);
         //End ad code
 
         //Networking/processing new clients
