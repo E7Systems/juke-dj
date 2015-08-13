@@ -278,6 +278,7 @@ public class MainActivity extends Activity {
 
             }
         });
+
         Socket old = DiscoveryManager.getInstance().socket;
         try {
             Socket newSocket =  new Socket(old.getInetAddress(), old.getPort());
