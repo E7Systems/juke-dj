@@ -32,6 +32,8 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +61,9 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         final Button skip = (Button) findViewById(R.id.btn_SkipSong);
         skip.setOnClickListener(new View.OnClickListener() {

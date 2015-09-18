@@ -7,31 +7,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import com.e7systems.jukedj_hub.ads.AdResponseListener;
 import com.e7systems.jukedj_hub.entities.Song;
 import com.e7systems.jukedj_hub.entities.User;
 import com.e7systems.jukedj_hub.net.MDNSBroadcaster;
 import com.e7systems.jukedj_hub.net.NetHandlerThread;
 import com.e7systems.jukedj_hub.util.SongQueue;
-import com.e7systems.jukedj_hub.util.payments.IabException;
-import com.e7systems.jukedj_hub.util.payments.IabHelper;
-import com.e7systems.jukedj_hub.util.payments.IabResult;
-import com.e7systems.jukedj_hub.util.payments.Inventory;
-import com.e7systems.jukedj_hub.util.payments.Purchase;
-import com.google.ads.interactivemedia.v3.api.AdEvent;
-import com.google.ads.interactivemedia.v3.api.AdsLoader;
-import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
-import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 
 import java.io.IOException;
 
@@ -40,50 +25,18 @@ public class MainActivity extends Activity {
     public static final int PORT = 20101;
     public static final int SONGS_PER_USER = 5;
     public static final String CLIENT_ID = "437d961ac979c05ea6bae1d5cb3993ec";
-    public static final String AD_PURCHASE_ID = "android.test.purchased";
-    public static final String PUB_KEY = "";
     private NetHandlerThread networkThread;
-    private boolean hasRemovedAds = true;
     MediaPlayer mediaPlayer = new MediaPlayer();
-    private AdResponseListener listener;
-    private ImaSdkFactory sdkFactory;
-    private IabHelper iabHelper;
-    private MainActivity mainActivity;
-    private AdsLoader adsLoader;
-    private boolean adCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainActivity = this;
         Button buyButton = (Button) findViewById(R.id.btn_Buy);
-        iabHelper = new IabHelper(this, PUB_KEY);
-        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            @Override
-            public void onIabSetupFinished(IabResult result) {
-                if (result.isFailure()) {
-                    Log.e("Main", "Failed to initialize iab helper, Error code " + result.getMessage());
-                }
-            }
-        });
 
 
         //Networking broadcaster for LAN discovery
         new MDNSBroadcaster(this);
-
-        //Advertisment code
-        doAdsStuff(buyButton);
-        sdkFactory = ImaSdkFactory.getInstance();
-        ImaSdkSettings settings = sdkFactory.createImaSdkSettings();
-        settings.setAutoPlayAdBreaks(false);
-
-        adsLoader = sdkFactory.createAdsLoader(this);
-        listener = new AdResponseListener(this);
-        adsLoader.addAdErrorListener(listener);
-        adsLoader.addAdsLoadedListener(listener);
-//        setAdContentVisible(true);
-        //End ad code
 
         //Networking/processing new clients
         networkThread = new NetHandlerThread();
@@ -109,48 +62,6 @@ public class MainActivity extends Activity {
 
         //Song cycling/queue
         new SongQueueThread(this).start();
-    }
-
-    /**
-     * Initialize advertisment setup/button control/etc
-     * @param buyButton
-     */
-    private void doAdsStuff(Button buyButton) {
-        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            @Override
-            public void onIabSetupFinished(IabResult result) {
-                try {
-                    Inventory inventory = iabHelper.queryInventory(false, null, null);
-                    if(inventory.getPurchase(AD_PURCHASE_ID) != null) {
-                        hasRemovedAds = true;
-                    }
-                } catch (IabException e) {
-                    Log.e("Main", e.getMessage());
-                }
-
-            }
-        });
-        buyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iabHelper.launchPurchaseFlow(mainActivity, AD_PURCHASE_ID, 1337, new IabHelper.OnIabPurchaseFinishedListener() {
-                    @Override
-                    public void onIabPurchaseFinished(IabResult result, Purchase info) {
-                        if(result.isFailure()) {
-                            if(result.getResponse() == 7) {
-//                                Log.d("Main", info.toString());
-                                hasRemovedAds = true;
-                                setAdContentVisible(false);
-                            }
-                            Log.e("Main", "Error: " + result.getMessage());
-                        } else {
-                            hasRemovedAds = true;
-                            setAdContentVisible(false);
-                        }
-                    }
-                }, "removeAds");
-            }
-        });
     }
 
     @Override
@@ -235,60 +146,4 @@ public class MainActivity extends Activity {
         votes.setText("Skip Votes:" + SongQueue.getSkipVotes() + "/" + (int) Math.ceil((double)NetHandlerThread.getInstance().getUsers().size() / 2d));
     }
 
-    public void onContentPauseRequested(AdEvent adEvent) {
-    }
-
-    public void onAdLoaded(AdEvent event) {
-        adCompleted = false;
-        listener.getAdsManager().start();
-    }
-
-    public void onContentResumeRequested(AdEvent adEvent) {
-    }
-
-    public void onAdClicked(AdEvent adEvent) {
-    }
-
-    public void onAdCompleted(AdEvent adEvent) {
-        this.adCompleted = true;
-    }
-
-    public void setAdContentVisible(boolean visible) {
-        TextView promptBuyView = (TextView) findViewById(R.id.tv_PromptBuy);
-        VideoView adDisplay = (VideoView) findViewById(R.id.vv_Ad);
-        Button buyButton = (Button) findViewById(R.id.btn_Buy);
-        if(visible) {
-            promptBuyView.setVisibility(View.VISIBLE);
-            adDisplay.setVisibility(View.VISIBLE);
-            buyButton.setVisibility(View.VISIBLE);
-            getAdsListener().playAd();
-//            getAdsListener().getAdsManager().start();
-//            Linkify.addLinks(promptBuyView, Linkify.ALL);
-        } else {
-            promptBuyView.setVisibility(View.INVISIBLE);
-            adDisplay.setVisibility(View.INVISIBLE);
-            buyButton.setVisibility(View.INVISIBLE);
-            adDisplay.stopPlayback();
-        }
-    }
-
-    public AdResponseListener getAdsListener() {
-        return listener;
-    }
-
-    public ImaSdkFactory getSdkFactory() {
-        return sdkFactory;
-    }
-
-    public AdsLoader getAdsLoader() {
-        return adsLoader;
-    }
-
-    public boolean hasRemovedAds() {
-        return hasRemovedAds;
-    }
-
-    public boolean isAdCompleted() {
-        return adCompleted;
-    }
 }
