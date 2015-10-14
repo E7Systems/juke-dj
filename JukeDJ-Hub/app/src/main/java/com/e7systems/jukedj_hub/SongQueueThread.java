@@ -57,11 +57,11 @@ public class SongQueueThread extends Thread {
                 + song.getName() + "' is playing based upon your preferences!", false), song.getOwnerIp());
 
         //If we've played 5 songs, play an ad. Also displays on the first song.
-        if(songsPlayed % 5 == 0 && !main.hasRemovedAds() && main.isAdCompleted()) {
-            main.setAdContentVisible(true);
-        }
-        while(!main.isAdCompleted()); //wait for advert to finish
-        main.setAdContentVisible(false);
+//        if(songsPlayed % 5 == 0 && !main.hasRemovedAds() && main.isAdCompleted()) {
+//            main.setAdContentVisible(true);
+//        }
+//        while(!main.isAdCompleted()); //wait for advert to finish
+//        main.setAdContentVisible(false);
         main.stream(song, new Callback<MediaPlayer>() {
             @Override
             public void call(MediaPlayer obj) {
