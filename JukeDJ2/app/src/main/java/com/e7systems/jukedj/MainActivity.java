@@ -138,31 +138,33 @@ public class MainActivity extends Activity {
 
     public void startSearchProcess() {
         progressDialog = ProgressDialog.show(this, "Searching...", "Attempting to find hub devices on the network...", true);
-
+        final AlertDialog[] alertDialog = new AlertDialog[1];
         //Allow the user to confirm they wish to continue searching for devices. In reality this does nothing, but the illusion
         //of control is a very powerful thing.
         searchThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(shouldShowSearchUI()) {
-
+                    if(alertDialog[0] != null && alertDialog[0].isShowing()) {
+                        continue;
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             progressDialog.hide();
-                            displayAlert("Error", "Failed to find a hub device on your network. Press \"Ok\" to try again.", new Callback<Boolean>() {
+                            alertDialog[0] = displayAlert("Error", "Failed to find a hub device on your network. Press \"Ok\" to try again.", new Callback<Boolean>() {
                                 @Override
                                 public void call(Boolean obj) {
                                     if(shouldShowSearchUI()) {
                                         progressDialog = ProgressDialog.show(instance, "Searching...", "Attempting to find hub devices on the network...", true);
                                     } else {
-
                                     }
                                 }
                             });
                         }
                     });
                     try {
+
                         Thread.sleep(30000);
                     } catch (InterruptedException e) {
                         break;
@@ -219,8 +221,8 @@ public class MainActivity extends Activity {
 
     }
 
-    public void displayAlert(String title, String content, final Callback<Boolean> callback) {
-        new AlertDialog.Builder(this).setTitle(title)
+    public AlertDialog displayAlert(String title, String content, final Callback<Boolean> callback) {
+        AlertDialog alert = new AlertDialog.Builder(this).setTitle(title)
                 .setMessage(content)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -229,7 +231,9 @@ public class MainActivity extends Activity {
                         dialog.dismiss();
                         callback.call(true);
                     }
-                }).create().show();
+                }).create();
+        alert.show();
+        return alert;
     }
 
     public void displayAlert(String title, String content) {
