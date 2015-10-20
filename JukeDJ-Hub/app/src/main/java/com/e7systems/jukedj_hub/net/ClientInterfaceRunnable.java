@@ -50,7 +50,7 @@ public class ClientInterfaceRunnable implements Runnable {
     //TODO: Break packet parsing away from case statements and into utility class.
     @Override
     public void run() {
-        while(!client.isClosed() && System.currentTimeMillis() - lastPacket <= 40000 || lastPacket == 0) {
+        while(!client.isClosed() && (System.currentTimeMillis() - lastPacket <= 40000 || lastPacket == 0)) {
             try {
 //                int id = in.read();
                 Packet packet = packetSerializer.readPacket(in);

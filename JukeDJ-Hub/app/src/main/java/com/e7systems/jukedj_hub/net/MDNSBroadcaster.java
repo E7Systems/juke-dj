@@ -3,6 +3,7 @@ package com.e7systems.jukedj_hub.net;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.text.format.Formatter;
+import android.util.Log;
 
 import com.e7systems.jukedj_hub.MainActivity;
 
@@ -12,7 +13,7 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
 /**
- * Created by Admin on 6/24/2015.
+ * Created by Dylan on 6/24/2015.
  * This class advertises the service information over LAN so clients can locate the hub.
  */
 public class MDNSBroadcaster extends AsyncTask<MainActivity, Void, Void> {
@@ -34,11 +35,12 @@ public class MDNSBroadcaster extends AsyncTask<MainActivity, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.d("JMDNS", jmdns.getName());
         ServiceInfo info = ServiceInfo.create("_jdjmp._tcp.local.", SERVICE_NAME, MainActivity.PORT, "");
         try {
             jmdns.registerService(info);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("MDNS", "ERROR: " + e.getMessage());
         }
         return null;
     }
