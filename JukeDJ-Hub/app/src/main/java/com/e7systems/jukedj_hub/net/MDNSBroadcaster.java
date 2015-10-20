@@ -35,7 +35,7 @@ public class MDNSBroadcaster extends AsyncTask<MainActivity, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("JMDNS", jmdns.getName());
+        
         ServiceInfo info = ServiceInfo.create("_jdjmp._tcp.local.", SERVICE_NAME, MainActivity.PORT, "");
         try {
             jmdns.registerService(info);
