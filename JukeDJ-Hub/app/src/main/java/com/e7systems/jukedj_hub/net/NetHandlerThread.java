@@ -114,10 +114,10 @@ public class NetHandlerThread extends Thread {
 
         while(true) {
             try {
-//                Log.d("JukeDJDeb", "Listening for socket.");
+                Log.d("JukeDJDeb", "Listening for socket.");
                 Socket socket = serverSocket.accept();
                 clientsConnected.put(new User(socket.getInetAddress(), new ArrayList<Song>(), ""), socket);
-//                Log.d("JukeDJDeb", "Received socket.");
+                Log.d("JukeDJDeb", "Received socket.");
                 new Thread(new ClientInterfaceRunnable(socket)).start();
 //                in.close();
 //                out.close();

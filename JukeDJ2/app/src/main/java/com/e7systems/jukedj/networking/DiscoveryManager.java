@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
@@ -24,7 +25,7 @@ import javax.jmdns.ServiceListener;
  * Created by Admin on 6/24/2015.
  */
 public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
-    private static String SERVICE_NAME = "JDJMP";
+    private static String SERVICE_NAME = "jdjmp";
     private MainActivity main;
     private WifiManager.MulticastLock multicastLock;
     private JmDNS jmdns;
@@ -62,7 +63,7 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
         jmdns.addServiceListener("_jdjmp._tcp.local.", new ServiceListener() {
             @Override
             public void serviceAdded(ServiceEvent event) {
-//                Log.d("JukeDJDeb", "Found service: " + event.getInfo());
+                Log.d("JukeDJDeb", "Found service: " + event.getInfo());
                 jmdns.requestServiceInfo(event.getType(), event.getName(), 500);
             }
 
@@ -79,12 +80,16 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceResolved(ServiceEvent event) {
-                InetAddress inetAddr = event.getInfo().getInet4Addresses().length == 0 ? null : event.getInfo().getInet4Addresses()[0];
+                InetAddress inetAddr = null;
+                try {
+                    inetAddr = event.getInfo().getInet4Addresses().length == 0 ? InetAddress.getByName(event.getInfo().getDomain()) : event.getInfo().getInet4Addresses()[0];
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
                 if (inetAddr == null) {
                     Log.e("JukeDJ", "Null ip!");
                 } else {
-//                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
-//                    socket;
+                    Log.d("JukeDJDeb", "Found service at " + inetAddr.getHostAddress());
                     try {
                         main.searchThread.interrupt();
                         socket = new Socket(inetAddr, event.getInfo().getPort());

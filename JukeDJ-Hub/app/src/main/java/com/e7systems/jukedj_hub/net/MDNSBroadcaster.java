@@ -17,7 +17,7 @@ import javax.jmdns.ServiceInfo;
  * This class advertises the service information over LAN so clients can locate the hub.
  */
 public class MDNSBroadcaster extends AsyncTask<MainActivity, Void, Void> {
-    private static final String SERVICE_NAME = "JSBNMP";
+    private static final String SERVICE_NAME = "jdjmp";
     private WifiManager.MulticastLock multicastLock;
     private JmDNS jmdns;
     private MainActivity main;
