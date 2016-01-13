@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 
         //Networking/processing new clients
         networkThread = new NetHandlerThread();
-        networkThread.start();
+        new Thread(networkThread).start();
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -25,7 +25,7 @@ import javax.net.ServerSocketFactory;
 /**
  * Created by Admin on 6/25/2015.
  */
-public class NetHandlerThread extends Thread {
+public class NetHandlerThread implements Runnable {
     private ServerSocket serverSocket;
     private ConcurrentMap<User, Socket> clientsConnected = new ConcurrentHashMap<>();
     private static NetHandlerThread instance;
@@ -116,6 +116,7 @@ public class NetHandlerThread extends Thread {
             try {
                 Log.d("JukeDJDeb", "Listening for socket.");
                 Socket socket = serverSocket.accept();
+                Log.d("JukeDJDeb", "Received socket.");
                 clientsConnected.put(new User(socket.getInetAddress(), new ArrayList<Song>(), ""), socket);
                 Log.d("JukeDJDeb", "Received socket.");
                 new Thread(new ClientInterfaceRunnable(socket)).start();

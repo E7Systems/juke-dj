@@ -49,7 +49,9 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
     protected Void doInBackground(MainActivity... params) {
         acquireMulticastLock();
         try {
-            jmdns = JmDNS.create(Formatter.formatIpAddress(((WifiManager) main.getSystemService(main.WIFI_SERVICE)).getConnectionInfo().getIpAddress()));
+            InetAddress address = InetAddress.getByName(Formatter.formatIpAddress(((WifiManager) main.getSystemService(main.WIFI_SERVICE)).getConnectionInfo().getIpAddress()));
+            jmdns = JmDNS.create(address,
+                    "JDJMP");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,13 +71,13 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
 
             @Override
             public void serviceRemoved(ServiceEvent event) {
-                main.runOnUiThread(new Runnable() {
+                /*main.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         main.progressDialog.dismiss();
                     }
                 });
-                main.searchThread.start();
+                main.searchThread.start();*/
             }
 
             @Override
@@ -93,6 +95,7 @@ public class DiscoveryManager extends AsyncTask<MainActivity, Void, Void> {
                     try {
                         main.searchThread.interrupt();
                         socket = new Socket(inetAddr, event.getInfo().getPort());
+
                         sendPacket(new PacketCheckin(main.fbPrefs, main.fbUsername), socket);
                         new Thread(new ClientInterfaceThread(main, socket)).start();
                         main.runOnUiThread(new Runnable() {

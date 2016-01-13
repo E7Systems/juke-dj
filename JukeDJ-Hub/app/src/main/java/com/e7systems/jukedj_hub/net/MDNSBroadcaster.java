@@ -8,6 +8,7 @@ import android.util.Log;
 import com.e7systems.jukedj_hub.MainActivity;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
@@ -31,7 +32,9 @@ public class MDNSBroadcaster extends AsyncTask<MainActivity, Void, Void> {
 
         acquireMulticastLock();
         try {
-            jmdns = JmDNS.create(Formatter.formatIpAddress(((WifiManager) main.getSystemService(main.WIFI_SERVICE)).getConnectionInfo().getIpAddress()));
+            InetAddress address = InetAddress.getByName(Formatter.formatIpAddress(((WifiManager) main.getSystemService(main.WIFI_SERVICE)).getConnectionInfo().getIpAddress()));
+            jmdns = JmDNS.create(address,
+                    "JDJMP");
         } catch (IOException e) {
             e.printStackTrace();
         }

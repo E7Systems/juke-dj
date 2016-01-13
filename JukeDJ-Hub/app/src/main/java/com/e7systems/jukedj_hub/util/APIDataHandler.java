@@ -53,7 +53,7 @@ public class APIDataHandler {
 
         for(String artist : artists) {
 
-            JSONArray songs = APIController.search(URLEncoder.encode(artist, "UTF-8"));
+            JSONArray songs = APIController.search(URLEncoder.encode(artist, "UTF-8"), MainActivity.CLIENT_ID);
             for (int i = 0; i < songs.length(); i++) {
                 JSONObject songObj = songs.getJSONObject(i);
 

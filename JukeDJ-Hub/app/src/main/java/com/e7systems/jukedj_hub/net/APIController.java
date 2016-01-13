@@ -23,9 +23,9 @@ public class APIController {
      * @param query The query string to search for
      * @return Resulting search data as JSON Array
      */
-    public static JSONArray search(String query) {
+    public static JSONArray search(String query, String cid) {
         try {
-            return new JSONArray(sendGetRequest("http://api.soundcloud.com/tracks?q=" + query));
+            return new JSONArray(sendGetRequest("http://api.soundcloud.com/tracks?client_id=" + cid + "&q=" + query));
         } catch (JSONException e) {
             e.printStackTrace();
         }
