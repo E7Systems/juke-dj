@@ -73,39 +73,5 @@
         android:layout_gravity="end"
         android:layout_alignTop="@+id/scrollView"
         android:layout_alignEnd="@+id/scrollView" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <VideoView
-                    android:layout_width="wrap_content"
-                    android:layout_height="300dp"
-                    android:id="@+id/vv_Ad"
-                    android:layout_centerHorizontal="true"
-                    android:visibility="invisible" />
-            </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_Buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/vv_Ad"
-                android:text="Remove Ads"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible" />
-        </RelativeLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/promptBuy"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_alignParentStart="true"
-        android:id="@+id/tv_PromptBuy"
-        android:textSize="25sp"
-        android:autoLink="all"
-        android:visibility="invisible" />
 </RelativeLayout>

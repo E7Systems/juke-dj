@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button buyButton = (Button) findViewById(R.id.btn_Buy);
 
 
         //Networking broadcaster for LAN discovery

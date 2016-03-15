@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">JukeDJ</string>
     <string name="fb_app_id">1614153475509544</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2999423797158586/1416394864</string>
     <string name="action_settings">Settings</string>
     <string name="voteSkip">Vote to skip song</string>
 </resources>
